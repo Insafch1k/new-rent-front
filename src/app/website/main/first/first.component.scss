@@ -1,0 +1,75 @@
+/* first.component.scss */
+$background-color: rgba(255, 255, 255, 1);
+$font-weight: 500;
+$border-radius: 30px;
+$font-size-base: 1.2rem;
+
+.first {
+  width: 91.66%;
+  height: 120px;
+  margin: 0 auto;
+  padding-top: 35px;
+  position: relative; 
+  @media (max-width:420px){
+    padding-top: 27px;
+}
+}
+.f-con {
+  background-color: $background-color;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: $border-radius;
+  height: 100px;
+  overflow: visible; 
+  position: relative; 
+  @media (max-width:420px){
+      height: 90px;
+  }
+  @media (max-width:364px){
+      height: 80px;
+  }
+}
+.f-main {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-left: 20vw;
+  position: relative;
+  z-index: 2; 
+  @media (max-width:390px){
+      margin-left: 10vw;
+  }
+}
+.f-main h2 {
+  font-size: $font-size-base;
+  font-weight: $font-weight;
+  text-align: center;
+
+}
+.f-image {
+  position: absolute;
+  top: -19px; 
+  right: -1px;
+  z-index: 1;
+  @media (max-width:376px){
+      top: -10px;
+  }
+}
+.f-image img {
+  max-width: 100%; 
+  height: auto; 
+  border-bottom-right-radius: $border-radius; 
+
+  @media (max-width:420px){
+      height: 110px
+  }
+  @media (max-width:376px){
+      height: 100px
+  }
+  @media (max-width:364px){
+      height: 100px;
+      margin-top: -10px;
+  }
+}

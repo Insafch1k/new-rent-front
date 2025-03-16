@@ -1,0 +1,86 @@
+.main-module-for-plashka{
+    background-color: rgba(241, 241, 245, 1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+img {
+    pointer-events: none;
+  }
+.one{
+    background-color: rgba(255, 255, 255, 1);
+    height: 31.875vh;
+    width: 91.66%;
+    border-radius: 20px;
+    margin: 0 auto;
+    margin-top: 15px;
+    img{
+        height: 15vh;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 100%;
+        display: flex;
+        margin: 0 auto;
+        margin-top: 4%;
+    }
+    p{
+        display: flex;
+        justify-content: center;
+    }
+    button{
+        display: flex;
+        margin: 0  auto;
+        background-color: rgba(255, 255, 255, 1);
+    }
+    .name{
+        font-weight: 500;
+        font-size: 2.5vh;   
+        margin: 1vh 0;
+    }
+    .number, .nick-id{
+        font-size: 2.25vh;  
+        font-weight: 300;
+    }
+    .nick-id{
+        margin-top: 1.5vh;
+    }
+
+}
+.two, .three, .fo, .five, .six{
+    background-color: rgba(255, 255, 255, 1);
+    height: 7.5vh;
+    width: 91.66%;
+    border-radius: 20px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    img{
+        height: 66.66%;
+        width: auto;
+        padding-right:1%;
+    }
+    p{
+        font-weight: 500;
+        font-size: 2.5vh;        
+    }
+    .notification-badge {
+        position: absolute;
+        top: -2.75vw;
+        right: 0px;
+        background-color: rgba(52, 199, 89, 1);
+        color: rgba(255, 255, 255, 1);
+        border-radius: 50%;
+        height: 5.5vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1;
+        font-size: 2.9vw;
+        font-weight: bold;
+    }
+}

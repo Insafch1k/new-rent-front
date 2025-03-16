@@ -1,0 +1,295 @@
+.main-module-for-plashka {
+    position: fixed; /* Фиксируем элемент относительно окна браузера */
+    top: 49.4%; /* Центрируем по вертикали */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translate(-50%, -50%); /* Сдвигаем элемент назад на 50% его ширины и высоты */
+    width: 94vw;
+    height: calc(98vh - 115px);
+    background-color: rgba(241, 241, 245, 1);
+    overflow: hidden; /* Убедитесь, что это значение правильное */
+    overflow: auto;
+}
+
+.module-plashka {
+    width: 100%;
+    height: auto;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    &.selected {
+        background-color: rgba(220, 220, 220, 1); /* Чуть темнее цвет для выделенного элемента */
+    }
+
+    .image-container {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        margin-top: 10px;
+        padding-bottom: 10px;
+
+        .main-img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover; 
+            object-position: center; 
+            box-sizing: border-box; 
+            display: block; 
+            border-radius: 10px;
+        }
+        .img-pack {
+            padding-top: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            img {
+                width: 48%;
+                height: auto;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;  
+                box-sizing: border-box;
+                display: block;
+                margin-right: 5px;
+                border-radius: 9px;
+            }
+            img:last-child {
+                margin-right: 0; /* Убираем отступ у последнего изображения */
+            }
+        }
+
+    }
+
+    .module-plashka-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 80px;
+        padding-left: 13px;
+        padding-right: 10px;
+        margin-top: 10px;
+        width: 60%;
+
+        .adress{
+            width: 90%;
+            font-weight: 300;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 1);
+            @media (max-width: 420px){
+              font-size: 14px;
+            }
+            @media (max-width: 380px){
+                font-size: 12px;
+            }
+            @media (max-width: 340px){
+                font-size: 11px;
+            }
+            @media(max-height:620px) and (min-width:375px){
+                font-size: 14px;
+            }
+        }
+
+        .metro{
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            img{
+              padding-right: 5px;
+              height: 16px;
+              @media (max-width: 420px){
+                height: 14px;
+              }
+              @media (max-width: 380px){
+                height: 12px;
+              }
+              @media (max-width: 340px){
+                height: 10px;
+              }
+              @media(max-height:620px) and (min-width:375px){
+                height: 12px;
+              }
+            }
+            
+            .metro-name{
+                font-weight: 300;
+                font-size: 14px;
+                color: rgba(0, 0, 0, 1);
+                padding-right: 3px;
+        
+                @media (max-width: 420px){
+                    font-size: 12px;
+                }
+                @media (max-width: 380px){
+                    font-size: 10px;
+                }
+                @media (max-width: 340px){
+                    font-size: 9px;
+                }
+                @media(max-height:620px) and (min-width:375px){
+                  font-size: 10px;
+                }
+            }
+            .metro-info{
+              font-weight: 300;
+                font-size: 14px;
+                color: rgba(100, 100, 100, 1);
+        
+                @media (max-width: 420px){
+                    font-size: 12px;
+                }
+                @media (max-width: 380px){
+                    font-size: 10px;
+                }
+                @media (max-width: 340px){
+                    font-size: 9px;
+                }
+                @media(max-height:620px) and (min-width:375px){
+                  font-size: 10px;
+                }
+            }
+          }
+
+          .description p {
+            width: 90%; // Ширина контейнера
+            font-weight: 300;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        
+            // Добавляем стили для обрезки текста
+            display: -webkit-box; // Используем вебкит-бокс для ограничения количества строк
+            -webkit-line-clamp: 2; // Ограничиваем текст двумя строками
+            line-clamp: 2;
+            -webkit-box-orient: vertical; // Устанавливаем вертикальное направление
+            overflow: hidden; // Скрываем лишний текст
+            text-overflow: ellipsis; // Добавляем троеточие
+            white-space: normal; // Разрешаем перенос слов
+        
+            // Явно задаём высоту для двух строк
+            line-height: 1.2; // Высота одной строки
+            max-height: calc(13px * 2); // Максимальная высота для двух строк
+        
+            font-size: 14px;
+            color: rgba(100, 100, 100, 1);
+        
+            // Адаптивные стили
+            @media (max-width: 420px) {
+                font-size: 12px;
+                max-height: calc(10px * 2); // Обновляем высоту для меньшего шрифта
+            }
+        
+            @media (max-width: 380px) {
+                font-size: 10px;
+                max-height: calc(8px * 2); // Корректируем высоту под новый размер шрифта
+            }
+        
+            @media (max-width: 340px) {
+                font-size: 9px;
+                max-height: calc(6px * 2); // Корректируем высоту под новый размер шрифта
+            }
+        
+            @media (max-height: 620px) and (min-width: 375px) {
+                font-size: 10px;
+                max-height: calc(8px * 2); // Корректируем высоту под новый размер шрифта
+            }
+        }
+
+        
+
+        .price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            p{
+                font-weight: 500;
+                  font-size: 16px;
+                  color: rgba(0, 0, 0, 1);
+                  @media (max-width: 420px){
+                    font-size: 14px;
+                }
+                @media (max-width: 380px){
+                    font-size: 12px;
+                }
+                @media (max-width: 340px){
+                    font-size: 11px;
+                }
+                @media(max-height:620px) and (min-width:375px){
+                  font-size: 14px;
+                }
+            }
+            .data{
+                font-weight: 300;
+                  font-size: 14px;
+                  color: rgba(100, 100, 100, 1);
+                  @media (max-width: 420px){
+                    font-size: 12px;
+                }
+                @media (max-width: 380px){
+                    font-size: 10px;
+                }
+                @media (max-width: 340px){
+                    font-size: 9px;
+                }
+                @media(max-height:620px) and (min-width:375px){
+                  font-size: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+.bottom-module {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрирует элементы по горизонтали */
+    width: 94vw;
+}
+
+.module-for-edit,
+.module-for-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрирует содержимое по горизонтали */
+    padding: 10px; /* Добавляет отступы внутри плашки */
+    border-radius: 30px; /* Закругленные углы */
+    margin: 5px; /* Отступы между плашками */
+    cursor: pointer; /* Курсор при наведении */
+    flex: 1; /* Убедитесь, что обе плашки имеют одинаковую ширину */
+    max-width: 47%; /* Ограничивает максимальную ширину плашки */
+    box-sizing: border-box; /* Включает отступы и границы в общие размеры элемента */
+}
+
+.module-for-edit {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.module-for-delete {
+    background-color: rgba(240, 68, 56, 1);
+}
+
+.module-for-edit p,
+.module-for-delete p {
+    margin: 0;
+    margin-right: 10px; /* Отступ справа от текста */
+    font-weight: 500;
+}
+
+.module-for-edit img,
+.module-for-delete img {
+    width: auto; /* Фиксированная ширина изображения */
+    height: 20px; /* Фиксированная высота изображения */
+}
+
+.module-for-delete p {
+    color: rgba(255, 255, 255, 1);
+}
+
+.module-for-edit p {
+    color: rgba(0, 0, 0, 1);
+}

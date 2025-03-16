@@ -1,0 +1,99 @@
+<div class="main-module">
+    <div class="mmm">
+        <div class="module">
+            <p class="module-name">Город</p>
+            <div class="module-block">
+                <input type="text" [(ngModel)]="city" class="city-input" placeholder="Введите название города">
+                <img *ngIf="city" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearCity()" class="clear-icon">
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Район</p>
+            <div class="dropdown">
+                <button class="dropdown-toggle" (click)="toggleDistrictDropdown()">
+                    {{ selectedDistrict || 'Выберите район' }}
+                    <img [ngClass]="{'arrow-up': isDistrictOpen}" src="assets/data/icons/Forward.svg" alt="Arrow" class="dropdown-arrow">
+                </button>
+                <ul class="dropdown-menu" *ngIf="isDistrictOpen">
+                    <li *ngFor="let district of districts" (click)="selectDistrict(district)">{{ district }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Адрес</p>
+            <div class="module-block">
+                <input type="text" [(ngModel)]="address" class="city-input" placeholder="Введите адрес квартиры">
+                <img *ngIf="address" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearAddress()" class="clear-icon">
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Этаж</p>
+            <div class="module-block-two">
+                <div class="input-group">
+                    <label>от</label>
+                    <input type="number" [(ngModel)]="floorFrom" class="city-input">
+                    <img *ngIf="floorFrom" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('floorFrom')" class="clear-icon">
+                </div>
+                <div class="input-group">
+                    <label>до</label>
+                    <input type="number" [(ngModel)]="floorTo" class="city-input">
+                    <img *ngIf="floorTo" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('floorTo')" class="clear-icon">
+                </div>
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Площадь в кв.м.</p>
+            <div class="module-block">
+                <input type="number" [(ngModel)]="area" class="city-input" placeholder="Введите площадь квартиры">
+                <img *ngIf="area" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearArea()" class="clear-icon">
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Стоимость сдачи руб</p>
+            <div class="module-block">
+                <input type="number" [(ngModel)]="rentalCost" class="city-input" placeholder="Введите стоимость сдачи">
+                <img *ngIf="rentalCost" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearRentalCost()" class="clear-icon">
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Описание</p>
+            <div class="module-block-textarea">
+                <textarea [(ngModel)]="description" class="description-input" placeholder="Введите описание"></textarea>
+                <img *ngIf="description" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearDescription()" class="clear-icon">
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Фотографии квартиры</p>
+            <div class="main-image">
+              <div class="image-container">
+                <img *ngIf="imageUrls.length > 0" [src]="imageUrls[0]" alt="Main Image" (click)="onImageClick(imageUrls[0])">
+                <div class="delete-icon" (click)="deleteImage(imageUrls[0])">
+                  <img src="../../../../../assets/data/icons/Waste.svg" alt="Delete Icon">
+                </div>
+              </div>
+            </div>
+            <div class="images-pack">
+              <div class="image-container" *ngFor="let url of imageUrls | slice:1:4">
+                <img [src]="url" alt="Pack Image" (click)="onImageClick(url)">
+                <div class="delete-icon" (click)="deleteImage(url)">
+                  <img src="../../../../../assets/data/icons/Waste.svg" alt="Delete Icon">
+                </div>
+              </div>
+            </div>
+            <div class="bottom-add">
+              <input type="file" #fileInput (change)="onFileSelected($event)" multiple accept=".jpg, .png" style="display: none;">
+              <p class="upload-button" (click)="triggerFileInput(fileInput)">Загрузить фотографию</p>
+              <p class="budget">Не больше 5 Мб</p>
+              <p class="format">Допустимые форматы файлов - .jpg, .png</p>
+            </div>
+        </div>
+        <div class="module">
+            <p class="podt">Подтвердить</p>
+        </div>
+    </div>
+</div>
+<div *ngIf="isOverlayVisible" class="overlay" (click)="onBackgroundClick()">
+    <div class="slider">
+      <img *ngFor="let url of imageUrls" [src]="url" alt="Slider Image" (click)="$event.stopPropagation()">
+    </div>
+  </div>

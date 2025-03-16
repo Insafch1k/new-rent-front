@@ -1,0 +1,76 @@
+<div class="main-module">
+    <div class="mmm">
+      <div class="info">
+        <div class="adress">
+          <p>{{ address }}</p>
+        </div>
+        <div class="metro">
+          <img src="assets/data/icons/metroo.svg" alt="">
+          <p class="metro-name">Аметьево</p>
+          <p class="metro-info">~10 мин. пешком</p>
+      </div>
+        <div class="price">
+          <p>{{ price }}</p>
+          <p class="data">1д. назад</p>
+        </div>
+      </div>
+      <div class="main-image">
+        <img #mainImage [src]="imageUrls[0]" alt="" (window:resize)="onResize($event)" (click)="onImageClick(imageUrls[0])">
+        <p *ngIf="getPriceCondition()" [ngStyle]="{'background-color': getBackgroundColor()}">
+          Цена {{ getPriceCondition() }}
+        </p>
+      </div>
+      <div class="images-pack">
+        <img *ngFor="let url of imageUrls | slice:1:4" #image [src]="url" alt="" (click)="onImageClick(url)">
+      </div>
+      <div class="module">
+        <p class="module-name">Этаж</p>
+        <p class="module-info">9</p>
+      </div>
+      <div class="module">
+        <p class="module-name">Площадь квартиры</p>
+        <p class="module-info">50 кв.м.</p>
+      </div>
+      <div class="module">
+        <p class="module-name">Описание квартиры</p>
+        <p class="module-info">Продаётся уютная 2-комнатная квартира общей площадью 60 м², расположенная по адресу: ул.Маршала Чуйкова 67, кв.31. Квартира находится на 9 этаже 20-этажного дома, построенного в 1986г, что обеспечивает прекрасный вид из окон и достаточную тишину.</p>
+      </div>
+      <div class="module">
+        <div class="pluses">
+          <p class="pluses-title">Плюсы</p>
+          <div class="spisok">
+            <div class="plashka" *ngFor="let plus of pluses.slice(0, 3)" [ngStyle]="{'border': '2px solid rgba(138, 196, 75, 1)'}">
+              <div class="for-image">
+                <img [src]="plus.icon" alt="" loading="lazy">
+              </div>
+              <p class="plashka-text" [innerHTML]="plus.text"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="module">
+        <div class="minuses">
+          <p class="minuses-title">Минусы</p>
+          <div class="spisok">
+            <div class="plashka" *ngFor="let minus of minuses.slice(3, 4)" [ngStyle]="{'border': '2px solid rgba(240, 68, 56, 1)'}">
+              <div class="for-image">
+                <img [src]="minus.icon" alt="" loading="lazy">
+              </div>
+              <p class="plashka-text" [innerHTML]="minus.text"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="module" style="margin-top: 30px;">
+        <div id="map" class="map"></div>
+      </div>
+      <app-ad-more-bottom></app-ad-more-bottom>
+    </div>
+  </div>
+  
+  <div class="overlay" *ngIf="isOverlayVisible" (click)="onBackgroundClick()">
+    <div class="slider">
+      <img *ngFor="let url of imageUrls" [src]="url" alt="" (click)="onImageClick(url)">
+    </div>
+  </div>
+  

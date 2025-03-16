@@ -1,0 +1,13 @@
+<div class="main-header">
+    <div class="header-con">
+      <div *ngIf="showArrow" class="arrow-container" (click)="goBack()">
+        <img src="assets/data/icons/Forward-left.svg" alt="">
+      </div>
+      <div class="center-content">
+        <h1>{{ pageTitle }}</h1>
+      </div>
+      <div *ngIf="showSlider" class="arrow-filter" routerLink="./take">
+        <img src="assets/data/icons/Slider.svg" alt="">
+      </div>
+    </div>
+  </div>

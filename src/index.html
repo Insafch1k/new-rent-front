@@ -4,10 +4,51 @@
   <meta charset="utf-8">
   <title>TgWebApp</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0, viewport-fit=cover">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#4285F4"> <!-- Обновленный цвет темы -->
+  <style>
+    /* Убираем лишние отступы */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 1);
+    }
+  </style>
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      try {
+        if (window.Telegram?.WebApp) {
+          let tg = window.Telegram.WebApp;
+
+          tg.enableClosingConfirmation(false); // Отключаем нижнюю панель
+          tg.setHeaderColor('rgb(0, 0, 0)'); // Цвет верхней полосы
+          tg.setBackgroundColor('rgba(255, 255, 255, 1)'); // Цвет фона
+          tg.setBottomBarBgColor('rgb(0, 0, 0)'); // Цвет нижней панели
+          tg.disableVerticalSwipes(); // Отключаем вертикальные свайпы
+
+          // Отключаем полноэкранный режим
+          console.log("❌ Полноэкранный режим отключен.");
+
+          // Проверяем поддержку добавления на главный экран
+          tg.checkHomeScreenStatus((status) => {
+            console.log("Home Screen Status:", status);
+            if (status === "unknown" || status === "missed") {
+              tg.addToHomeScreen();
+            }
+          });
+        }
+      } catch (error) {
+        console.error("Ошибка при настройке Telegram WebApp:", error);
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,63 @@
+.bottom-module{
+    margin-top: 30px;
+    margin-bottom: 3px;
+    width: 100%;
+    text-align: center;
+    .actions {
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+        gap: 15px;
+        
+      
+        button {
+          background-color: rgba(0, 119, 255, 1);
+          color: rgba(255, 255, 255, 1);
+          font-size:20px;
+          font-weight: 500;
+          height: 40px;
+          border-radius: 30px;
+          padding: 0 35px;
+          border: none;
+          cursor: pointer;
+          @media (max-width:420px){
+            padding:0 30px ;
+            font-size: 18px;
+          }
+          @media (max-width:400px){
+            padding:0 30px ;
+            font-size: 16px;
+          }
+          @media (max-width:360px){
+            padding:0 30px ;
+            font-size: 15px;
+          }
+          @media (max-width:350px){
+            padding:0 16px ;
+            font-size: 14px;
+          }
+        }
+      
+        .circle-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          background-color: white;
+          border-radius: 50%;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          margin: 0 0px;
+      
+          svg {
+            width: 20px;
+            height: 20px;
+            object-fit: contain; /* Ensure the image fits within the container without losing quality */
+          }
+        }
+      
+      
+    }
+}

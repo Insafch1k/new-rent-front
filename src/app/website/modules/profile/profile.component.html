@@ -1,0 +1,30 @@
+<div class="main-module-for-plashka">
+    <div class="one">
+        <img [src]="avatarUrl" alt="Аватар пользователя">
+        <p class="nick-id">{{ username }}</p> <!-- Имя вместо username -->
+        <p class="number">+{{ phoneNumber }}</p>
+        <p class="user-id">{{ userId }}</p> <!-- Юзернейм вместо ID -->
+      </div>
+    <div class="two" routerLink="/alert">
+        <img src="assets/data/icons/profile/New Notification.png" alt="">
+        <p>Уведомления</p>
+        <span class="notification-badge">2</span>
+    </div>
+    <div class="three">
+        <img src="assets/data/icons/profile/Money Wallet.png" alt="">
+        <p>Подписка</p>
+    </div>
+    <div class="fo" routerLink="/referrals">
+        <img src="assets/data/icons/profile/Fist Bump Gesture.png" alt="">
+        <p>Реферальня система</p>
+    </div>
+    <div class="five" routerLink="/favourites">
+        <img src="assets/data/icons/profile/Fist Bump Gesture (1).png" alt="">
+        <p>Избранное</p>
+    </div>
+    <div class="six" routerLink="/my-history">
+        <img src="assets/data/icons/profile/Fist Bump Gesture (2).png" alt="">
+        <p>История просмотра</p>
+    </div>
+</div>
+

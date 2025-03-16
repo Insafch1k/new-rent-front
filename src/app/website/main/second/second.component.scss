@@ -1,0 +1,136 @@
+/* second.component.scss */
+$background-color: rgba(255, 255, 255, 1);
+$font-weight: 500;
+$border-radius: 30px;
+$margin-left: 10%;
+$font-size-base: 1.2rem;
+
+.second{
+    width: 91.66%;
+    height: 100px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    @media (max-width:420px){
+        margin-top: 7px;
+    }
+    @media (max-width:364px){
+        margin-top: -10px;
+    }
+}
+.s-con{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+}
+.s-f-main{
+    background-color: $background-color;
+    border-radius: $border-radius;
+    display: flex;
+    width: 45%;
+    overflow: visible;
+    position: relative; 
+    @media (max-width:420px){
+        height: 90px;
+    }
+    @media (max-width:364px){
+        height: 80px
+    }
+    h2{
+        font-size: 20px;
+        font-weight: $font-weight;
+        margin-left: $margin-left;
+        margin-top: auto;
+        margin-bottom: auto;
+        @media (max-width:440px){
+            font-size: 18px;
+            margin-left: 7%;
+        }
+        @media (max-width:405px){
+            font-size: 16px;
+        }
+        @media (min-width:404px){
+            margin-left: 7%;
+        }
+        @media (max-width:364px){
+           font-size: 14px;
+        }
+
+    }
+    img{
+        position: absolute;
+        margin-top: -15px;
+        right: 0;
+        max-width: 100%; 
+        height: auto;
+        border-bottom-right-radius: $border-radius; 
+        @media (max-width:480px){
+            height: 110px
+        }
+        @media (max-width:420px){
+            height: 100px;
+        }
+        @media (max-width:364px){
+            height: 90px;
+        }
+    }
+}
+.s-s-main{
+    background-color: $background-color;
+    border-radius: $border-radius;
+    display: flex;
+    width: 48%;
+    @media (max-width:420px){
+        height: 90px;
+    }
+    @media (max-width:364px){
+        height: 80px;
+    }
+    h2{
+        font-size: $font-size-base;
+        font-weight: $font-weight;
+        margin-left: $margin-left;
+        margin-top: auto;
+        margin-bottom: auto;
+        @media (max-width:440px){
+            font-size: 18px;
+            margin-left: 7%;
+        }
+        @media (max-width:405px){
+            font-size: 16px;
+        }
+        @media (min-width:404px){
+            margin-left: 7%;
+        }
+        @media (max-width:364px){
+            font-size: 14px;
+        }
+    }
+    img{
+        position: absolute;
+        margin-top: -15px;
+        right: 4%;
+        max-width: 100%; 
+        height: auto; 
+        border-bottom-right-radius: $border-radius; 
+        @media (max-width:480px){
+            height: 110px;
+            right: 4.17%;
+            margin-top: -8px;
+        }
+        @media (max-width:420px){
+            height: 100px;
+            right: 4.17%;
+            margin-top: -11px;
+        }
+        @media (max-width:376px){
+            height: 100px;
+            right: 4.17%;
+            margin-top: -11px;
+        }
+        @media (max-width:364px){
+            height: 90px;
+        }
+    }
+}

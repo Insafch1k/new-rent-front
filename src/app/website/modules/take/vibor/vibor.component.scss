@@ -1,0 +1,38 @@
+.title {
+    text-align: center;
+    font-weight: 550;
+    font-size: 5.55vw;
+}
+img {
+    pointer-events: none;
+  }
+.one-for-vibor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    width: 100%;
+    background-color: rgba(241, 241, 245, 1);
+    height: 150px;
+    border-radius: 10px;
+}
+
+.one-for-vibor p {
+    font-weight: 550;
+    font-size: 4.2vw;
+    padding-left: 20px;
+    margin: 0; /* Убираем отступы у параграфа */
+}
+
+.one-for-vibor img {
+    padding-right: 10px;
+}
+
+.one-for-vibor .one-img {
+    width: 33.6vw;
+}
+
+.one-for-vibor .two-img {
+    width: 26.66vw;
+    padding-right: 15px;
+}

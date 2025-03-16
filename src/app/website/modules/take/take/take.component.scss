@@ -1,0 +1,72 @@
+.podt{
+    background-color: rgba(0, 119, 255, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 20px;
+    font-weight: 500;
+    height: 40px;
+    width: 100%;
+    border-radius: 30px;
+    margin-top: 25px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 84vw;
+  }
+  
+  .dropdown-toggle {
+    background-color: rgba(241, 241, 245, 1);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 300px;
+    border-radius: 10px;
+    color: rgba(0, 0, 0, 1);
+  }
+  
+  .dropdown-arrow {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s;
+  }
+  
+  .arrow-up {
+    transform: rotate(180deg);
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    background-color: rgba(241, 241, 245, 1);
+    border: none;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .dropdown-menu li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: rgba(231, 231, 235, 1);
+  }
+  
+  .dropdown-checkmark {
+    width: 16px;
+    height: 16px;
+  }
+  

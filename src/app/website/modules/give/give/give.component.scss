@@ -1,0 +1,115 @@
+.module {
+  .main-image, .images-pack {
+    .image-container {
+      position: relative;
+      display: inline-block;
+
+      img {
+        width: 83.5vw;
+        height: calc(83.5vw * 9 / 16);
+        border-radius: 20px;
+        object-fit: cover;
+      }
+
+      .delete-icon {
+        position: absolute;
+        bottom: 10px;
+        right: 7px;
+        width: 30px;
+        height: 30px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        img {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+
+  .images-pack {
+    margin-top: 10px;
+    display: flex;
+    gap: 3vw;
+
+    .image-container {
+      img {
+        width: 26vw;
+        height: 28.88vw;
+        border-radius: 20px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .bottom-add {
+    margin-top: 20px;
+    text-align: center;
+    .upload-button {
+      display: block;
+      margin-bottom: 10px;
+      padding: 5px;
+      font-size: 20px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 1);
+      text-decoration: underline;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .budget {
+      color: rgba(128, 122, 122, 1);
+      font-size: 14px;
+      font-weight: 300;
+    }
+    .format {
+      color: rgba(128, 122, 122, 1);
+      font-size: 14px;
+      font-weight: 300;
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+
+  .slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+
+    img {
+      width: 90%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+}
+
+.podt {
+  margin-top: 25px;
+  background-color: rgba(0, 119, 255, 1);
+  color: rgba(255, 255, 255, 1);
+  font-size: 20px;
+  font-weight: 500;
+  height: 40px;
+  width: 100%;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

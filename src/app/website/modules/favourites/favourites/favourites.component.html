@@ -1,0 +1,31 @@
+<div class="main-module-for-plashka">
+    <div class="mmm">
+        <div routerLink="./../take/ad-more" class="module-plashka" *ngFor="let plashka of plashkaData; let i = index">
+            <div class="image-container">
+                <img class="main-img" [src]="plashka.imgSrc" alt="">
+                <div class="img-pack">
+                    <img [src]="plashka.imgPackSrc1" alt="">
+                    <img [src]="plashka.imgPackSrc2" alt="">
+                </div>
+            </div>
+            <div class="module-plashka-info">
+                <p class="adress">{{ plashka.address }}</p>
+                <div class="metro">
+                    <img src="assets/data/icons/metroo.svg" alt="">
+                    <p class="metro-name">Аметьево</p>
+                    <p class="metro-info">~10 мин. пешком</p>
+                </div>
+                <div class="description">
+                    <p>Предлагаем вашему вниманию светлую и просторную квартиру площадью 50 кв.м. Предлагаем вашему вниманию светлую и просторную квартиру площадью 50 кв.м.</p>
+                </div>
+                <div class="price">
+                    <p>
+                        {{plashka.price}}
+                    </p>
+                    <p class="data">1д. назад</p>
+                </div>
+            </div>
+            <img class="heart-icon" src="assets/data/icons/Heart_icon (1).svg" alt="Heart" (click)="removePlashka(i)">
+        </div>
+    </div>
+</div>

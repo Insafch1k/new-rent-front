@@ -1,1 +1,344 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "SFP";
+    font-weight: 300;
+    src: local("SFProDisplay"),
+        url("../src/assets/data/fonts/SFProDisplay-Light.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SFP";
+    font-weight: 400;
+    src: local("SFProDisplay"),
+        url("../src/assets/data/fonts/SFProDisplay-Regular.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SFP";
+    font-weight: 500;
+    src: local("SFProDisplay"),
+        url("../src/assets/data/fonts/SFProDisplay-Medium.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SFP";
+    font-weight: 600;
+    src: local("SFProDisplay"),
+        url("../src/assets/data/fonts/SFProDisplay-Semibold.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SFP";
+    font-weight: 700;
+    src: local("SFProDisplay"),
+        url("../src/assets/data/fonts/SFProDisplay-Bold.woff") format("woff");
+}
+
+body {
+    background-color: #ffffff;
+    font-family: "SFP";
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(241, 241, 245, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: manipulation;
+    pointer-events: auto;
+    overflow: hidden;
+    user-select: none;
+}
+
+// /* W3C standard
+//    сейчас только для Firefox */
+// * {
+//     scrollbar-width: thin;
+//     scrollbar-color: #7eb3c1 #f5f5f5;
+// }
+// * {
+//     -webkit-tap-highlight-color: transparent;
+//   }
+// /* для Chrome/Edge/Safari */
+// *::-webkit-scrollbar {
+//     height: 12px;
+//     width: 12px;
+// }
+// *::-webkit-scrollbar-track {
+//     background: #f5f5f5;
+// }
+// *::-webkit-scrollbar-thumb {
+//     background-color: #7eb3c1;
+//     border-radius: 5px;
+//     border: 3px solid #f5f5f5;
+// }
+/* W3C standard */
+* {
+    scrollbar-width: none; /* Скрывает скроллбар */
+    scrollbar-color: transparent transparent; /* Убирает цвет скроллбара */
+}
+
+/* для Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+    width: 0; /* Скрывает горизонтальный скроллбар */
+    height: 0; /* Скрывает вертикальный скроллбар */
+}
+
+/* Убирает выделение при нажатии на элементы */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 1);
+}
+h2 {
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 1);
+}
+p {
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 1);
+}
+button {
+    cursor: pointer;
+    font-family: "SFP";
+    border: none;
+    outline: none; /* Убирает стандартный контур */
+    -webkit-appearance: none; /* Убирает стандартные стили для WebKit браузеров */
+    -moz-appearance: none; /* Убирает стандартные стили для Firefox */
+    appearance: none; /* Убирает стандартные стили для других браузеров */
+}
+textarea{
+  outline: none; /* Убирает стандартный контур */
+    -webkit-appearance: none; /* Убирает стандартные стили для WebKit браузеров */
+    -moz-appearance: none; /* Убирает стандартные стили для Firefox */
+    appearance: none; /* Убирает стандартные стили для других браузеров */
+}
+
+
+
+.website {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .header-container {
+    flex: 0 0 60px; /* Фиксированная высота хедера */
+  }
+  
+  .main-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-module {
+    position: fixed; /* Фиксируем элемент относительно окна браузера */
+    top: 54%; /* Центрируем по вертикали */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translate(-50%, -50%); /* Сдвигаем элемент назад на 50% его ширины и высоты */
+    width: 84vw;
+    height: calc(90vh - 60px);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    padding: 20px;
+  
+    .mmm {
+      height: 100%;
+      overflow: auto;
+      overflow-x: hidden;
+    }
+  }
+  
+  .module {
+    margin-bottom: 20px;
+  }
+  
+  .module-name {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 1);
+  }
+  
+  .module-block {
+    position: relative;
+    background-color: rgba(241, 241, 245, 1);
+    border-radius: 10px;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .module-block-textarea {
+    position: relative;
+    background-color: rgba(241, 241, 245, 1);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    height: 150px;
+    textarea {
+      background-color: rgba(241, 241, 245, 1);
+      padding: 0px 25px 0px 0px; /* Увеличиваем правый padding */
+      font-size: 17px;
+      font-weight: 400;
+      font-family: "SFP";
+      width: 100%;
+      border: none;
+      box-sizing: border-box; /* Чтобы padding учитывался в расчете ширины */
+    }
+    img{
+      width: 20px;
+      height: auto;
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+    }
+  }
+  
+  .module-block input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0 10px;
+  }
+  
+  .module-block .city-input {
+    padding-right: 0px;
+    width: calc(100% - 45px);
+    font-size: 16px;
+  }
+  
+  .module-block img.clear-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
+  
+  .module-block img.dropdown-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    pointer-events: none;
+  }
+  
+  .module-block select,
+  .module-block option {
+    margin: 0;
+    padding-left: 10px;
+  }
+  
+  .module-block-two {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Добавляем отступ между элементами */
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+    background-color: rgba(241, 241, 245, 1);
+    border-radius: 10px;
+    padding: 5px 10px;
+    width: 45%; /* Задайте фиксированную ширину для каждого input-group */
+    font-size: 16px;
+  }
+  
+  .input-group label {
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  
+  .input-group input {
+    width: calc(100% - 30px); /* Задайте ширину для текстовых полей, учитывая метку */
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    width: 84vw;
+    
+  }
+  .dropdown :focus{
+    margin-bottom: 3px
+  }
+  
+  .dropdown-toggle {
+    background-color: rgba(241, 241, 245, 1);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 300px;
+    border-radius: 15px;
+    color: rgba(0, 0, 0, 1); 
+  }
+
+  .dropdown-arrow {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s;
+  }
+  
+  .arrow-up {
+    transform: rotate(180deg);
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    background-color: rgba(241, 241, 245, 1);
+    border: none;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    width: 100%;
+    border-radius: 15px;
+  }
+  
+  .dropdown-menu li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: rgba(231, 231, 235, 1);
+  }
+
+  .module-plashka{
+    width: 100%;
+    height: 105px;
+    background-color: rgba(255, 255, 255, 1);
+  }
+
+
+
+  
