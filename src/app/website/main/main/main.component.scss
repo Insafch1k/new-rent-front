@@ -42,8 +42,11 @@ img {
         height: 15vh;
         width: auto;
         position: absolute;
-        right: 1%; 
+        right: 0%; 
         bottom: 2%;
+        @media (max-width:400px) {
+            height: 14.5vh;
+        }
     }
 }
 

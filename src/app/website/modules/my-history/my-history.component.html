@@ -1,31 +1,50 @@
-<div class="main-module-for-plashka">
-    <div class="mmm">
-        <div class="module-plashka" *ngFor="let plashka of plashkaData">
-            <div class="image-container">
-                <img [src]="plashka.imgSrc" alt="">
-            </div>
-            <div class="module-plashka-info">
-                <p class="adress">{{ plashka.address }}</p>
-                <div class="metro">
-                    <img src="assets/data/icons/metroo.svg" alt="">
-                    <p class="metro-name">Аметьево</p>
-                    <p class="metro-info">~10 мин. пешком</p>
+<div class="main-module-for-plashka-b">
+    <div class="window">
+        <div class="main-block">
+            <img src="assets/data/images/lupa.svg">
+            <p>История просмотра отсутствует</p>
+        </div>
+        <div class="bottom-module-b">
+            <button class="left">
+                Вернуться на главную
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- <div>
+    <div class="main-module-for-plashka">
+        <div class="mmm">
+            <div class="module-plashka" *ngFor="let plashka of plashkaData">
+                <div class="image-container">
+                    <img [src]="plashka.imgSrc" alt="">
                 </div>
-                <div class="price">
-                    <p>
-                        {{ plashka.price }}
-                    </p>
-                    <p class="data">1д. назад</p>
+                <div class="module-plashka-info">
+                    <p class="adress">{{ plashka.address }}</p>
+                    <div class="metro">
+                        <img src="assets/data/icons/metroo.svg" alt="">
+                        <p class="metro-name">Аметьево</p>
+                        <p class="metro-info">~10 мин. пешком</p>
+                    </div>
+                    <div class="price">
+                        <p>
+                            {{ plashka.price }}
+                        </p>
+                        <p class="data">1д. назад</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="bottom-module">
-    <p class="bottom-info">История просмотра удаляется через 7 дней</p>
-    <div class="module-for-delete" (click)="clearAll()">
-        <p>Очистить всё</p>
-        <img src="../../../../../assets/data/icons/Waste.svg" alt="">
+    <div class="bottom-module">
+        <p class="bottom-info">История просмотра удаляется через 7 дней</p>
+        <div class="module-for-delete" (click)="clearAll()">
+            <p>Очистить всё</p>
+            <img src="assets/data/icons/Waste.svg" alt="">
+        </div>
     </div>
-</div>
+</div> -->
+
+
+
   

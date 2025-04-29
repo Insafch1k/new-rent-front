@@ -1,42 +1,58 @@
-<div class="main-module-for-plashka">
-    <div class="mmm">
-        <div class="module-plashka" *ngFor="let plashka of plashkaData; let i = index"
-             [class.selected]="selectedIndex === i"
-             (click)="selectPlashka(i)">
-             <div class="image-container">
-                <img class="main-img" [src]="plashka.imgSrc" alt="">
-                <div class="img-pack">
-                    <img [src]="plashka.imgPackSrc1" alt="">
-                    <img [src]="plashka.imgPackSrc2" alt="">
+<!-- <div>
+    <div class="main-module-for-plashka">
+        <div class="mmm">
+            <div class="module-plashka" *ngFor="let plashka of plashkaData; let i = index"
+                 [class.selected]="selectedIndex === i"
+                 (click)="selectPlashka(i)">
+                 <div class="image-container">
+                    <img class="main-img" [src]="plashka.imgSrc" alt="">
+                    <div class="img-pack">
+                        <img [src]="plashka.imgPackSrc1" alt="">
+                        <img [src]="plashka.imgPackSrc2" alt="">
+                    </div>
                 </div>
-            </div>
-            <div class="module-plashka-info">
-                <p class="adress">{{ plashka.address }}</p>
-                <div class="metro">
-                    <img src="assets/data/icons/metroo.svg" alt="">
-                    <p class="metro-name">Аметьево</p>
-                    <p class="metro-info">~10 мин. пешком</p>
-                </div>
-                <div class="description">
-                    <p>Предлагаем вашему вниманию светлую и просторную квартиру площадью 50 кв.м. Предлагаем вашему вниманию светлую и просторную квартиру площадью 50 кв.м.</p>
-                </div>
-                <div class="price">
-                    <p>
-                        {{plashka.price}}
-                    </p>
-                    <p class="data">1д. назад</p>
+                <div class="module-plashka-info">
+                    <p class="adress">{{ plashka.address }}</p>
+                    <div class="metro">
+                        <img src="assets/data/icons/metroo.svg" alt="">
+                        <p class="metro-name">Аметьево</p>
+                        <p class="metro-info">~10 мин. пешком</p>
+                    </div>
+                    <div class="description">
+                        <p>Предлагаем вашему вниманию светлую и просторную квартиру площадью 50 кв.м. Предлагаем вашему вниманию светлую и просторную квартиру площадью 50 кв.м.</p>
+                    </div>
+                    <div class="price">
+                        <p>
+                            {{plashka.price}}
+                        </p>
+                        <p class="data">1д. назад</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="bottom-module">
-    <div class="module-for-edit">
-        <p>Редактировать</p>
-        <img src="assets/data/icons/pen.svg" alt="">
+    <div class="bottom-module">
+        <div class="module-for-edit">
+            <p>Редактировать</p>
+            <img src="assets/data/icons/pen.svg" alt="">
+        </div>
+        <div class="module-for-delete" (click)="deletePlashka()">
+            <p>Удалить</p>
+            <img src="assets/data/icons/delete.svg" alt="">
+        </div>
     </div>
-    <div class="module-for-delete" (click)="deletePlashka()">
-        <p>Удалить</p>
-        <img src="assets/data/icons/delete.svg" alt="">
+</div> -->
+
+<div class="main-module-for-plashka-b">
+    <div class="window">
+        <div class="main-block">
+            <img src="assets/data/images/my.svg">
+            <p>У вас нет ни одного обьявления :(</p>
+        </div>
+        <div class="bottom-module-b">
+            <button class="left">
+                Вернуться на главную
+            </button>
+        </div>
     </div>
 </div>

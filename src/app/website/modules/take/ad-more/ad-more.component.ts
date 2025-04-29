@@ -20,17 +20,17 @@ export class AdMoreComponent implements AfterViewInit {
   ];
 
   pluses = [
-    { icon: 'assets/data/icons/bus.svg', text: 'рядом есть<br>остановка' },
-    { icon: 'assets/data/icons/shopping.svg', text: 'рядом есть<br>торговый центр' },
-    { icon: 'assets/data/icons/center.svg', text: 'находится близко <br>к центру' },
-    { icon: 'assets/data/icons/metro.svg', text: 'рядом есть метро' }
+    { icon: 'assets/data/images/bus.svg', text: 'рядом есть<br>остановка' },
+    { icon: 'assets/data/images/ts.svg', text: 'рядом есть<br>торговый центр' },
+    { icon: 'assets/data/images/center.svg', text: 'находится близко <br>к центру' },
+    { icon: 'assets/data/images/metro.svg', text: 'рядом есть метро' }
   ];
 
   minuses = [
-    { icon: 'assets/data/icons/bus.svg', text: 'рядом нет<br>остановки' },
-    { icon: 'assets/data/icons/shopping.svg', text: 'рядом нет<br>торгового центра' },
-    { icon: 'assets/data/icons/center.svg', text: 'находится далеко от центра' },
-    { icon: 'assets/data/icons/metro.svg', text: 'рядом нет метро' }
+    { icon: 'assets/data/images/bus.svg', text: 'рядом нет<br>остановки' },
+    { icon: 'assets/data/images/ts.svg', text: 'рядом нет<br>торгового центра' },
+    { icon: 'assets/data/images/center.svg', text: 'находится далеко от центра' },
+    { icon: 'assets/data/images/metro.svg', text: 'рядом нет метро' }
   ];
 
   address: string = '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31';

@@ -86,6 +86,10 @@
               <p class="budget">Не больше 5 Мб</p>
               <p class="format">Допустимые форматы файлов - .jpg, .png</p>
             </div>
+            <div class="bottom-add-bottom">
+                <input type="file" #singleFileInput (change)="onSingleFileSelected($event)" accept=".jpg, .png" style="display: none;">
+                <p class="upload-button" (click)="triggerFileInput(singleFileInput)">2-й способ загрузки</p>
+            </div>
         </div>
         <div class="module">
             <p class="podt">Подтвердить</p>

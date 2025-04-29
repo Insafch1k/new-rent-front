@@ -109,4 +109,21 @@ export class GiveComponent {
     fileInput.click();
     console.log('File input triggered');
   }
+  onSingleFileSelected(event: any): void {
+    const file = event.target.files[0]; // Берем только один файл
+    if (file && file.size <= 5 * 1024 * 1024 && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imageUrls.push(e.target.result);
+        console.log('Single image loaded:', e.target.result);
+        if (this.imageUrls.length > 10) {
+          this.imageUrls = this.imageUrls.slice(0, 10);
+          console.log('Image limit reached, sliced to 10');
+        }
+      };
+      reader.readAsDataURL(file);
+    } else {
+      console.log('File not loaded:', file?.name, 'Exceeds size limit or invalid type');
+    }
+  }
 }

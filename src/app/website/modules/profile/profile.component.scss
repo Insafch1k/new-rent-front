@@ -6,9 +6,11 @@
     flex-direction: column;
     gap: 15px;
 }
+
 img {
     pointer-events: none;
   }
+
 .one{
     background-color: rgba(255, 255, 255, 1);
     height: 31.875vh;
@@ -62,7 +64,7 @@ img {
     img{
         height: 66.66%;
         width: auto;
-        padding-right:1%;
+        padding-right:10px;
     }
     p{
         font-weight: 500;
