@@ -1,0 +1,12 @@
+.website {
+    position: relative;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.main {
+    padding-top: 60px; /* Отступ для хедера */
+    width: 100%;
+    min-height: calc(100vh - 60px);
+}

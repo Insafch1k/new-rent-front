@@ -1,38 +1,40 @@
-<div class="main-module">
-    <div class="mmm">
-        <div class="main-image">
-            <img #mainImage [src]="imageUrls[0]" alt="" (window:resize)="onResize($event)" (click)="onImageClick(imageUrls[0])">
-            <p *ngIf="getPriceCondition()" [ngStyle]="{'background-color': getBackgroundColor()}">
-                Цена {{ getPriceCondition() }}
-            </p>   
-        </div>
-        <div class="images-pack">
-            <img *ngFor="let url of imageUrls | slice:1:4" #image [src]="url" alt="" (click)="onImageClick(url)">
-        </div>
-        <div class="info">
-            <div class="adress">
-                <p>
-                    {{address}}
-                </p>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let ad of ads">
+            <div class="mainn-module">
+                <div class="mmmm">
+                    <div class="main-image">
+                        <img #mainImage [src]="ad.imageUrls[0]" alt="" (window:resize)="onResize($event)" (click)="onImageClick(ad.imageUrls[0])">
+                        <p *ngIf="getPriceCondition(ad.price)" [ngStyle]="{'background-color': getBackgroundColor(ad.price)}">
+                            Цена {{ getPriceCondition(ad.price) }}
+                        </p>   
+                    </div>
+                    <div class="images-pack">
+                        <img *ngFor="let url of ad.imageUrls | slice:1:4" #image [src]="url" alt="" (click)="onImageClick(url)">
+                    </div>
+                    <div class="info">
+                        <div class="adress">
+                            <p>{{ad.address}}</p>
+                        </div>
+                        <div class="metro">
+                            <img src="assets/data/icons/metroo.svg" alt="">
+                            <p class="metro-name">{{ad.metroName}}</p>
+                            <p class="metro-info">{{ad.metroInfo}}</p>
+                        </div>
+                        <div class="price">
+                            <p>{{ad.price}}</p>
+                            <p class="data">{{ad.date}}</p>
+                        </div>
+                    </div>
+                    <app-ad-bottom (prev)="prevSlide()" (next)="nextSlide()"></app-ad-bottom>
+                </div>
             </div>
-            <div class="metro">
-                <img src="assets/data/icons/metroo.svg" alt="">
-                <p class="metro-name">Аметьево</p>
-                <p class="metro-info">~10 мин. пешком</p>
-            </div>
-            <div class="price">
-                <p>
-                    {{price}}
-                </p>
-                <p class="data">1д. назад</p>
-            </div>
         </div>
-        <app-ad-bottom></app-ad-bottom>
     </div>
 </div>
 
 <div class="overlay" *ngIf="isOverlayVisible" (click)="onBackgroundClick()">
     <div class="slider">
-        <img *ngFor="let url of imageUrls" [src]="url" alt="" (click)="onImageClick(url)">
+        <img *ngFor="let url of selectedAd?.imageUrls" [src]="url" alt="" (click)="onImageClick(url)">
     </div>
 </div>

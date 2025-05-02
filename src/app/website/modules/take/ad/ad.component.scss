@@ -1,234 +1,268 @@
+/* Импортируем стили Swiper */
+@import '~swiper/swiper-bundle.min.css';
+
+.mainn-module {
+  position: fixed; /* Фиксируем элемент относительно окна браузера */
+  top: 54%; /* Центрируем по вертикали */
+  left: 50%; /* Центрируем по горизонтали */
+  transform: translate(-50%, -50%); /* Сдвигаем элемент назад на 50% его ширины и высоты */
+  width: 84vw;
+  height: calc(90vh - 60px);
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 20px;
+  padding: 20px;
+  touch-action: pan-y; /* Разрешаем вертикальную прокрутку внутри mainn-module */
+}
+
+.mmmm {
+     height: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+    touch-action: pan-y; /* Разрешаем вертикальную прокрутку */
+}
+
 .main-image {
   position: relative;
-  @media (max-height: 615px){
+  @media (max-height: 615px) {
     padding: 0 2.5%;
   }
-    img {
+  img {
+    width: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+    @media (max-height: 615px) {
       width: 100%;
-      border-radius: 20px;
-      object-fit: cover;
-      @media (max-height: 615px){
-        width: 100%;
-      }
-    }
-    p{
-      position: absolute;
-      top: 10px;
-      left: 10px; 
-      color: rgba(255, 255, 255, 1);
-      font-size: 18px;
-      font-weight: 300;
-      text-align: center;
-      width: auto; 
-      padding: 3px 10px;
-      border-radius: 10px;
-      @media (max-height: 615px){
-        left: 20px;
-      }
     }
   }
-
-  
-  .images-pack {
-    padding-top: 5px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 2.75%;
-    margin: 0 auto;
-    @media (max-height: 615px){
-      width: 95%;
-      text-align: center;
-    }
-  
-    img {
-      width: 31.5%;
-      border-radius: 20px;
-      object-fit: cover; /* Ensure the image covers the container without losing quality */
-    }
-    @media(max-height:620px) and (min-width:375px){
-      gap: 5.5%;
-      img {
-        width: 28%;
-      }
+  p {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    width: auto;
+    padding: 3px 10px;
+    border-radius: 10px;
+    @media (max-height: 615px) {
+      left: 20px;
     }
   }
-
-  .adress{
-    margin-top: 20px;
-    p{
-        font-weight: 500;
-        font-size: 20px;
-        color: rgba(0, 0, 0, 1);
-
-        @media (max-width: 420px){
-            font-size: 18px;
-        }
-        @media (max-width: 380px){
-            font-size: 16px;
-        }
-        @media (max-width: 340px){
-            font-size: 14px;
-        }
-        @media(max-height:620px) and (min-width:375px){
-          font-size: 16px;
-        }
-        @media (max-height: 615px){
-          font-size: 14px;
-          padding: 0 2.5%;
-        }
-    }
-    @media(max-height:620px) and (min-width:375px){
-      margin-top: 12px;
-    }
-  }
-  
-  .metro{
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
-    img{
-      padding-right: 5px;
-      height: 18px;
-      @media (max-width: 420px){
-        height: 16px;
-      }
-      @media (max-width: 380px){
-        height: 14px;
-      }
-      @media (max-width: 340px){
-        height: 12px;
-      }
-      @media(max-height:620px) and (min-width:375px){
-        height: 14px;
-      }
-      @media (max-height: 615px){
-        padding: 0 2.5%;
-        height: 12px;
-      }
-    }
-    
-    .metro-name{
-        font-weight: 300;
-        font-size: 18px;
-        color: rgba(0, 0, 0, 1);
-        padding-right: 3px;
-
-        @media (max-width: 420px){
-            font-size: 16px;
-        }
-        @media (max-width: 380px){
-            font-size: 14px;
-        }
-        @media (max-width: 340px){
-            font-size: 12px;
-        }
-        @media(max-height:620px) and (min-width:375px){
-          font-size: 14px;
-        }
-        @media (max-height: 615px){
-          font-size: 12px;
-          padding: 0 -2.5%;
-        }
-    }
-    .metro-info{
-        font-weight: 300;
-        font-size: 18px;
-        color: rgba(100, 100, 100, 1);
-
-        @media (max-width: 420px){
-            font-size: 16px;
-        }
-        @media (max-width: 380px){
-            font-size: 14px;
-        }
-        @media (max-width: 340px){
-            font-size: 12px;
-        }
-        @media(max-height:620px) and (min-width:375px){
-          font-size: 14px;
-        }
-        @media (max-height: 615px){
-          font-size: 12px;
-        }
-    }
-  }
-
-  .price{
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    p{
-        font-weight: 600;
-        font-size: 24px;
-        color: rgba(0, 0, 0, 1);
-        @media (max-width: 420px){
-            font-size: 22px;
-        }
-        @media (max-width: 380px){
-            font-size: 20px;
-        }
-        @media (max-width: 340px){
-            font-size: 18px;
-        }
-        @media(max-height:620px) and (min-width:375px){
-          font-size: 18px;
-        }
-        @media (max-height: 615px){
-          font-size: 16px;
-          padding: 0 2.5%;
-        }
-    }
-    .data{
-      font-weight: 300;
-        font-size: 18px;
-        color: rgba(100, 100, 100, 1);
-
-        @media (max-width: 420px){
-            font-size: 16px;
-        }
-        @media (max-width: 380px){
-            font-size: 14px;
-        }
-        @media (max-width: 340px){
-            font-size: 12px;
-        }
-        @media(max-height:620px) and (min-width:375px){
-          font-size: 14px;
-        }
-        @media (max-height: 615px){
-          font-size: 12px;
-          padding: 0 2.5%;
-        }
-    }
-    @media(max-height:620px) and (min-width:375px){
-      margin-top: 12px;
-    }
-  }
-  
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  
-    .slider {
-        display: flex;
-        overflow-x: auto;
-        gap: 10px;
-    
-        img {
-            width: 90%; 
-            height: calc(90vw * 2 / 3); 
-            object-fit: cover; 
-        }
-    }
 }
-  
+
+.images-pack {
+  padding-top: 5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2.75%;
+  margin: 0 auto;
+  @media (max-height: 615px) {
+    width: 95%;
+    text-align: center;
+  }
+
+  img {
+    width: 31.5%;
+    border-radius: 20px;
+    object-fit: cover;
+  }
+  @media(max-height:620px) and (min-width:375px) {
+    gap: 5.5%;
+    img {
+      width: 28%;
+    }
+  }
+}
+
+.adress {
+  margin-top: 20px;
+  p {
+    font-weight: 500;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 1);
+    @media (max-width: 420px) {
+      font-size: 18px;
+    }
+    @media (max-width: 380px) {
+      font-size: 16px;
+    }
+    @media (max-width: 340px) {
+      font-size: 14px;
+    }
+    @media(max-height:620px) and (min-width:375px) {
+      font-size: 16px;
+    }
+    @media (max-height: 615px) {
+      font-size: 14px;
+      padding: 0 2.5%;
+    }
+  }
+  @media(max-height:620px) and (min-width:375px) {
+    margin-top: 12px;
+  }
+}
+
+.metro {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  svg {
+    padding-right: 5px;
+    height: 20px;
+    @media (max-width: 420px) {
+      height: 18px;
+    }
+    @media (max-width: 380px) {
+      height: 16px;
+    }
+    @media (max-width: 340px) {
+      height: 14px;
+    }
+    @media(max-height:620px) and (min-width:375px) {
+      height: 16px;
+    }
+    @media (max-height: 615px) {
+      padding: 0 2.5%;
+      height: 14px;
+    }
+  }
+
+  .metro-name {
+    font-weight: 300;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 1);
+    padding-right: 3px;
+    @media (max-width: 420px) {
+      font-size: 16px;
+    }
+    @media (max-width: 380px) {
+      font-size: 14px;
+    }
+    @media (max-width: 340px) {
+      font-size: 12px;
+    }
+    @media(max-height:620px) and (min-width:375px) {
+      font-size: 14px;
+    }
+    @media (max-height: 615px) {
+      font-size: 12px;
+      padding: 0 -2.5%;
+    }
+  }
+  .metro-info {
+    font-weight: 300;
+    font-size: 18px;
+    color: rgba(100, 100, 100, 1);
+    @media (max-width: 420px) {
+      font-size: 16px;
+    }
+    @media (max-width: 380px) {
+      font-size: 14px;
+    }
+    @media (max-width: 340px) {
+      font-size: 12px;
+    }
+    @media(max-height:620px) and (min-width:375px) {
+      font-size: 14px;
+    }
+    @media (max-height: 615px) {
+      font-size: 12px;
+    }
+  }
+}
+
+.price {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  p {
+    font-weight: 600;
+    font-size:  24px;
+    color: rgba(0, 0, 0, 1);
+    @media (max-width: 420px) {
+      font-size: 22px;
+    }
+    @media (max-width: 380px) {
+      font-size: 20px;
+    }
+    @media (max-width: 340px) {
+      font-size: 18px;
+    }
+    @media(max-height:620px) and (min-width:375px) {
+      font-size: 18px;
+    }
+    @media (max-height: 615px) {
+      font-size: 16px;
+      padding: 0 2.5%;
+    }
+  }
+  .data {
+    font-weight: 300;
+    font-size: 18px;
+    color: rgba(100, 100, 100, 1);
+    @media (max-width: 420px) {
+      font-size: 16px;
+    }
+    @media (max-width: 380px) {
+      font-size: 14px;
+    }
+    @media (max-width: 340px) {
+      font-size: 12px;
+    }
+    @media(max-height:620px) and (min-width:375px) {
+      font-size: 14px;
+    }
+    @media (max-height: 615px) {
+      font-size: 12px;
+      padding: 0 2.5%;
+    }
+  }
+  @media(max-height:620px) and (min-width:375px) {
+    margin-top: 12px;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    img {
+      width: 90%;
+      height: calc(90vw * 2 / 3);
+      object-fit: cover;
+    }
+  }
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  touch-action: none; /* Отключаем стандартное поведение свайпов внутри слайда */
+}

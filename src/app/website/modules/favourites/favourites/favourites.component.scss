@@ -255,8 +255,10 @@
 
 .main-module-for-plashka-b{
     background-color: rgba(241, 241, 245, 1);
-    width: 100%;
-    height: calc(100vh - 60px);
+    width: 97.5%;
+    margin-left: 1.25%;
+    margin-top: 5px;
+    height: calc(100vh - 70px);
     display: flex;
     justify-content: center; /* Центрирование по горизонтали */
     align-items: center; /* Центрирование по вертикали */
@@ -276,7 +278,7 @@
         flex-direction: column;
         align-items: center;
     
-        img{
+        svg{
             width: 45.45%;
         }
     
