@@ -12,53 +12,97 @@ export class AdComponent implements AfterViewInit {
 
   swiper!: Swiper;
 
-  ads = [
-    {
-      imageUrls: [
-        'https://avatars.mds.yandex.net/i?id=c3f130bfaefaba992e9a2b311191b7d3_l-4724533-images-thumbs&n=13',
-        'https://yandex-images.clstorage.net/c9LNm6431/bc46fauGH/M9fbkgkVc5UZfvFDEMuxszoa8xvEPaBvCItuZ15w--3xAOmfH3IcGmn5vmtNkcZzDc4lUtBJiSCmo1tgMLrp7nLSjpNoBAqJGWqgbzn72YN6T8NuyGioCxiWClYf6BINfMVQerKykfOY-aJeDYGvQ1z-wOq04Fh0p0oy9NDTZH-vJ8vqQVliPek6rDvI9yXzev8DE9jo_P54c1_zs8R2sUQFJPIi2iUbvM2eVqE5ridEanzLJOSMHKdGivysl0zT_9NDImmdIu1tpojLOMeRC06za_9MXKCu8CvHd9e80rHAlbymroI1B5CpGuoBnVJniK6Ai5AQ2KTjog5U2FMEbx8_A1ohPa6B6f4cM2iP2bMa_w-vuHhQUhAzx0vP9MolbFV8et7CzVNgIXIqiQ2mGyQyoIeovOQkE_aigNgvCAsXo-da5Qn2hak2bENAA5kTolurL5SE3KKQAxsLC3Q-aSSFqPYi0mlfhA0u0n1FRquopoiLiExgDIvKNoRcQ3SL8zeL1q05EqUZ3pRblOcBb44na-t4ZBSKLL_bLwtMOoFIRRziJnbRd6ilcrqtuVZXAPpoh7Bk-ISTJhYM5CMA_1df19ptBWKhlTacb6BTBeNu21ef5Hxc8kSTm8v_jNYNyGHEdi6OAZcwMQIO2Zmu2yD6tMvsUFwQJ8aeAGwXDBt7oz9yHbVyJeliNENYZ-mTfj9zO2yg9CJwty8vT8wmUUzh4ALqOiWbfHUiznU1DueQOjg33HR4CHf2_vBoKxzbU-sDpoF59qEZUuyzoHdFw-LrA5PovJQCMAtXP8NUvhGkbbz2frYZ-5iB9i6FzZYvzA5sI-z8dKA3niY4WB_A5x-bW3ZpBaZ1fc4IJ-RDLaf2Q2-nwMQghiyL149niKIBqB0Ubm5yAX8AzRbqpUWOv7A-AIekBCiE776m9PyndO8XA3tuSX0GfRU6qEPIU5XLup_rt1xg9OZwJ2_Ddwi8',
-        'https://i.pinimg.com/originals/55/1d/1f/551d1f8df2c5e609e13b499c53f7408a.png',
-        'https://i.pinimg.com/originals/1e/1f/30/1e1f308dc1342dc258a72e06a7de7e0d.jpg',
-        'https://yandex-images.clstorage.net/c9LNm6431/bc46fauGH/M9fbkgkVc5UZfvFDEMuxszoa8xvEPaBvCItuZhJJppydAMzDO1tACzXFvmN81J8udKd4GvkNjQyv82YkMLrp_nbqiptADHuZCVq4Z2CCvfMOL_8rnXSYfjXDRmYWWBJ1fMkkOsbeqcuEJcJiJYXaGiziaOtJWFDwn_aKNASXhAPzF3fWJRE68b2q6Gs0c7EPfi9P6-BkGCrAo6Mzs_Q-EcDx5E5OTsF_bAH2Xi0pYhtI-vxXaMhUJPf2howM68ArX0eDXu05_rFtLnRPxIOBu4YbA4MM8Kx2kCv7qzeQRrXAdXTWGsKZb3AtktqRicbnCDY4qyh8oHBPsmIIpJ8EY-Onbx6VcV49Aaos2zzTyfM-T0_nXASIhmzL46sLiA6tVNm0Fsay2Zck3RqyUQFWE3SapIskRAxMz0I2pHCfeG-Hr_P6lbVqZQXq5KtM-0WznvfrQ9wodAqcS9N3S0yOWRiRZMJKTskzKDk27qn1HvPEFjCjKGT8yOfaCjB0GxQTB0tnlhn9WoElWgxTVC-hK-Lbl4MYxJTCtPdvt29Mtl3w_aR2XkptiwAVnrLBJeLjOL5sQyRc1FBvwuYQ_KN0Z3PvD8oVPWbxIdbkW2AbFS9uO2u_bFiMisyfQ_eLuHaxfH2ArspClVvgjQrCdVHCG7SebJ9oAOD0-3YGmPArQGuXw_MivU3W4aWqsPNM4yHDHiuPm8jQUCIcq2dDbwg2QSD5AIq-hiF_7MFO4rX9bruILqwTlDDE0OMmNvgAL3x7V-u7HmnRGmUhWoArvBsxb063W-tgVExCPOvbO3-ErtlgEYzWShKtQ4wlujZVDZYjQHKYR4AATNxLZl4gyB9Ip2uny0a5OWY19T4czyhfBQcqo_OHVHw09rj3W7vPIHLFcB38ftICaVsIvfbWkS0eO9AOqCskSLSAb75-oAS78BNjr1NmoRkelf1W6G9McxW_Ru8vA0TgkCLYq_cDgzDw',
-        'https://avatars.mds.yandex.net/i?id=57f5d9a1fe40bd23957c0c00d938b8d9_l-5233675-images-thumbs&n=13'
-      ],
-      address: '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31',
-      price: '50.000 р. в месяц',
-      metroName: 'Аметьево',
-      metroInfo: '~10 мин. пешком',
-      date: '1д. назад'
-    },
-    {
-      imageUrls: [
-        'https://avatars.mds.yandex.net/i?id=c3f130bfaefaba992e9a2b311191b7d3_l-4724533-images-thumbs&n=13',
-        'https://yandex-images.clstorage.net/c9LNm6431/bc46fauGH/M9fbkgkVc5UZfvFDEMuxszoa8xvEPaBvCItuZ15w--3xAOmfH3IcGmn5vmtNkcZzDc4lUtBJiSCmo1tgMLrp7nLSjpNoBAqJGWqgbzn72YN6T8NuyGioCxiWClYf6BINfMVQerKykfOY-aJeDYGvQ1z-wOq04Fh0p0oy9NDTZH-vJ8vqQVliPek6rDvI9yXzev8DE9jo_P54c1_zs8R2sUQFJPIi2iUbvM2eVqE5ridEanzLJOSMHKdGivysl0zT_9NDImmdIu1tpojLOMeRC06za_9MXKCu8CvHd9e80rHAlbymroI1B5CpGuoBnVJniK6Ai5AQ2KTjog5U2FMEbx8_A1ohPa6B6f4cM2iP2bMa_w-vuHhQUhAzx0vP9MolbFV8et7CzVNgIXIqiQ2mGyQyoIeovOQkE_aigNgvCAsXo-da5Qn2hak2bENAA5kTolurL5SE3KKQAxsLC3Q-aSSFqPYi0mlfhA0u0n1FRquopoiLiExgDIvKNoRcQ3SL8zeL1q05EqUZ3pRblOcBb44na-t4ZBSKLL_bLwtMOoFIRRziJnbRd6ilcrqtuVZXAPpoh7Bk-ISTJhYM5CMA_1df19ptBWKhlTacb6BTBeNu21ef5Hxc8kSTm8v_jNYNyGHEdi6OAZcwMQIO2Zmu2yD6tMvsUFwQJ8aeAGwXDBt7oz9yHbVyJeliNENYZ-mTfj9zO2yg9CJwty8vT8wmUUzh4ALqOiWbfHUiznU1DueQOjg33HR4CHf2_vBoKxzbU-sDpoF59qEZUuyzoHdFw-LrA5PovJQCMAtXP8NUvhGkbbz2frYZ-5iB9i6FzZYvzA5sI-z8dKA3niY4WB_A5x-bW3ZpBaZ1fc4IJ-RDLaf2Q2-nwMQghiyL149niKIBqB0Ubm5yAX8AzRbqpUWOv7A-AIekBCiE776m9PyndO8XA3tuSX0GfRU6qEPIU5XLup_rt1xg9OZwJ2_Ddwi8',
-        'https://i.pinimg.com/originals/55/1d/1f/551d1f8df2c5e609e13b499c53f7408a.png',
-        'https://i.pinimg.com/originals/1e/1f/30/1e1f308dc1342dc258a72e06a7de7e0d.jpg',
-        'https://yandex-images.clstorage.net/c9LNm6431/bc46fauGH/M9fbkgkVc5UZfvFDEMuxszoa8xvEPaBvCItuZhJJppydAMzDO1tACzXFvmN81J8udKd4GvkNjQyv82YkMLrp_nbqiptADHuZCVq4Z2CCvfMOL_8rnXSYfjXDRmYWWBJ1fMkkOsbeqcuEJcJiJYXaGiziaOtJWFDwn_aKNASXhAPzF3fWJRE68b2q6Gs0c7EPfi9P6-BkGCrAo6Mzs_Q-EcDx5E5OTsF_bAH2Xi0pYhtI-vxXaMhUJPf2howM68ArX0eDXu05_rFtLnRPxIOBu4YbA4MM8Kx2kCv7qzeQRrXAdXTWGsKZb3AtktqRicbnCDY4qyh8oHBPsmIIpJ8EY-Onbx6VcV49Aaos2zzTyfM-T0_nXASIhmzL46sLiA6tVNm0Fsay2Zck3RqyUQFWE3SapIskRAxMz0I2pHCfeG-Hr_P6lbVqZQXq5KtM-0WznvfrQ9wodAqcS9N3S0yOWRiRZMJKTskzKDk27qn1HvPEFjCjKGT8yOfaCjB0GxQTB0tnlhn9WoElWgxTVC-hK-Lbl4MYxJTCtPdvt29Mtl3w_aR2XkptiwAVnrLBJeLjOL5sQyRc1FBvwuYQ_KN0Z3PvD8oVPWbxIdbkW2AbFS9uO2u_bFiMisyfQ_eLuHaxfH2ArspClVvgjQrCdVHCG7SebJ9oAOD0-3YGmPArQGuXw_MivU3W4aWqsPNM4yHDHiuPm8jQUCIcq2dDbwg2QSD5AIq-hiF_7MFO4rX9bruILqwTlDDE0OMmNvgAL3x7V-u7HmnRGmUhWoArvBsxb063W-tgVExCPOvbO3-ErtlgEYzWShKtQ4wlujZVDZYjQHKYR4AATNxLZl4gyB9Ip2uny0a5OWY19T4czyhfBQcqo_OHVHw09rj3W7vPIHLFcB38ftICaVsIvfbWkS0eO9AOqCskSLSAb75-oAS78BNjr1NmoRkelf1W6G9McxW_Ru8vA0TgkCLYq_cDgzDw',
-        'https://avatars.mds.yandex.net/i?id=57f5d9a1fe40bd23957c0c00d938b8d9_l-5233675-images-thumbs&n=13'
-      ],
-      address: '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31',
-      price: '50.000 р. в месяц',
-      metroName: 'Аметьево',
-      metroInfo: '~10 мин. пешком',
-      date: '1д. назад'
-    },
-    {
-      imageUrls: [
-        'https://avatars.mds.yandex.net/i?id=c3f130bfaefaba992e9a2b311191b7d3_l-4724533-images-thumbs&n=13',
-        'https://yandex-images.clstorage.net/c9LNm6431/bc46fauGH/M9fbkgkVc5UZfvFDEMuxszoa8xvEPaBvCItuZ15w--3xAOmfH3IcGmn5vmtNkcZzDc4lUtBJiSCmo1tgMLrp7nLSjpNoBAqJGWqgbzn72YN6T8NuyGioCxiWClYf6BINfMVQerKykfOY-aJeDYGvQ1z-wOq04Fh0p0oy9NDTZH-vJ8vqQVliPek6rDvI9yXzev8DE9jo_P54c1_zs8R2sUQFJPIi2iUbvM2eVqE5ridEanzLJOSMHKdGivysl0zT_9NDImmdIu1tpojLOMeRC06za_9MXKCu8CvHd9e80rHAlbymroI1B5CpGuoBnVJniK6Ai5AQ2KTjog5U2FMEbx8_A1ohPa6B6f4cM2iP2bMa_w-vuHhQUhAzx0vP9MolbFV8et7CzVNgIXIqiQ2mGyQyoIeovOQkE_aigNgvCAsXo-da5Qn2hak2bENAA5kTolurL5SE3KKQAxsLC3Q-aSSFqPYi0mlfhA0u0n1FRquopoiLiExgDIvKNoRcQ3SL8zeL1q05EqUZ3pRblOcBb44na-t4ZBSKLL_bLwtMOoFIRRziJnbRd6ilcrqtuVZXAPpoh7Bk-ISTJhYM5CMA_1df19ptBWKhlTacb6BTBeNu21ef5Hxc8kSTm8v_jNYNyGHEdi6OAZcwMQIO2Zmu2yD6tMvsUFwQJ8aeAGwXDBt7oz9yHbVyJeliNENYZ-mTfj9zO2yg9CJwty8vT8wmUUzh4ALqOiWbfHUiznU1DueQOjg33HR4CHf2_vBoKxzbU-sDpoF59qEZUuyzoHdFw-LrA5PovJQCMAtXP8NUvhGkbbz2frYZ-5iB9i6FzZYvzA5sI-z8dKA3niY4WB_A5x-bW3ZpBaZ1fc4IJ-RDLaf2Q2-nwMQghiyL149niKIBqB0Ubm5yAX8AzRbqpUWOv7A-AIekBCiE776m9PyndO8XA3tuSX0GfRU6qEPIU5XLup_rt1xg9OZwJ2_Ddwi8',
-        'https://i.pinimg.com/originals/55/1d/1f/551d1f8df2c5e609e13b499c53f7408a.png',
-        'https://i.pinimg.com/originals/1e/1f/30/1e1f308dc1342dc258a72e06a7de7e0d.jpg',
-        'https://yandex-images.clstorage.net/c9LNm6431/bc46fauGH/M9fbkgkVc5UZfvFDEMuxszoa8xvEPaBvCItuZhJJppydAMzDO1tACzXFvmN81J8udKd4GvkNjQyv82YkMLrp_nbqiptADHuZCVq4Z2CCvfMOL_8rnXSYfjXDRmYWWBJ1fMkkOsbeqcuEJcJiJYXaGiziaOtJWFDwn_aKNASXhAPzF3fWJRE68b2q6Gs0c7EPfi9P6-BkGCrAo6Mzs_Q-EcDx5E5OTsF_bAH2Xi0pYhtI-vxXaMhUJPf2howM68ArX0eDXu05_rFtLnRPxIOBu4YbA4MM8Kx2kCv7qzeQRrXAdXTWGsKZb3AtktqRicbnCDY4qyh8oHBPsmIIpJ8EY-Onbx6VcV49Aaos2zzTyfM-T0_nXASIhmzL46sLiA6tVNm0Fsay2Zck3RqyUQFWE3SapIskRAxMz0I2pHCfeG-Hr_P6lbVqZQXq5KtM-0WznvfrQ9wodAqcS9N3S0yOWRiRZMJKTskzKDk27qn1HvPEFjCjKGT8yOfaCjB0GxQTB0tnlhn9WoElWgxTVC-hK-Lbl4MYxJTCtPdvt29Mtl3w_aR2XkptiwAVnrLBJeLjOL5sQyRc1FBvwuYQ_KN0Z3PvD8oVPWbxIdbkW2AbFS9uO2u_bFiMisyfQ_eLuHaxfH2ArspClVvgjQrCdVHCG7SebJ9oAOD0-3YGmPArQGuXw_MivU3W4aWqsPNM4yHDHiuPm8jQUCIcq2dDbwg2QSD5AIq-hiF_7MFO4rX9bruILqwTlDDE0OMmNvgAL3x7V-u7HmnRGmUhWoArvBsxb063W-tgVExCPOvbO3-ErtlgEYzWShKtQ4wlujZVDZYjQHKYR4AATNxLZl4gyB9Ip2uny0a5OWY19T4czyhfBQcqo_OHVHw09rj3W7vPIHLFcB38ftICaVsIvfbWkS0eO9AOqCskSLSAb75-oAS78BNjr1NmoRkelf1W6G9McxW_Ru8vA0TgkCLYq_cDgzDw',
-        'https://avatars.mds.yandex.net/i?id=57f5d9a1fe40bd23957c0c00d938b8d9_l-5233675-images-thumbs&n=13'
-      ],
-      address: '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31',
-      price: '50.000 р. в месяц',
-      metroName: 'Аметьево',
-      metroInfo: '~10 мин. пешком',
-      date: '1д. назад'
-    },
-  ];
+  // JSON с данными
+  private listings = {
+    "listings": [
+      {
+        "address": "ул. Московская, д. 8",
+        "category": "daily",
+        "city_id": null,
+        "contact": "+7 999 123-45-67",
+        "created_at": "2025-04-05T00:00:00",
+        "deposit": "10000",
+        "description": "Квартира рядом с метро",
+        "district_id": 5,
+        "district_name": null,
+        "floor": 5,
+        "id": 5456,
+        "link_url": "https://example.com/9",
+        "photos": [
+          "https://sun9-88.userapi.com/impg/4AT_vkCRpPyZ0R8COKIkssmOZCfXzlWsO98nKA/hf8kG0Z8Ej4.jpg?size=1280x689&quality=95&sign=0ac89b0b905ad394ae4199f215d4ff15&c_uniq_tag=Y4_RTlkWaapVlxUaGPPFUF1dBKXjvSJYXpHu0V70nLk&type=album",
+          "https://i.pinimg.com/originals/55/1d/1f/551d1f8df2c5e609e13b499c53f7408a.png",
+          "https://i.pinimg.com/originals/1e/1f/30/1e1f308dc1342dc258a72e06a7de7e0d.jpg",
+          "https://avatars.mds.yandex.net/i?id=57f5d9a1fe40bd23957c0c00d938b8d9_l-5233675-images-thumbs&n=13"
+        ],
+        "price": 53000,
+        "recommendations": [],
+        "rooms": "2",
+        "square": 58.0,
+        "user_id": null
+      },
+      {
+        "address": "ул. Баумана, д. 15",
+        "category": "daily",
+        "city_id": null,
+        "contact": "+7 999 987-65-43",
+        "created_at": "2025-04-06T14:20:00",
+        "deposit": "8000",
+        "description": "Уютная квартира в центре",
+        "district_id": 2,
+        "district_name": null,
+        "floor": 3,
+        "id": 5457,
+        "link_url": "https://example.com/10",
+        "photos": [
+          "https://avatars.mds.yandex.net/i?id=c3f130bfaefaba992e9a2b311191b7d3_l-4724533-images-thumbs&n=13",
+          "https://i.pinimg.com/originals/55/1d/1f/551d1f8df2c5e609e13b499c53f7408a.png",
+          "https://i.pinimg.com/originals/1e/1f/30/1e1f308dc1342dc258a72e06a7de7e0d.jpg",
+          "https://avatars.mds.yandex.net/i?id=57f5d9a1fe40bd23957c0c00d938b8d9_l-5233675-images-thumbs&n=13"
+        ],
+        "price": 45000,
+        "recommendations": ["ниже рынка"],
+        "rooms": "1",
+        "square": 40.0,
+        "user_id": null
+      },
+      {
+        "address": "ул. Чистопольская, д. 22",
+        "category": "daily",
+        "city_id": null,
+        "contact": "+7 999 555-12-34",
+        "created_at": "2025-04-07T09:15:00",
+        "deposit": "12000",
+        "description": "Просторная квартира с видом на реку",
+        "district_id": 7,
+        "district_name": null,
+        "floor": 10,
+        "id": 5458,
+        "link_url": "https://example.com/11",
+        "photos": [
+          "https://yandex-images.clstorage.net/c9LNm6431/bc46fauGH/M9fbkgkVc5UZfvFDEMuxszoa8xvEPaBvCItuZ15w--3xAOmfH3IcGmn5vmtNkcZzDc4lUtBJiSCmo1tgMLrp7nLSjpNoBAqJGWqgbzn72YN6T8NuyGioCxiWClYf6BINfMVQerKykfOY-aJeDYGvQ1z-wOq04Fh0p0oy9NDTZH-vJ8vqQVliPek6rDvI9yXzev8DE9jo_P54c1_zs8R2sUQFJPIi2iUbvM2eVqE5ridEanzLJOSMHKdGivysl0zT_9NDImmdIu1tpojLOMeRC06za_9MXKCu8CvHd9e80rHAlbymroI1B5CpGuoBnVJniK6Ai5AQ2KTjog5U2FMEbx8_A1ohPa6B6f4cM2iP2bMa_w-vuHhQUhAzx0vP9MolbFV8et7CzVNgIXIqiQ2mGyQyoIeovOQkE_aigNgvCAsXo-da5Qn2hak2bENAA5kTolurL5SE3KKQAxsLC3Q-aSSFqPYi0mlfhA0u0n1FRquopoiLiExgDIvKNoRcQ3SL8zeL1q05EqUZ3pRblOcBb44na-t4ZBSKLL_bLwtMOoFIRRziJnbRd6ilcrqtuVZXAPpoh7Bk-ISTJhYM5CMA_1df19ptBWKhlTacb6BTBeNu21ef5Hxc8kSTm8v_jNYNyGHEdi6OAZcwMQIO2Zmu2yD6tMvsUFwQJ8aeAGwXDBt7oz9yHbVyJeliNENYZ-mTfj9zO2yg9CJwty8vT8wmUUzh4ALqOiWbfHUiznU1DueQOjg33HR4CHf2_vBoKxzbU-sDpoF59qEZUuyzoHdFw-LrA5PovJQCMAtXP8NUvhGkbbz2frYZ-5iB9i6FzZYvzA5sI-z8dKA3niY4WB_A5x-bW3ZpBaZ1fc4IJ-RDLaf2Q2-nwMQghiyL149niKIBqB0Ubm5yAX8AzRbqpUWOv7A-AIekBCiE776m9PyndO8XA3tuSX0GfRU6qEPIU5XLup_rt1xg9OZwJ2_Ddwi8",
+          "https://i.pinimg.com/originals/55/1d/1f/551d1f8df2c5e609e13b499c53f7408a.png",
+          "https://i.pinimg.com/originals/1e/1f/30/1e1f308dc1342dc258a72e06a7de7e0d.jpg",
+          "https://avatars.mds.yandex.net/i?id=57f5d9a1fe40bd23957c0c00d938b8d9_l-5233675-images-thumbs&n=13"
+        ],
+        "price": 60000,
+        "recommendations": ["выше рынка"],
+        "rooms": "3",
+        "square": 75.0,
+        "user_id": null
+      }
+    ]
+  };
+
+  // Преобразованные данные для шаблона
+  ads = this.listings.listings.map(listing => ({
+    address: listing.address,
+    imageUrls: listing.photos,
+    price: `${listing.price} р. в месяц`,
+    metroName: 'Не указано', // Заглушка, так как metroName отсутствует в JSON
+    metroInfo: 'Не указано', // Заглушка, так как metroInfo отсутствует в JSON
+    date: this.calculateDate(listing.created_at),
+    recommendations: listing.recommendations // Сохраняем recommendations для getPriceCondition
+  }));
 
   selectedImageSrc: string | null = null;
   selectedAd: any | null = null;
@@ -83,8 +127,8 @@ export class AdComponent implements AfterViewInit {
       spaceBetween: 10,
       centeredSlides: true,
       loop: false,
-      touchRatio: 1.5, /* Увеличиваем чувствительность свайпа */
-      threshold: 10, /* Уменьшаем минимальное расстояние для свайпа */
+      touchRatio: 1.5,
+      threshold: 10,
       grabCursor: true,
       pagination: {
         el: '.swiper-pagination',
@@ -97,8 +141,8 @@ export class AdComponent implements AfterViewInit {
         prevEl: '.swiper-button-prev'
       },
       allowTouchMove: true,
-      touchEventsTarget: 'wrapper', /* Обрабатываем свайпы на уровне swiper-wrapper, включая mainn-module */
-      touchStartPreventDefault: false /* Не блокируем стандартные события касания */
+      touchEventsTarget: 'wrapper',
+      touchStartPreventDefault: false
     });
   }
 
@@ -145,13 +189,24 @@ export class AdComponent implements AfterViewInit {
     this.isOverlayVisible = false;
   }
 
-  getPriceCondition(price: string): string {
-    return price.includes('ниже') ? 'ниже рынка' : price.includes('выше') ? 'выше рынка' : '';
+  getPriceCondition(ad: any): string {
+    return ad.recommendations.length ? ad.recommendations[0] : '';
   }
 
-  getBackgroundColor(price: string): string {
-    const condition = this.getPriceCondition(price);
+  getBackgroundColor(ad: any): string {
+    const condition = this.getPriceCondition(ad);
     const info = this.priceInfo.find(info => info.condition === condition);
     return info ? info.backgroundColor : '';
+  }
+
+  calculateDate(createdAt: string): string {
+    const created = new Date(createdAt);
+    const now = new Date();
+    const diffMs = now.getTime() - created.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) return 'сегодня';
+    if (diffDays === 1) return '1 д. назад';
+    return `${diffDays} д. назад`;
   }
 }

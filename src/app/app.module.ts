@@ -10,6 +10,7 @@ import { ProfileComponent } from './website/modules/profile/profile.component';
 import { AlertComponent } from './website/modules/alert/alert.component';
 import { SubscriptionComponent } from './website/modules/subscription/subscription.component';
 import { ReferallsComponent } from './website/modules/referalls/referalls.component';
+import { WelcomeComponent } from './website/modules/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,6 @@ import { ReferallsComponent } from './website/modules/referalls/referalls.compon
     MainModule,
     SharedModule,
     HttpClientModule,
-
   ],
   providers: [],
   bootstrap: [AppComponent]

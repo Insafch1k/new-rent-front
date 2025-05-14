@@ -3,10 +3,13 @@
     left: 50%; /* Центрируем по горизонтали */
     transform: translate(-50%, 0); /* Сдвигаем элемент назад на 50% его ширины и высоты */
     width: 94vw;
+    max-width: 600px;
+    margin: 0 auto;
     height: calc(100vh - 60px);
     background-color: rgba(241, 241, 245, 1);
     overflow: hidden; /* Убедитесь, что это значение правильное */
     overflow: auto;
+
 }
 
 .module-plashka {
@@ -256,12 +259,12 @@
 .main-module-for-plashka-b{
     background-color: rgba(241, 241, 245, 1);
     width: 97.5%;
-    margin-left: 1.25%;
-    margin-top: 5px;
+    max-width: 600px;
+    margin: 0 auto;
     height: calc(100vh - 70px);
     display: flex;
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
+    justify-content: center; 
+    align-items: center;
     .window{
         height: 96%;
         width: 94%;

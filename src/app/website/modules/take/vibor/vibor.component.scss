@@ -1,7 +1,10 @@
 .title {
     text-align: center;
     font-weight: 550;
-    font-size: 5.55vw;
+    font-size: 4.16vw;
+    @media (min-width:600px) {
+        font-size: 25px;
+    }
 }
 svg {
     pointer-events: none;
@@ -19,9 +22,12 @@ svg {
 
 .one-for-vibor p {
     font-weight: 550;
-    font-size: 4.2vw;
+    font-size: 4.16vw;
     padding-left: 20px;
     margin: 0; /* Убираем отступы у параграфа */
+    @media (min-width:600px) {
+        font-size: 25px;
+    }
 }
 
 .one-for-vibor svg {

@@ -1,0 +1,47 @@
+.pg-back{
+    position: relative;
+    margin: 0 auto;
+    margin-top: -60px;
+    width: 100vw;
+    height: 100vh;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 1);
+}
+.krestik {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 22vh;
+    p{
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+}
+.two{
+    display: flex;
+    align-items: center;
+    margin-top: 2.5vh;
+    gap: 10px;
+    p{
+        font-size: 1.25rem;
+        font-weight: 400;
+    }
+}
+button{
+    margin-top: 10vh;
+    width: 83.34%;
+    height: 5vh;
+    border-radius: 30px;
+    background-color: rgba(0, 119, 255, 1);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    justify-content: center;
+    align-items: center;
+}

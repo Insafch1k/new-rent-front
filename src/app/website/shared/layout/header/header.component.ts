@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   showSlider: boolean = false;
   pageTitle: string = '';
   currentUrl: string = '';
+  showHeader: boolean = true;
 
   constructor(
     private router: Router,
@@ -40,6 +41,7 @@ export class HeaderComponent implements OnInit {
     ).subscribe((route: ActivatedRoute) => {
       this.currentUrl = this.router.url;
       this.showSlider = this.currentUrl === '/take/ad';
+      this.showHeader = this.currentUrl !== '/welcome'; // Скрываем хедер на странице /welcome
       this.updatePageTitle(route);
     });
   }

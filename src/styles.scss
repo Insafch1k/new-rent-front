@@ -144,14 +144,31 @@ textarea{
 
   .main-module {
     position: fixed; /* Фиксируем элемент относительно окна браузера */
-    top: 54%; /* Центрируем по вертикали */
     left: 50%; /* Центрируем по горизонтали */
-    transform: translate(-50%, -50%); /* Сдвигаем элемент назад на 50% его ширины и высоты */
-    width: 84vw;
-    height: calc(90vh - 60px);
+    transform: translateX(-50%);
+    // width: 84vw;
+    // height: calc(91vh - 60px);
     background-color: rgba(255, 255, 255, 1);
     border-radius: 20px;
+    width: 84vw;
+    max-width: 540px;
     padding: 20px;
+    // margin: 0 calc(4vw);
+    height: calc(100vh - 60px - 80px);
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    @media (min-width:600px) {
+      left: 0%; /* Центрируем по горизонтали */
+    transform: translateX(0%);
+      margin: 0 33vw;
+      padding: 30px;
+      margin: 0;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-left: calc(50% - 300px);
+      height: calc(100vh - 60px - 100px);
+    }
     
 
     .mmm {

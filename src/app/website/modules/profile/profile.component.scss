@@ -2,6 +2,8 @@
     background-color: rgba(241, 241, 245, 1);
     width: 100%;
     height: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -84,5 +86,10 @@ img {
         aspect-ratio: 1;
         font-size: 2.9vw;
         font-weight: bold;
+        @media (min-width:600px) {
+            top: -15px;
+            height: 40px;
+            font-size: 18px;
+        }
     }
 }

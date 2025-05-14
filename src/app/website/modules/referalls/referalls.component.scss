@@ -4,6 +4,8 @@
     margin-left: 1.25%;
     margin-top: 5px;
     height: calc(100vh - 70px);
+        max-width: 600px;
+    margin: 0 auto;
     display: flex;
     justify-content: center; /* Центрирование по горизонтали */
     align-items: center; /* Центрирование по вертикали */

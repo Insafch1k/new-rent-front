@@ -1,0 +1,46 @@
+.main-module{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.title{
+    font-size: 2.5vh;
+    font-weight: 500;
+    text-align: center;
+}
+svg{
+    margin-top: 10vh;
+    height: 20vh;
+}
+.mini-title {
+    margin-top: 2.5vh;
+    text-align: center;
+    font-size: 2.5vh;
+    font-weight: 500;
+}
+
+.accepted {
+    color: rgba(240, 68, 56, 1);
+}
+button{
+    height: 5vh;
+    width: 91%;
+    margin-top: 12.5vh;
+    border-radius: 30px;
+    font-size: 2.5vh;
+    font-weight: 500;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(52, 199, 89, 1);
+}
+.blue-btn{
+    height: 5vh;
+    width: 91%;
+    margin-top: 2.5vh;
+    border-radius: 30px;
+    font-size: 2.5vh;
+    font-weight: 500;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 119, 255, 1);
+}

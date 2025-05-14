@@ -68,6 +68,14 @@ const routes: Routes = [
             data: {title: 'Подписка'},
     },
     {
+        path: 'welcome',
+        loadChildren: () =>
+            import('./website/modules/welcome/welcome.module').then(
+                (m) => m.WelcomeModule
+            ),
+            data: {title: 'Приветственное меню'},
+    },
+    {
         path: 'referrals',
         loadChildren: () =>
             import('./website/modules/referalls/referrals.module').then(
@@ -81,6 +89,7 @@ const routes: Routes = [
         //component: MainComponent,
         redirectTo: 'main',
     },
+
 ];
 
 @NgModule({

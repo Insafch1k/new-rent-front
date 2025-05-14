@@ -3,6 +3,8 @@
     width: 97.5%;
     margin-left: 1.25%;
     margin-top: 5px;
+    max-width: 600px;
+    margin: 0 auto;
     height: calc(100vh - 70px);
     display: flex;
     justify-content: center; /* Центрирование по горизонтали */

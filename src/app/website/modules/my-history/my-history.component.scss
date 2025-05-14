@@ -8,6 +8,8 @@
     background-color: rgba(241, 241, 245, 1);
     overflow: hidden; /* Убедитесь, что это значение правильное */
     overflow: auto;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .module-plashka {
@@ -225,8 +227,8 @@
 .main-module-for-plashka-b{
     background-color: rgba(241, 241, 245, 1);
     width: 97.5%;
-    margin-left: 1.25%;
-    margin-top: 5px;
+        max-width: 600px;
+    margin: 0 auto;
     height: calc(100vh - 70px);
     display: flex;
     justify-content: center; /* Центрирование по горизонтали */

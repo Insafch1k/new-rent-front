@@ -2,14 +2,17 @@
     position: fixed;
     top: 0;
     left: 0;
+    right: 0; 
     width: 100vw;
     height: 60px;
+    max-width: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 1);
     z-index: 10000; /* Высокий z-index, чтобы быть выше Swiper и оверлея */
     pointer-events: auto; /* Убеждаемся, что хедер принимает события кликов */
+     margin: 0 auto;
 }
 
 .header-con {
