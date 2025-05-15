@@ -9,6 +9,7 @@ import { AdMoreComponent } from './ad-more/ad-more.component';
 import { AdMoreMainInfoComponent } from './ad-more-main-info/ad-more-main-info.component';
 import { AdMoreBottomComponent } from './ad-more-bottom/ad-more-bottom.component';
 import { ViborComponent } from './vibor/vibor.component';
+import { TakeMoreComponent } from './take-more/take-more.component';
 
 
 
@@ -22,6 +23,7 @@ import { ViborComponent } from './vibor/vibor.component';
     AdMoreMainInfoComponent,
     AdMoreBottomComponent,
     ViborComponent,
+    TakeMoreComponent,
   ],
   imports: [
     CommonModule, TakeRoutingModule, FormsModule, ReactiveFormsModule

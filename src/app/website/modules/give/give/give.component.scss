@@ -88,6 +88,42 @@
       cursor: pointer;
     }
   }
+
+  .phone-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+
+    .phone-prefix {
+      padding: 10px;
+      font-size: 14px;
+      color: #333;
+      background: #f0f0f0;
+      border-right: 1px solid #ccc;
+    }
+
+    .phone-input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      font-size: 14px;
+      outline: none;
+      background: transparent;
+    }
+
+    .clear-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
 
 .overlay {
@@ -127,4 +163,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
+  cursor: pointer;
+}
+
+.podt:hover {
+  background-color: rgba(0, 85, 204, 1);
 }

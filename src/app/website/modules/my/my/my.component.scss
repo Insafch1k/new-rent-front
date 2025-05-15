@@ -1,15 +1,16 @@
 .main-module-for-plashka {
     position: fixed; /* Фиксируем элемент относительно окна браузера */
-    top: 49.4%; /* Центрируем по вертикали */
     left: 50%; /* Центрируем по горизонтали */
-    transform: translate(-50%, -50%); /* Сдвигаем элемент назад на 50% его ширины и высоты */
+    transform: translate(-50%); /* Сдвигаем элемент назад на 50% его ширины и высоты */
     width: 94vw;
-    height: calc(98vh - 115px);
     background-color: rgba(241, 241, 245, 1);
     overflow: hidden; /* Убедитесь, что это значение правильное */
     overflow: auto;
     max-width: 600px;
     margin: 0 auto;
+    height: calc(100vh - 60px - 40px);
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .module-plashka {
@@ -17,8 +18,7 @@
     height: auto;
     background-color: rgba(255, 255, 255, 1);
     border-radius: 20px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     display: flex;
     &.selected {
         background-color: rgba(220, 220, 220, 1); /* Чуть темнее цвет для выделенного элемента */
@@ -156,13 +156,14 @@
           .description p {
             width: 90%; // Ширина контейнера
             font-weight: 300;
+            margin-top: 10px;
             margin-bottom: 20px;
             padding-bottom: 10px;
         
             // Добавляем стили для обрезки текста
             display: -webkit-box; // Используем вебкит-бокс для ограничения количества строк
-            -webkit-line-clamp: 2; // Ограничиваем текст двумя строками
-            line-clamp: 2;
+            -webkit-line-clamp: 4; // Ограничиваем текст двумя строками
+            line-clamp: 4;
             -webkit-box-orient: vertical; // Устанавливаем вертикальное направление
             overflow: hidden; // Скрываем лишний текст
             text-overflow: ellipsis; // Добавляем троеточие
@@ -170,7 +171,7 @@
         
             // Явно задаём высоту для двух строк
             line-height: 1.2; // Высота одной строки
-            max-height: calc(13px * 2); // Максимальная высота для двух строк
+            max-height: calc(13px * 4.5); // Максимальная высота для двух строк
         
             font-size: 14px;
             color: rgba(100, 100, 100, 1);
@@ -178,22 +179,22 @@
             // Адаптивные стили
             @media (max-width: 420px) {
                 font-size: 12px;
-                max-height: calc(10px * 2); // Обновляем высоту для меньшего шрифта
+                max-height: calc(10px * 4.5); // Обновляем высоту для меньшего шрифта
             }
         
             @media (max-width: 380px) {
                 font-size: 10px;
-                max-height: calc(8px * 2); // Корректируем высоту под новый размер шрифта
+                max-height: calc(8px * 4.5); // Корректируем высоту под новый размер шрифта
             }
         
             @media (max-width: 340px) {
                 font-size: 9px;
-                max-height: calc(6px * 2); // Корректируем высоту под новый размер шрифта
+                max-height: calc(6px * 4.5); // Корректируем высоту под новый размер шрифта
             }
         
             @media (max-height: 620px) and (min-width: 375px) {
                 font-size: 10px;
-                max-height: calc(8px * 2); // Корректируем высоту под новый размер шрифта
+                max-height: calc(8px * 4.5); // Корректируем высоту под новый размер шрифта
             }
         }
 

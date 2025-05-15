@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { LoadingService } from './website/shared/loading-spinner/loading.service';
+import { Observable } from 'rxjs';
+import { routeAnimation } from './website/shared/route-animations';
 
 declare global {
   interface Window {
@@ -10,12 +13,30 @@ declare global {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [routeAnimation]
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router) {}
+  isLoading$: Observable<boolean>;
+
+  constructor(
+    private router: Router,
+    private loadingService: LoadingService
+  ) {
+    this.isLoading$ = this.loadingService.loading$;
+  }
 
   ngOnInit() {
+    // Подписка на события навигации для спиннера
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.loadingService.show();
+      } else if (event instanceof NavigationEnd) {
+        this.loadingService.hide();
+      }
+    });
+
+    // Логика Telegram Web App
     if (window.Telegram?.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.expand();
@@ -52,5 +73,9 @@ export class AppComponent implements OnInit {
         }
       }
     }
+  }
+
+  getRouteAnimationState(outlet: any) {
+    return outlet?.activatedRouteData?.animation || 'default';
   }
 }

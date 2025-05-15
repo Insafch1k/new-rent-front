@@ -3,10 +3,30 @@
     min-height: 100vh;
     width: 100vw;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .main {
-    padding-top: 60px; /* Отступ для хедера */
+    margin-top: 60px; /* Отступ для хедера */
     width: 100%;
     min-height: calc(100vh - 60px);
+    position: relative; /* Для позиционирования спиннера и анимаций */
+    flex: 1; /* Растягивает .main на оставшееся пространство */
+    overflow: hidden; /* Предотвращает прокрутку во время анимаций */
+}
+
+/* Стили для router-outlet и анимаций */
+:host ::ng-deep router-outlet + * {
+    position: absolute;
+    width: 100%;
+    min-height: 100%; /* Изменено с height на min-height для адаптивности */
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+}
+
+/* Дополнительные стили для спиннера */
+:host ::ng-deep app-loading-spinner {
+    z-index: 9999; /* Спиннер поверх всего контента */
 }

@@ -9,7 +9,7 @@ const routes: Routes = [
             import('./website/modules/take/take.module').then(
                 (m) => m.TakeModule
             ),
-            data: {title: 'Снять квартиру'},
+        data: { title: 'Снять квартиру', animation: 'TakePage' }
     },
     {
         path: 'give',
@@ -17,7 +17,7 @@ const routes: Routes = [
             import('./website/modules/give/give.module').then(
                 (m) => m.GiveModule
             ),
-            data: { title: 'Сдать квартиру'},
+        data: { title: 'Сдать квартиру', animation: 'GivePage' }
     },
     {
         path: 'my',
@@ -25,7 +25,7 @@ const routes: Routes = [
             import('./website/modules/my/my.module').then(
                 (m) => m.MyModule
             ),
-            data: {title: 'Мои объявления'},
+        data: { title: 'Мои объявления', animation: 'MyPage' }
     },
     {
         path: 'my-history',
@@ -33,7 +33,7 @@ const routes: Routes = [
             import('./website/modules/my-history/my-history.module').then(
                 (m) => m.MyHistoryModule
             ),
-            data: {title: 'История'},
+        data: { title: 'История', animation: 'MyHistoryPage' }
     },
     {
         path: 'favourites',
@@ -41,7 +41,7 @@ const routes: Routes = [
             import('./website/modules/favourites/favourites.module').then(
                 (m) => m.FavouritesModule
             ),
-            data: {title: 'Избранное'},
+        data: { title: 'Избранное', animation: 'FavouritesPage' }
     },
     {
         path: 'profile',
@@ -49,7 +49,7 @@ const routes: Routes = [
             import('./website/modules/profile/profile.module').then(
                 (m) => m.ProfileModule
             ),
-            data: {title: 'Мой профиль'},
+        data: { title: 'Мой профиль', animation: 'ProfilePage' }
     },
     {
         path: 'alert',
@@ -57,7 +57,7 @@ const routes: Routes = [
             import('./website/modules/alert/alert.module').then(
                 (m) => m.AlertModule
             ),
-            data: {title: 'Уведомления'},
+        data: { title: 'Уведомления', animation: 'AlertPage' }
     },
     {
         path: 'subscription',
@@ -65,7 +65,7 @@ const routes: Routes = [
             import('./website/modules/subscription/subscription.module').then(
                 (m) => m.SubscriptionModule
             ),
-            data: {title: 'Подписка'},
+        data: { title: 'Подписка', animation: 'SubscriptionPage' }
     },
     {
         path: 'welcome',
@@ -73,7 +73,7 @@ const routes: Routes = [
             import('./website/modules/welcome/welcome.module').then(
                 (m) => m.WelcomeModule
             ),
-            data: {title: 'Приветственное меню'},
+        data: { title: 'Приветственное меню', animation: 'WelcomePage' }
     },
     {
         path: 'referrals',
@@ -81,19 +81,23 @@ const routes: Routes = [
             import('./website/modules/referalls/referrals.module').then(
                 (m) => m.ReferallsModule
             ),
-            data: {title: 'Реферальная система'},
+        data: { title: 'Реферальная система', animation: 'ReferralsPage' }
     },
-    { path: 'main', component: MainComponent, title: 'Главная' },
+    {
+        path: 'main',
+        component: MainComponent,
+        title: 'Главная',
+        data: { animation: 'MainPage' }
+    },
     {
         path: '**',
-        //component: MainComponent,
         redirectTo: 'main',
-    },
-
+        data: { animation: 'MainPage' }
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

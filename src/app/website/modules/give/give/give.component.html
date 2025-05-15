@@ -2,9 +2,10 @@
     <div class="mmm">
         <div class="module">
             <p class="module-name">Город</p>
-            <div class="module-block">
-                <input type="text" [(ngModel)]="city" class="city-input" placeholder="Введите название города">
-                <img *ngIf="city" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearCity()" class="clear-icon">
+            <div class="dropdown">
+                <button class="dropdown-toggle" disabled>
+                    {{ selectedCity }}
+                </button>
             </div>
         </div>
         <div class="module">
@@ -28,17 +29,9 @@
         </div>
         <div class="module">
             <p class="module-name">Этаж</p>
-            <div class="module-block-two">
-                <div class="input-group">
-                    <label>от</label>
-                    <input type="number" [(ngModel)]="floorFrom" class="city-input">
-                    <img *ngIf="floorFrom" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('floorFrom')" class="clear-icon">
-                </div>
-                <div class="input-group">
-                    <label>до</label>
-                    <input type="number" [(ngModel)]="floorTo" class="city-input">
-                    <img *ngIf="floorTo" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('floorTo')" class="clear-icon">
-                </div>
+            <div class="module-block">
+                <input type="number" [(ngModel)]="floor" class="city-input" placeholder="Введите этаж">
+                <img *ngIf="floor" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('floor')" class="clear-icon">
             </div>
         </div>
         <div class="module">
@@ -49,10 +42,36 @@
             </div>
         </div>
         <div class="module">
-            <p class="module-name">Стоимость сдачи руб</p>
+            <p class="module-name">Количество комнат</p>
+            <div class="dropdown">
+                <button class="dropdown-toggle" (click)="toggleRoomsDropdown()">
+                    {{ selectedRooms || 'Выберите количество комнат' }}
+                    <img [ngClass]="{'arrow-up': isRoomsOpen}" src="assets/data/icons/Forward.svg" alt="Arrow" class="dropdown-arrow">
+                </button>
+                <ul class="dropdown-menu" *ngIf="isRoomsOpen">
+                    <li *ngFor="let room of roomsList" (click)="selectRoom(room)">{{ room }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Стоимость сдачи, руб</p>
             <div class="module-block">
                 <input type="number" [(ngModel)]="rentalCost" class="city-input" placeholder="Введите стоимость сдачи">
                 <img *ngIf="rentalCost" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearRentalCost()" class="clear-icon">
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Депозит, руб</p>
+            <div class="module-block">
+                <input type="number" [(ngModel)]="deposit" class="city-input" placeholder="Введите депозит">
+                <img *ngIf="deposit" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearDeposit()" class="clear-icon">
+            </div>
+        </div>
+        <div class="module">
+            <p class="module-name">Контактный номер</p>
+            <div class="module-block">
+                <input type="text" [(ngModel)]="contact" class="city-input" placeholder="+7(912)456-78-90" (input)="formatPhoneNumber()">
+                <img *ngIf="contact !== '+7'" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearContact()" class="clear-icon">
             </div>
         </div>
         <div class="module">
@@ -65,39 +84,41 @@
         <div class="module">
             <p class="module-name">Фотографии квартиры</p>
             <div class="main-image">
-              <div class="image-container">
-                <img *ngIf="imageUrls.length > 0" [src]="imageUrls[0]" alt="Main Image" (click)="onImageClick(imageUrls[0])">
-                <div class="delete-icon" (click)="deleteImage(imageUrls[0])">
-                  <img src="../../../../../assets/data/icons/Waste.svg" alt="Delete Icon">
+                <div class="image-container">
+                    <img *ngIf="imageUrls.length > 0" [src]="imageUrls[0]" alt="Main Image" (click)="onImageClick(imageUrls[0])">
+                    <div class="delete-icon" *ngIf="imageUrls.length > 0" (click)="deleteImage(imageUrls[0])">
+                        <img src="assets/data/icons/Waste.svg" alt="Delete Icon">
+                    </div>
                 </div>
-              </div>
             </div>
             <div class="images-pack">
-              <div class="image-container" *ngFor="let url of imageUrls | slice:1:4">
-                <img [src]="url" alt="Pack Image" (click)="onImageClick(url)">
-                <div class="delete-icon" (click)="deleteImage(url)">
-                  <img src="../../../../../assets/data/icons/Waste.svg" alt="Delete Icon">
+                <div class="image-container" *ngFor="let url of imageUrls | slice:1:4">
+                    <img [src]="url" alt="Pack Image" (click)="onImageClick(url)">
+                    <div class="delete-icon" (click)="deleteImage(url)">
+                        <img src="assets/data/icons/Waste.svg" alt="Delete Icon">
+                    </div>
                 </div>
-              </div>
             </div>
             <div class="bottom-add">
-              <input type="file" #fileInput (change)="onFileSelected($event)" multiple accept=".jpg, .png" style="display: none;">
-              <p class="upload-button" (click)="triggerFileInput(fileInput)">Загрузить фотографию</p>
-              <p class="budget">Не больше 5 Мб</p>
-              <p class="format">Допустимые форматы файлов - .jpg, .png</p>
+                <input type="file" #fileInput (change)="onFileSelected($event)" multiple accept=".jpg,.png" style="display: none;">
+                <p class="upload-button" (click)="triggerFileInput(fileInput)">Загрузить фотографию</p>
+                <p class="budget">Не больше 5 Мб</p>
+                <p class="format">Допустимые форматы файлов - .jpg, .png</p>
             </div>
             <div class="bottom-add-bottom">
-                <input type="file" #singleFileInput (change)="onSingleFileSelected($event)" accept=".jpg, .png" style="display: none;">
+                <input type="file" #singleFileInput (change)="onSingleFileSelected($event)" accept=".jpg,.png" style="display: none;">
                 <p class="upload-button" (click)="triggerFileInput(singleFileInput)">2-й способ загрузки</p>
             </div>
         </div>
         <div class="module">
-            <p class="podt">Подтвердить</p>
+            <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+            <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+            <button class="podt" (click)="onSubmit()">Подтвердить</button>
         </div>
     </div>
 </div>
 <div *ngIf="isOverlayVisible" class="overlay" (click)="onBackgroundClick()">
     <div class="slider">
-      <img *ngFor="let url of imageUrls" [src]="url" alt="Slider Image" (click)="$event.stopPropagation()">
+        <img *ngFor="let url of imageUrls" [src]="url" alt="Slider Image" (click)="$event.stopPropagation()">
     </div>
-  </div>
+</div>

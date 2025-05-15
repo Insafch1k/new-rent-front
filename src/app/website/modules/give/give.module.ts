@@ -7,6 +7,7 @@ import { VerificationComponent } from './verification/verification/verification.
 import { ConsiderationComponent } from './verification/consideration/consideration.component';
 import { AcceptedComponent } from './verification/accepted/accepted.component';
 import { RejectedComponent } from './verification/rejected/rejected.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -22,7 +23,7 @@ import { RejectedComponent } from './verification/rejected/rejected.component';
     RejectedComponent,
   ],
   imports: [
-    CommonModule, GiveRoutingModule, FormsModule, ReactiveFormsModule
+    CommonModule, GiveRoutingModule, FormsModule, ReactiveFormsModule,HttpClientModule
   ]
 })
 export class GiveModule{ }

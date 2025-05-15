@@ -1,0 +1,87 @@
+<div class="main-module">
+  <div class="mmm">
+    <div class="module">
+      <p class="module-name">Город</p>
+      <div class="module-block">
+        <input type="text" [(ngModel)]="city" class="city-input" placeholder="Введите название города">
+        <img *ngIf="city" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearCity()" class="clear-icon">
+      </div>
+    </div>
+    <div class="module">
+      <p class="module-name">Район</p>
+      <div class="dropdown">
+        <button class="dropdown-toggle" (click)="toggleDistrictDropdown()">
+          {{ selectedDistricts.length > 0 ? selectedDistricts.join(', ') : 'Выберите район' }}
+          <img [ngClass]="{'arrow-up': isDistrictOpen}" src="assets/data/icons/Forward.svg" alt="Arrow" class="dropdown-arrow">
+        </button>
+        <ul class="dropdown-menu" *ngIf="isDistrictOpen">
+          <li *ngFor="let district of districts" (click)="toggleDistrictSelection(district)" class="dropdown-item">
+            {{ district }}
+            <img *ngIf="isDistrictSelected(district)" src="assets/data/icons/select.svg" alt="Checkmark" class="dropdown-checkmark">
+          </li>
+        </ul>
+      </div>      
+    </div>
+    <div class="module">
+      <p class="module-name">Количество комнат</p>
+      <div class="dropdown">
+        <button class="dropdown-toggle" (click)="toggleRoomCountDropdown()">
+          {{ selectedRoomCounts.length > 0 ? selectedRoomCounts.join(', ') : 'Выберите количество' }}
+          <img [ngClass]="{'arrow-up': isRoomCountOpen}" src="assets/data/icons/Forward.svg" alt="Arrow" class="dropdown-arrow">
+        </button>
+        <ul class="dropdown-menu" *ngIf="isRoomCountOpen">
+          <li *ngFor="let count of roomCounts" (click)="toggleRoomCountSelection(count)" class="dropdown-item">
+            {{ count }}
+            <img *ngIf="isRoomCountSelected(count)" src="assets/data/icons/select.svg" alt="Checkmark" class="dropdown-checkmark">
+          </li>
+        </ul>
+      </div>      
+    </div>
+    <div class="module">
+      <p class="module-name">Этаж</p>
+      <div class="module-block-two">
+        <div class="input-group">
+          <label>от</label>
+          <input type="number" [(ngModel)]="floorFrom">
+          <img *ngIf="floorFrom" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('floorFrom')" class="clear-icon">
+        </div>
+        <div class="input-group">
+          <label>до</label>
+          <input type="number" [(ngModel)]="floorTo">
+          <img *ngIf="floorTo" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('floorTo')" class="clear-icon">
+        </div>
+      </div>
+    </div>
+    <div class="module">
+      <p class="module-name">Площадь квартиры в кв.м.</p>
+      <div class="module-block-two">
+        <div class="input-group">
+          <label>от</label>
+          <input type="number" [(ngModel)]="areaFrom">
+          <img *ngIf="areaFrom" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('areaFrom')" class="clear-icon">
+        </div>
+        <div class="input-group">
+          <label>до</label>
+          <input type="number" [(ngModel)]="areaTo">
+          <img *ngIf="areaTo" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('areaTo')" class="clear-icon">
+        </div>
+      </div>
+    </div>
+    <div class="module">
+      <p class="module-name">Стоимость съема руб. </p>
+      <div class="module-block-two">
+        <div class="input-group">
+          <label>от</label>
+          <input type="number" [(ngModel)]="rentFrom">
+          <img *ngIf="rentFrom" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('rentFrom')" class="clear-icon">
+        </div>
+        <div class="input-group">
+          <label>до</label>
+          <input type="number" [(ngModel)]="rentTo">
+          <img *ngIf="rentTo" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('rentTo')" class="clear-icon">
+        </div>
+      </div>
+    </div>
+    <button routerLink="../ad" class="podt">Подтвердить</button>
+  </div>
+</div>

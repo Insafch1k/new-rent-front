@@ -1,4 +1,5 @@
-<div class="main-module">
+<!-- Статус не подано -->
+<div class="main-module" *ngIf="verificationStatus === 'not_submitted'">
     <p class="title">Верификация</p>
     <p class="one">Для продолжения необходимо прикрепить документы :</p>
     <div class="two">
@@ -61,7 +62,7 @@
             </svg>
             <p *ngIf="!passportImage">Паспорт РФ</p>
         </div>
-        <div class="b-one"(click)="triggerFileInput('egrn', $event)">
+        <div class="b-one" (click)="triggerFileInput('egrn', $event)">
             <img *ngIf="egrnImage" [src]="egrnImage" alt="ЕГРН" class="uploaded-image">
             <div *ngIf="egrnImage" class="delete-icon" (click)="deleteImage('egrn')">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -98,5 +99,16 @@
     </div>
     <input #passportInput type="file" accept="image/*" (change)="onFileSelected($event, 'passport')" hidden>
     <input #egrnInput type="file" accept="image/*" (change)="onFileSelected($event, 'egrn')" hidden>
-    <button>Подтвердить</button>
+    <button (click)="onSubmit()">Подтвердить</button>
 </div>
+
+
+
+<!-- Статус на рассмотрении -->
+<app-consideration *ngIf="verificationStatus === 'consideration'"></app-consideration>
+
+<!-- Статус отклонено -->
+<app-rejected *ngIf="verificationStatus === 'rejected'"></app-rejected>
+
+<!-- Статус принято -->
+<app-accepted *ngIf="verificationStatus === 'approved'"></app-accepted>
