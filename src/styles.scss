@@ -175,6 +175,16 @@ textarea{
       height: 100%;
       overflow: auto;
       overflow-x: hidden;
+      .error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.success {
+  color: green;
+  font-size: 14px;
+  margin-top: 10px;
+}
     }
   }
   

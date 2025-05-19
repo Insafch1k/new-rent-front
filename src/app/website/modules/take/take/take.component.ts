@@ -1,32 +1,60 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, HostListener, OnInit, NgZone } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PreferenceService } from '../services/preference.service';
 
 @Component({
   selector: 'app-take',
   templateUrl: './take.component.html',
   styleUrls: ['./take.component.scss']
 })
-export class TakeComponent implements AfterViewInit {
-  districts = ['Район 1', 'Район 2', 'Район 3'];
-  roomCounts = [1, 2, 3, 4, 5];
-  city: string = '';
-  floorFrom: string = '';
-  floorTo: string = '';
-  areaFrom: string = '';
-  areaTo: string = '';
-  rentFrom: string = '';
-  rentTo: string = '';
-  items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
-  selectedItem: string = '';
-  isOpen = false;
-  selectedDistricts: string[] = [];
-  isDistrictOpen = false;
-  selectedRoomCounts: number[] = [];
-  isRoomCountOpen = false;
+export class TakeComponent implements AfterViewInit, OnInit {
+  category: 'monthly' | 'daily' = 'monthly';
+  districts: string[] = [
+    'Авиастроительный',
+    'Советский',
+    'Приволжский',
+    'Ново-Савиновский',
+    'Московский',
+    'Кировский',
+    'Вахитовский'
+  ];
+  roomCounts: number[] = [1, 2, 3, 4, 5];
+  selectedDistrict: string | null = null;
+  isDistrictOpen: boolean = false;
+  selectedRoomCount: number | null = null;
+  isRoomCountOpen: boolean = false;
+  minFloor: number | null = null;
+  maxFloor: number | null = null;
+  minSquare: number | null = null;
+  maxSquare: number | null = null;
+  minPrice: number | null = null;
+  maxPrice: number | null = null;
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
 
   @ViewChild('districtSelect') districtSelect!: ElementRef;
   @ViewChild('roomCountSelect') roomCountSelect!: ElementRef;
 
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private preferenceService: PreferenceService,
+    private ngZone: NgZone
+  ) {
+    console.log('TakeComponent constructor called');
+    this.route.queryParams.subscribe(params => {
+      const paramCategory = params['category'];
+      this.category = paramCategory === 'daily' ? 'daily' : 'monthly';
+      console.log('TakeComponent category set to:', this.category);
+    });
+  }
+
+  ngOnInit() {
+    console.log('TakeComponent ngOnInit called');
+  }
+
   ngAfterViewInit() {
+    console.log('TakeComponent ngAfterViewInit called');
     if (this.districtSelect) {
       this.districtSelect.nativeElement.addEventListener('click', (event: MouseEvent) => {
         event.stopPropagation();
@@ -49,15 +77,6 @@ export class TakeComponent implements AfterViewInit {
     }
   }
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
-  selectItem(item: string) {
-    this.selectedItem = item;
-    this.isOpen = false;
-  }
-
   toggleDistrictDropdown() {
     this.isDistrictOpen = !this.isDistrictOpen;
     if (this.isDistrictOpen) {
@@ -65,16 +84,9 @@ export class TakeComponent implements AfterViewInit {
     }
   }
 
-  toggleDistrictSelection(district: string) {
-    if (this.selectedDistricts.includes(district)) {
-      this.selectedDistricts = this.selectedDistricts.filter(d => d !== district);
-    } else {
-      this.selectedDistricts.push(district);
-    }
-  }
-
-  isDistrictSelected(district: string): boolean {
-    return this.selectedDistricts.includes(district);
+  selectDistrict(district: string) {
+    this.selectedDistrict = district;
+    this.isDistrictOpen = false;
   }
 
   toggleRoomCountDropdown() {
@@ -84,37 +96,60 @@ export class TakeComponent implements AfterViewInit {
     }
   }
 
-  toggleRoomCountSelection(count: number) {
-    if (this.selectedRoomCounts.includes(count)) {
-      this.selectedRoomCounts = this.selectedRoomCounts.filter(c => c !== count);
-    } else {
-      this.selectedRoomCounts.push(count);
-    }
-  }
-
-  isRoomCountSelected(count: number): boolean {
-    return this.selectedRoomCounts.includes(count);
-  }
-
-  clearCity() {
-    this.city = '';
+  selectRoomCount(count: number) {
+    this.selectedRoomCount = count;
+    this.isRoomCountOpen = false;
   }
 
   clearField(field: keyof TakeComponent) {
-    (this as any)[field] = '';
+    (this as any)[field] = null;
   }
 
-  openDistrictSelect() {
-    if (this.districtSelect) {
-      this.districtSelect.nativeElement.focus();
-      this.districtSelect.nativeElement.click();
-    }
-  }
+  submitPreference() {
+    this.errorMessage = null;
+    this.successMessage = null;
 
-  openRoomCountSelect() {
-    if (this.roomCountSelect) {
-      this.roomCountSelect.nativeElement.focus();
-      this.roomCountSelect.nativeElement.click();
+    if (!this.selectedDistrict) {
+      this.errorMessage = 'Выберите район';
+      return;
     }
+    if (!this.selectedRoomCount) {
+      this.errorMessage = 'Выберите количество комнат';
+      return;
+    }
+
+    const preference = {
+      category: this.category,
+      user_city: 'Казань',
+      user_district: this.selectedDistrict,
+      user_min_floor: this.minFloor || 2,
+      user_max_floor: this.maxFloor || 10,
+      user_min_square: this.minSquare || 30.0,
+      user_max_square: this.maxSquare || 65.0,
+      user_min_price: this.minPrice || 15000,
+      user_price: this.maxPrice || 60000,
+      user_room_count: this.selectedRoomCount
+    };
+
+    const tgId = 6049846765;
+
+    this.preferenceService.createPreference(tgId, preference).subscribe({
+      next: (response) => {
+        console.log('Preference created successfully:', response);
+        this.successMessage = response.message;
+        setTimeout(() => {
+          this.ngZone.run(() => {
+            console.log('Navigating to /take/ad');
+            this.router.navigate(['/take/ad'])
+              .then(() => console.log('Navigation to /take/ad successful'))
+              .catch(err => console.error('Navigation error:', err));
+          });
+        }, 1000);
+      },
+      error: (error) => {
+        console.error('Error creating preference:', error);
+        this.errorMessage = 'Ошибка при сохранении предпочтений';
+      }
+    });
   }
 }

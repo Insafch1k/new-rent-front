@@ -1,8 +1,8 @@
 <div class="main-module">
-    <div class="mmm">
-        <p class="title">Выберите вариант съема</p>
-        <div class="for-vibor">
-            <div routerLink="./take" class="one-for-vibor">
+  <div class="mmm">
+    <p class="title">Выберите вариант съема</p>
+    <div class="for-vibor">
+      <div (click)="navigateToTake('monthly'); $event.stopPropagation()" class="one-for-vibor">
                 <p>Продолжительное <br> проживание</p>
                 <svg width="162.000000" height="146.000000" viewBox="0 0 162 146" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <desc>
@@ -18,7 +18,7 @@
                 </svg>
                 
             </div>
-            <div routerLink="./take" class="one-for-vibor">
+            <div (click)="navigateToTake('daily'); $event.stopPropagation()" class="one-for-vibor">
                 <p>Посуточное <br> проживание</p>
                 <svg width="162.000000" height="146.000000" viewBox="0 0 162 146" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <desc>
