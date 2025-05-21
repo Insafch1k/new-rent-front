@@ -1,93 +1,108 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FavoritesService } from '../services/favorites.service';
+import { FavoritesResponse, Listing } from '../models/favorites.model';
+
+interface Plashka {
+  listing: Listing;
+  imgSrc: string;
+  imgPackSrc1: string;
+  imgPackSrc2: string;
+  address: string;
+  price: string;
+  metroName: string;
+  metroInfo: string;
+  description: string;
+  date: string;
+}
 
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.component.html',
   styleUrls: ['./favourites.component.scss']
 })
-export class FavouritesComponent {
-  plashkaData = [
-    {
-      imgSrc: 'https://avatars.mds.yandex.net/i?id=2ce8cba2753b620e95ac1835f5d5775b_l-4375862-images-thumbs&n=13',
-      imgPackSrc1: 'https://avatars.mds.yandex.net/i?id=2ce8cba2753b620e95ac1835f5d5775b_l-4375862-images-thumbs&n=13',
-      imgPackSrc2: 'https://avatars.mds.yandex.net/i?id=2ce8cba2753b620e95ac1835f5d5775b_l-4375862-images-thumbs&n=13',
-      address: '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31',
-      price: '50.000 р. в месяц'
-    },
-    {
-      imgSrc: 'https://avatars.mds.yandex.net/i?id=2229f633dee641abeac1f2b86bbf6c4575542169-9229722-images-thumbs&n=13',
-      imgPackSrc1: 'https://avatars.mds.yandex.net/i?id=2229f633dee641abeac1f2b86bbf6c4575542169-9229722-images-thumbs&n=13',
-      imgPackSrc2: 'https://avatars.mds.yandex.net/i?id=2229f633dee641abeac1f2b86bbf6c4575542169-9229722-images-thumbs&n=13',
-      address: '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31',
-      price: '70.000 р. в месяц'
-    },
-    {
-      imgSrc: 'https://i.pinimg.com/736x/03/e3/5e/03e35e30ceec030a30a71fc5b63cdfb5.jpg',
-      imgPackSrc1: 'https://i.pinimg.com/736x/03/e3/5e/03e35e30ceec030a30a71fc5b63cdfb5.jpg',
-      imgPackSrc2: 'https://i.pinimg.com/736x/03/e3/5e/03e35e30ceec030a30a71fc5b63cdfb5.jpg',
-      address: '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31',
-      price: '70.000 р. в месяц'
-    },
-    {
-      imgSrc: 'https://cdn1.ozone.ru/s3/multimedia-w/6447922220.jpg',
-      imgPackSrc1: 'https://cdn1.ozone.ru/s3/multimedia-w/6447922220.jpg',
-      imgPackSrc2: 'https://cdn1.ozone.ru/s3/multimedia-w/6447922220.jpg',
-      address: '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31',
-      price: '70.000 р. в месяц'
-    },
-    {
-      imgSrc: 'https://i.pinimg.com/originals/d1/19/96/d1199670bb52fca2be5752703496f03a.jpg',
-      imgPackSrc1: 'https://i.pinimg.com/originals/d1/19/96/d1199670bb52fca2be5752703496f03a.jpg',
-      imgPackSrc2: 'https://i.pinimg.com/originals/d1/19/96/d1199670bb52fca2be5752703496f03a.jpg',
-      address: '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31',
-      price: '70.000 р. в месяц'
-    },
-    {
-      imgSrc: 'https://i.pinimg.com/originals/45/5b/8d/455b8d4d28582b3d58f10e97cce27953.jpg',
-      imgPackSrc1: 'https://i.pinimg.com/originals/45/5b/8d/455b8d4d28582b3d58f10e97cce27953.jpg',
-      imgPackSrc2: 'https://i.pinimg.com/originals/45/5b/8d/455b8d4d28582b3d58f10e97cce27953.jpg',
-      address: '2-к квартира, г.Казань, р-н Северный, ул.Маршала Чуйкова 67, кв.31',
-      price: '70.000 р. в месяц'
-    },
-  ];
+export class FavouritesComponent implements OnInit {
+  plashkaData: Plashka[] = [];
+  private telegramId = 6049846765;
 
-  removePlashka(index: number) {
-    this.plashkaData.splice(index, 1);
+  constructor(
+    private favoritesService: FavoritesService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadFavorites();
   }
 
+  loadFavorites(): void {
+    this.favoritesService.getFavorites(this.telegramId).subscribe({
+      next: (response: FavoritesResponse) => {
+        console.log('Избранное загружено:', response);
+        this.plashkaData = response.listings.map(listing => ({
+          listing,
+          imgSrc: listing.photos[0] || 'assets/placeholder.jpg',
+          imgPackSrc1: listing.photos[1] || 'assets/placeholder.jpg',
+          imgPackSrc2: listing.photos[2] || 'assets/placeholder.jpg',
+          address: listing.address || 'Не указано',
+          price: `${listing.price} р. в месяц`,
+          metroName: this.getMetroName(listing.recommendations) || 'Не указано',
+          metroInfo: this.getMetroInfo(listing.recommendations) || 'Не указано',
+          description: this.truncateText(listing.description || 'Описание отсутствует', 100),
+          date: this.calculateDate(listing.created_at)
+        }));
+      },
+      error: (error) => {
+        console.error('Ошибка загрузки избранного:', error);
+        this.plashkaData = [];
+      }
+    });
+  }
+
+  navigateToAdMore(plashka: Plashka): void {
+    this.router.navigate(['/take/ad-more'], { state: { listing: plashka.listing } })
+      .then(() => console.log('Навигация в /take/ad-more успешна'))
+      .catch(err => console.error('Ошибка навигации:', err));
+  }
+
+  removePlashka(index: number): void {
+    const listingId = this.plashkaData[index].listing.id;
+    this.favoritesService.removeFavorite(this.telegramId, listingId).subscribe({
+      next: (response) => {
+        console.log('Удаление из избранного:', response);
+        this.plashkaData.splice(index, 1);
+      },
+      error: (error) => {
+        console.error('Ошибка удаления из избранного:', error);
+      }
+    });
+  }
 
   truncateText(text: string, maxLength: number): string {
     if (!text) return '';
-    const words = text.split(' ');
-    let truncated = '';
-    let lineCount = 0;
-
-    for (const word of words) {
-      if (lineCount >= 2) break; // Ограничение до двух строк
-      const temp = truncated + word + ' ';
-      if (this.calculateLineCount(temp) > lineCount) {
-        lineCount++;
-      }
-      if (lineCount <= 2) {
-        truncated = temp;
-      }
-    }
-
-    return truncated.trim() + (lineCount === 2 ? '...' : '');
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
   }
 
-  // Вспомогательный метод для подсчёта количества строк
-  calculateLineCount(text: string): number {
-    const container = document.createElement('div');
-    container.style.visibility = 'hidden';
-    container.style.position = 'absolute';
-    container.style.width = '90%'; // Ширина контейнера (соответствует вашему CSS)
-    container.style.font = 'inherit'; // Наследуем шрифт
-    container.textContent = text;
-    document.body.appendChild(container);
-    const lineHeight = parseFloat(getComputedStyle(container).lineHeight);
-    const lines = Math.ceil(container.scrollHeight / lineHeight);
-    container.remove();
-    return lines;
+  getMetroName(recommendations: any[]): string {
+    return recommendations?.[0]?.['метро']?.['Положительные']?.[0] ||
+           recommendations?.[0]?.['метро']?.['Отрицательные']?.[0] ||
+           '';
+  }
+
+  getMetroInfo(recommendations: any[]): string {
+    const metroRec = recommendations?.[0]?.['метро']?.['Отрицательные']?.[0] ||
+                    recommendations?.[0]?.['метро']?.['Положительные']?.[0];
+    return metroRec?.match(/~(\d+ мин\. пешком)/)?.[0] || '';
+  }
+
+  calculateDate(createdAt: string | null): string {
+    if (!createdAt) return 'Не указано';
+    const created = new Date(createdAt);
+    const now = new Date();
+    const diffMs = now.getTime() - created.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    if (diffDays === 0) return 'сегодня';
+    if (diffDays === 1) return '1 д. назад';
+    return `${diffDays} д. назад`;
   }
 }

@@ -8,29 +8,29 @@ import { TakeMoreComponent } from './take-more/take-more.component';
 
 const routes: Routes = [
   {
-    data: { title: 'Вариант съема' },
     path: '',
     component: ViborComponent,
+    data: { title: 'Вариант съема', animation: 'ViborPage' }
   },
   {
-    data: { title: 'Снять квартиру' },
     path: 'take',
     component: TakeComponent,
+    data: { title: 'Снять квартиру', animation: 'TakePage' }
   },
   {
-    data: { title: 'Снять квартиру' },
     path: 'ad',
     component: AdComponent,
+    data: { title: 'Снять квартиру', animation: 'AdPage' }
   },
   {
-    data: { title: 'Подробнее' },
     path: 'ad-more',
     component: AdMoreComponent,
+    data: { title: 'Подробнее', animation: 'AdMorePage' }
   },
   {
-    data: { title: 'Редактирование' },
     path: 'redactor',
     component: TakeMoreComponent,
+    data: { title: 'Редактирование', animation: 'TakeMorePage' }
   },
 ];
 

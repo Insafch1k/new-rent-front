@@ -22,3 +22,29 @@ export interface Listing {
 export interface ListingsResponse {
   listings: Listing[];
 }
+
+
+export interface Preference {
+  category: 'monthly' | 'daily';
+  id?: number;
+  mailing?: boolean;
+  user_city: string;
+  user_district: string;
+  user_id?: number;
+  user_max_floor: number;
+  user_max_square: number;
+  user_min_floor: number;
+  user_min_price: number;
+  user_min_square: number;
+  user_price: number;
+  user_room_count: number | null;
+}
+
+export interface GetPreferenceResponse {
+  preference: Preference;
+}
+
+export interface UpdatePreferenceResponse {
+  message: string;
+  preference: Preference;
+}

@@ -1,12 +1,9 @@
-
-
-
 <div class="bottom-module">
-  <div class="for-more" routerLink="../ad-more">
-      <p>Подробнее</p>
+  <div class="for-more" (click)="navigateToAdMore.emit(ad)">
+    <p>Подробнее</p>
   </div>
   <div class="actions">
-      <div class="arrow-icon" (click)="prev.emit()">
+    <div class="arrow-icon" (click)="prev.emit()">
         <svg width="20.000000" height="20.000000" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <desc>
               Created with Pixso.
@@ -26,7 +23,7 @@
         </svg>
       </div>
       <button>Откликнуться</button>
-      <div class="circle-icon">
+      <div class="circle-icon" (click)="toggleFavorite()">
         <svg width="20.000000" height="20.000000" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <desc>
               Created with Pixso.

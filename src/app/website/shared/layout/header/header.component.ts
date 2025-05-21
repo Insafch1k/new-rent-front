@@ -40,8 +40,9 @@ export class HeaderComponent implements OnInit {
       filter((route: ActivatedRoute) => route.outlet === 'primary')
     ).subscribe((route: ActivatedRoute) => {
       this.currentUrl = this.router.url;
-      this.showSlider = this.currentUrl === '/take/ad';
-      this.showHeader = this.currentUrl !== '/welcome'; // Скрываем хедер на странице /welcome
+      // Показывать кнопку фильтров на страницах /take/ad и /take/favourites
+      this.showSlider = ['/take/ad', '/take/favourites'].includes(this.currentUrl);
+      this.showHeader = this.currentUrl !== '/welcome';
       this.updatePageTitle(route);
     });
   }

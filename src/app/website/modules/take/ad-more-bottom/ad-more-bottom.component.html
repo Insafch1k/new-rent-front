@@ -1,8 +1,8 @@
 <div class="bottom-module">
-    <div class="actions">
-        <button>Откликнуться</button>
-        <div class="circle-icon">
-          <img src="assets/data/icons/like-icon.svg" alt="">
-        </div>
+  <div class="actions">
+    <button>Откликнуться</button>
+    <div class="circle-icon" (click)="toggleFavorite()">
+      <img [src]="isFavorite ? 'assets/data/icons/Heart_icon_filled.svg' : 'assets/data/icons/Heart_icon.svg'" alt="Избранное">
     </div>
+  </div>
 </div>

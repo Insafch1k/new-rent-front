@@ -1,54 +1,68 @@
 <div class="main-module">
   <div class="mmm">
     <div class="module">
+      <p class="module-name">Длительность проживания</p>
+      <div class="dropdown">
+        <button class="dropdown-toggle" (click)="toggleDurationDropdown()">
+          {{ selectedDurations.length > 0 ? selectedDurations[0] : 'Выберите длительность' }}
+          <img [ngClass]="{'arrow-up': isDurationOpen}" src="assets/data/icons/Forward.svg" alt="Стрелка" class="dropdown-arrow">
+        </button>
+        <ul class="dropdown-menu" *ngIf="isDurationOpen">
+          <li *ngFor="let duration of durations" (click)="toggleDurationSelection(duration)" class="dropdown-item">
+            {{ duration }}
+            <img *ngIf="isDurationSelected(duration)" src="assets/data/icons/select.svg" alt="Галочка" class="dropdown-checkmark">
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="module">
       <p class="module-name">Город</p>
       <div class="module-block">
-        <input type="text" [(ngModel)]="city" class="city-input" placeholder="Введите название города">
-        <img *ngIf="city" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearCity()" class="clear-icon">
+        <input type="text" [(ngModel)]="city" class="city-input" placeholder="Введите название города" readonly>
       </div>
     </div>
     <div class="module">
       <p class="module-name">Район</p>
-      <div class="dropdown">
+      <div class="dropdown" #districtSelect>
         <button class="dropdown-toggle" (click)="toggleDistrictDropdown()">
-          {{ selectedDistricts.length > 0 ? selectedDistricts.join(', ') : 'Выберите район' }}
-          <img [ngClass]="{'arrow-up': isDistrictOpen}" src="assets/data/icons/Forward.svg" alt="Arrow" class="dropdown-arrow">
+          {{ selectedDistricts.length > 0 ? selectedDistricts[0] : 'Выберите район' }}
+          <img [ngClass]="{'arrow-up': isDistrictOpen}" src="assets/data/icons/Forward.svg" alt="Стрелка" class="dropdown-arrow">
         </button>
         <ul class="dropdown-menu" *ngIf="isDistrictOpen">
           <li *ngFor="let district of districts" (click)="toggleDistrictSelection(district)" class="dropdown-item">
             {{ district }}
-            <img *ngIf="isDistrictSelected(district)" src="assets/data/icons/select.svg" alt="Checkmark" class="dropdown-checkmark">
+            <img *ngIf="isDistrictSelected(district)" src="assets/data/icons/select.svg" alt="Галочка" class="dropdown-checkmark">
           </li>
         </ul>
-      </div>      
+      </div>
     </div>
     <div class="module">
       <p class="module-name">Количество комнат</p>
-      <div class="dropdown">
+      <div class="dropdown" #roomCountSelect>
         <button class="dropdown-toggle" (click)="toggleRoomCountDropdown()">
-          {{ selectedRoomCounts.length > 0 ? selectedRoomCounts.join(', ') : 'Выберите количество' }}
-          <img [ngClass]="{'arrow-up': isRoomCountOpen}" src="assets/data/icons/Forward.svg" alt="Arrow" class="dropdown-arrow">
+          {{ selectedRoomCounts.length > 0 ? selectedRoomCounts[0] : 'Выберите количество' }}
+          <img [ngClass]="{'arrow-up': isRoomCountOpen}" src="assets/data/icons/Forward.svg" alt="Стрелка" class="dropdown-arrow">
         </button>
         <ul class="dropdown-menu" *ngIf="isRoomCountOpen">
           <li *ngFor="let count of roomCounts" (click)="toggleRoomCountSelection(count)" class="dropdown-item">
             {{ count }}
-            <img *ngIf="isRoomCountSelected(count)" src="assets/data/icons/select.svg" alt="Checkmark" class="dropdown-checkmark">
+            <img *ngIf="isRoomCountSelected(count)" src="assets/data/icons/select.svg" alt="Галочка" class="dropdown-checkmark">
           </li>
         </ul>
-      </div>      
+      </div>
     </div>
     <div class="module">
       <p class="module-name">Этаж</p>
       <div class="module-block-two">
         <div class="input-group">
           <label>от</label>
-          <input type="number" [(ngModel)]="floorFrom">
-          <img *ngIf="floorFrom" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('floorFrom')" class="clear-icon">
+          <input type="number" [(ngModel)]="floorFrom" placeholder="0">
+          <img *ngIf="floorFrom != null" src="assets/data/icons/krestik.svg" alt="Очистить" (click)="clearField('floorFrom')" class="clear-icon">
         </div>
         <div class="input-group">
           <label>до</label>
-          <input type="number" [(ngModel)]="floorTo">
-          <img *ngIf="floorTo" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('floorTo')" class="clear-icon">
+          <input type="number" [(ngModel)]="floorTo" placeholder="1000">
+          <img *ngIf="floorTo != null" src="assets/data/icons/krestik.svg" alt="Очистить" (click)="clearField('floorTo')" class="clear-icon">
         </div>
       </div>
     </div>
@@ -57,31 +71,31 @@
       <div class="module-block-two">
         <div class="input-group">
           <label>от</label>
-          <input type="number" [(ngModel)]="areaFrom">
-          <img *ngIf="areaFrom" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('areaFrom')" class="clear-icon">
+          <input type="number" [(ngModel)]="areaFrom" placeholder="0">
+          <img *ngIf="areaFrom != null" src="assets/data/icons/krestik.svg" alt="Очистить" (click)="clearField('areaFrom')" class="clear-icon">
         </div>
         <div class="input-group">
           <label>до</label>
-          <input type="number" [(ngModel)]="areaTo">
-          <img *ngIf="areaTo" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('areaTo')" class="clear-icon">
+          <input type="number" [(ngModel)]="areaTo" placeholder="10000">
+          <img *ngIf="areaTo != null" src="assets/data/icons/krestik.svg" alt="Очистить" (click)="clearField('areaTo')" class="clear-icon">
         </div>
       </div>
     </div>
     <div class="module">
-      <p class="module-name">Стоимость съема руб. </p>
+      <p class="module-name">Стоимость аренды, руб.</p>
       <div class="module-block-two">
         <div class="input-group">
           <label>от</label>
-          <input type="number" [(ngModel)]="rentFrom">
-          <img *ngIf="rentFrom" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('rentFrom')" class="clear-icon">
+          <input type="number" [(ngModel)]="rentFrom" placeholder="0">
+          <img *ngIf="rentFrom != null" src="assets/data/icons/krestik.svg" alt="Очистить" (click)="clearField('rentFrom')" class="clear-icon">
         </div>
         <div class="input-group">
           <label>до</label>
-          <input type="number" [(ngModel)]="rentTo">
-          <img *ngIf="rentTo" src="assets/data/icons/krestik.svg" alt="Закрыть" (click)="clearField('rentTo')" class="clear-icon">
+          <input type="number" [(ngModel)]="rentTo" placeholder="100000">
+          <img *ngIf="rentTo != null" src="assets/data/icons/krestik.svg" alt="Очистить" (click)="clearField('rentTo')" class="clear-icon">
         </div>
       </div>
     </div>
-    <button routerLink="../ad" class="podt">Подтвердить</button>
+    <button (click)="savePreferences()" class="podt">Подтвердить</button>
   </div>
 </div>
