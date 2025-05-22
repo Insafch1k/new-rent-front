@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FavoritesService } from '../../favourites/services/favorites.service';
 import { FavoriteActionResponse } from '../../favourites/models/favorites.model';
 
@@ -13,26 +13,40 @@ export class AdMoreBottomComponent {
   @Output() favoriteToggled = new EventEmitter<boolean>();
   private tgId = 6049846765;
 
-  constructor(private favoritesService: FavoritesService) {}
+  constructor(
+    private favoritesService: FavoritesService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   toggleFavorite(): void {
+    console.log('Начало toggleFavorite, listingId:', this.listingId, 'isFavorite:', this.isFavorite, 'tgId:', this.tgId);
     if (this.isFavorite) {
       this.favoritesService.removeFavorite(this.tgId, this.listingId).subscribe({
         next: (response: FavoriteActionResponse) => {
+          console.log('Успешно удалено:', response);
           this.isFavorite = false;
           this.favoriteToggled.emit(false);
-          console.log('Удалено из избранного:', response.message);
+          this.cdr.detectChanges();
+          console.log('После удаления isFavorite:', this.isFavorite);
         },
-        error: (error) => console.error('Ошибка удаления из избранного:', error)
+        error: (error) => {
+          console.error('Ошибка удаления:', error);
+        },
+        complete: () => console.log('Запрос удаления завершён')
       });
     } else {
       this.favoritesService.addFavorite(this.tgId, this.listingId).subscribe({
         next: (response: FavoriteActionResponse) => {
+          console.log('Успешно добавлено:', response);
           this.isFavorite = true;
           this.favoriteToggled.emit(true);
-          console.log('Добавлено в избранное:', response.message);
+          this.cdr.detectChanges();
+          console.log('После добавления isFavorite:', this.isFavorite);
         },
-        error: (error) => console.error('Ошибка добавления в избранного:', error)
+        error: (error) => {
+          console.error('Ошибка добавления:', error);
+        },
+        complete: () => console.log('Запрос добавления завершён')
       });
     }
   }

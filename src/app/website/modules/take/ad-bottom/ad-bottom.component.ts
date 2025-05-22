@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { FavoritesService } from '../../favourites/services/favorites.service';
 import { FavoriteActionResponse } from '../../favourites/models/favorites.model';
 
@@ -14,13 +14,19 @@ export class AdBottomComponent {
   @Output() navigateToAdMore = new EventEmitter<any>();
   private tgId = 6049846765;
 
-  constructor(private favoritesService: FavoritesService) {}
+  constructor(
+    private favoritesService: FavoritesService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   toggleFavorite(): void {
+    console.log('Текущее состояние isFavorite:', this.ad.isFavorite);
     if (this.ad.isFavorite) {
       this.favoritesService.removeFavorite(this.tgId, this.ad.id).subscribe({
         next: (response: FavoriteActionResponse) => {
           this.ad.isFavorite = false;
+          this.cdr.detectChanges();
+          console.log('После удаления isFavorite:', this.ad.isFavorite);
           console.log('Удалено из избранного:', response.message);
         },
         error: (error) => console.error('Ошибка удаления из избранного:', error)
@@ -29,6 +35,8 @@ export class AdBottomComponent {
       this.favoritesService.addFavorite(this.tgId, this.ad.id).subscribe({
         next: (response: FavoriteActionResponse) => {
           this.ad.isFavorite = true;
+          this.cdr.detectChanges();
+          console.log('После добавления isFavorite:', this.ad.isFavorite);
           console.log('Добавлено в избранное:', response.message);
         },
         error: (error) => console.error('Ошибка добавления в избранное:', error)
