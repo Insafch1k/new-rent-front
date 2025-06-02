@@ -11,16 +11,130 @@
     z-index: 9999;
 }
 
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #007bff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+.house-loader {
+    width: 60px;
+    height: 90px;
+    position: relative;
+    perspective: 1200px;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 30px solid white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: bottom;
+    animation: fold-roof 4s infinite;
+    animation-timing-function: ease-in-out;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.square {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform-origin: top right;
+    animation: fold-base 4s infinite, shadow-base 4s infinite;
+    animation-timing-function: ease-in-out;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fold-roof {
+    0% {
+        transform: rotateX(0deg);
+        opacity: 1;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+    7.5% {
+        transform: rotateX(-90deg);
+        opacity: 0.5;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    }
+    15%, 67.5% {
+        transform: rotateX(-180deg);
+        opacity: 0;
+        filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+    }
+    71.25% {
+        transform: rotateX(-90deg);
+        opacity: 0.5;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    }
+    75% {
+        transform: rotateX(0deg);
+        opacity: 1;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+    100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+}
+
+@keyframes shadow-base {
+    0%, 15% {
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    30% {
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    }
+    45% {
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    60% {
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    }
+    67.5%, 100% {
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@keyframes fold-base {
+    /* Фаза 1: Начальное состояние */
+    0%, 15% {
+        transform: rotate(0deg);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    /* Фаза 2: Первое складывание - квадрат в прямоугольный треугольник */
+    30% {
+        transform: rotate(0deg);
+        clip-path: polygon(0 0, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    /* Фаза 3: Складывание прямоугольного треугольника - верхний левый угол к середине правой стороны */
+    45% {
+        transform: rotate(0deg);
+        clip-path: polygon(50% 50%, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    /* Фаза 4: Начало обратного процесса */
+    60% {
+        transform: rotate(0deg);
+        clip-path: polygon(0 0, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    /* Возвращаемся к исходному квадрату */
+    67.5% {
+        transform: rotate(0deg);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    75% {
+        transform: rotate(0deg);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    100% {
+        transform: rotate(0deg);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
 }

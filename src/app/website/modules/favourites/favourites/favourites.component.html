@@ -24,7 +24,20 @@
           <p class="data">{{ plashka.date }}</p>
         </div>
       </div>
-      <img class="heart-icon" src="assets/data/icons/Heart_icon_filled.svg" alt="Удалить из избранного" (click)="removePlashka(i); $event.stopPropagation()">
+      <svg class="heart-icon" (click)="removePlashka(i); $event.stopPropagation()" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <mask id="mask0_992_443" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+        <rect width="20" height="20" fill="url(#pattern0_992_443)"/>
+        </mask>
+        <g mask="url(#mask0_992_443)">
+        <rect width="20" height="20" fill="#F04438"/>
+        </g>
+        <defs>
+        <pattern id="pattern0_992_443" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <use xlink:href="#image0_992_443" transform="scale(0.01)"/>
+        </pattern>
+        <image id="image0_992_443" width="100" height="100" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEg0lEQVR4nO2dW6hVRRjHf8fsZld6K5KSIsvo+lIhXrpQQlBWBEUEJXShqESwXnoQwl4rDYMigoiowCB66+JDZVYU2U1LokIqMkvrdMpLHr8Y+YrdweNee+1Za7418/3gD4d9bv+Z/157zZo18y1wHMdxHMdxHMdxHMdxHMdxnH6cDtwJPAG8CXwNbAN2AzuBrfpa+N5K4A7gtBa7dab+z5U9/n4BdqnHbT3+VunPht/pFOcDjwI/AFJT3wArgLMb8HeOBvDtEP6+Bx7RtppkBLgaeH+IRsokehdYGMHftcC6Bvy9B1yl/8MEFwIfNdBQmaDQmXNq+Jurnda0vw+BC0jIND03jLfQWFHt1Y+yaRX9Pa6/05a/cT3XHE7LnAl83mJDZYK+BM44gL9ZwFcJ/X2mHlphPvBbwsaKahRYsB9/lwLbDfj7A7i86TAW6nBVjGiXDib+5RodrooR7ZzgLyqXGAtDekK5ArgY2GHUX/Qj5Sw9BMWoRlViVL/reTcKRwIbDDRKOq4wyDgqRiDPGGiMZKKnhg1jTsvjeMlcoS/n1Q3jIOALA42QzPQJMKVOIDcYMC+Z6rpBwwgTZZ8aMC6Z6uNBA5ltwLRkroEmIp80YFgyV5iErMQUvZOX2rBkri1V76GcZ8CsFKIwA9KXxQaMSiG6t0ogTxswKoUonKv7staAUSlEb1UJZLMBo1KIvqsSiIW7bVKIwrqvvvxtwKgUotDXffnLgFEpRH9WCeQnA0alEP1YJZBNBoxKIQrLmfrSxipEF/v64IMqgbziHUZbb5iXqwTysAdCW4E8VCWQmzwQ2gok3JXty7keCKZme6caWbsrmWu79nUlVhswLJnrJQbgNgOGJXMtGiSQ6b5AjqYXzJ3AgKwx8C6STPU6NbjRgHHJVNfXCeQQXRmR2rxkprCi51BqstxAA6TEq/PJONbvIBIzjHB9dxxDsszAu0oy0YNE4Git/5G6MdJxbYm1gypwq4EGScd1MxEZ0bFz6kZJR7WmiVoop/oCCOqEERaNnEJD3GXg3SYd0+00zHMGGikd0Qu0QNi3vtFAY8W4NukItRVm6TLI1I0Wo/o1RSnAuUZrn0hi7da6MEkIY2svLMB/YezVRSJJCbuAPBT29cE9GMG3wcH9GGOpgc9vSXRkLMEotxS2v2RPGxd+McoAWqzsJg1Uiqt1KzYF8zMvPvDzMGWWUjFdiwtLZloPzKCjHAY8a6ATJZJeBI6g44T7AA/oCVA6PJJaZqm+ewwWdHTL9WiTtXdTczLwjoFOlgG2nIUbc1kzVQ//PcY/oh7TxYLFcJE+uEWMaXMXh7SxOAZ43kAIolodYyFbDizSctyScEVhWOrk9HA88GqCMF7Ti1hnP4zoZN1oS3VG7svt2qIpTgLeaDCMt0sYzsZmBLgbGIsYxJj+TT8qhmBGpO11a1t+aGUR55axGkHs0Lm08HABJzIzB3w45LouPiq1q1Mv4wcIosipj9RcNkn1u7C56MrU5krlRB3C9g5nw2tOQg7WJw2s0q8dx3Ecx3Ech//zD711hP3F9/P1AAAAAElFTkSuQmCC"/>
+        </defs>
+      </svg>
     </div>
   </div>
 </div>

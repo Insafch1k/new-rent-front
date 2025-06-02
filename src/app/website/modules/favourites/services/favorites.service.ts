@@ -8,7 +8,7 @@ import { API_URL } from 'src/app/website/core/constants';
   providedIn: 'root'
 })
 export class FavoritesService {
-  private apiUrl = `${API_URL}/rentals/monthly/favorite`;
+  private apiUrl = `${API_URL}/profile/favorites`;
   private favoriteIdsSubject = new BehaviorSubject<Set<number>>(new Set());
 
   constructor(private http: HttpClient) {
