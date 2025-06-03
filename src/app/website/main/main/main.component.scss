@@ -11,57 +11,149 @@ img {
     margin: 0 auto;
     width: 100vw;
     height: calc(100vh - 60px);
-    background-image: url('.../../../../../../assets/data/images/image\ 17.png');
+    background-color: rgba(241, 241, 245, 1);
 }
 .main-main {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    @media (min-width: 600px) {
-         gap: 30px;
-    }
+    align-items: center;
 }
 
 
-.plashka {
-    width: 91.66%;
-    height: 12.5vh;
-    background-color: $background-color;
-    margin: 0 auto;
+.f-plashka {
+    width: calc(100% - 40px);
+    margin-top: 8.33%;
+    height: 27.78%;
+    background-color: rgba(109, 186, 230, 1);
     border-radius: 30px;
+    position: relative;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
-    position: relative; 
+    align-items: flex-end;
 
     p {
-        font-size: 4.16vw;
+        font-size: 2.5vh;
         font-weight: 500;
-        margin: 0; 
-        text-align: center; 
-        @media (min-width: 600px) {
-            font-size: 25px; // Максимальный размер шрифта
-        }
+        color: rgba(255, 255, 255, 1);
+        margin-left: 4.54%;
+        margin-bottom: 2.5vh;
+        z-index: 1; /* Текст поверх изображения */
     }
 
     img {
-        height: 15vh;
-        width: auto;
         position: absolute;
-        right: 0%; 
-        bottom: 2%;
-        @media (max-width:400px) {
-            height: 14.5vh;
+        bottom: 0;
+        right: 0;
+        width: 57.73%;
+        /* Динамическая высота изображения */
+        height: calc(100% * var(--height-scale, 1));
+        border-bottom-right-radius: 30px;
+        z-index: 0;
+    }
+}
+
+/* Медиа-запрос для соотношения ширины к высоте меньше 0.6 */
+@media (max-aspect-ratio: 6/10) {
+    .f-plashka {
+        /* Масштабирование высоты в зависимости от разницы с 0.6 */
+        --height-scale: calc(1 - (0.6 - (100vw / (27.78vh))) * 0.5);
+    }
+}
+
+.s-plashka {
+    width: calc(100% - 40px);
+    margin-top: 4.167%;
+    height: 18.92%;
+    background-color: rgba(253, 160, 178, 1);
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+
+    p {
+        font-size: 2.5vh;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 1);
+        margin-left: 4.54%;
+        margin-bottom: 2.5vh;
+        z-index: 1; /* Текст поверх изображения */
+    }
+
+    img {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 40.68%;
+        /* Динамическая высота изображения */
+        height: calc(100% * var(--height-scale, 1));
+        border-bottom-right-radius: 30px;
+        z-index: 0;
+    }
+}
+
+/* Медиа-запрос для соотношения ширины к высоте меньше 0.6 */
+@media (max-aspect-ratio: 6/10) {
+    .s-plashka {
+        /* Масштабирование высоты в зависимости от разницы с 0.6 */
+        --height-scale: calc(1 - (0.6 - (100vw / (18.92vh))) * 0.5);
+    }
+}
+
+.f-polosa {
+    width: calc(100% - 40px);
+    margin-top: 4.167%;
+    height: 18.92%;
+    display: flex;
+    align-items: center;
+    gap: 4.167%;
+
+    .left-plashka, .right-plashka {
+        width: 100%;
+        height: 100%;
+        border-radius: 30px;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+
+        p {
+            font-size: 2.5vh;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 1);
+            margin-left: 9.52%;
+            margin-bottom: 2.5vh;
+            z-index: 1;
+        }
+
+        img {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50%;
+            /* Динамическая высота изображения */
+            height: calc(100% * var(--height-scale, 1));
+            border-bottom-right-radius: 30px;
+            z-index: 0;
+        }
+    }
+
+    .left-plashka {
+        background-color: rgba(153, 136, 199, 1);
+    }
+
+    .right-plashka {
+        background-color: rgba(159, 217, 222, 1);
+
+        img {
+            margin-bottom: 5px;
         }
     }
 }
-.plashka-one{
-    margin-top: 20px;
-    @media (min-width: 600px) {
-        margin-top: 30px;
+
+/* Медиа-запрос для соотношения ширины к высоте меньше 0.615 */
+@media (max-aspect-ratio: 615/1000) {
+    .f-polosa {
+        /* Масштабирование высоты в зависимости от разницы с 0.615 */
+        --height-scale: calc(1 - (0.615 - (100vw / (18.92vh))) * 0.5);
     }
 }
-
-
