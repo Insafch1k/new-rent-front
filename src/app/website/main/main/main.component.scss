@@ -3,16 +3,20 @@ $font-weight: 500;
 $border-radius: 30px;
 $margin-left: 3%;
 $font-size-base: 1.2rem;
+
 img {
     pointer-events: none;
 }
-.main{
+
+.main {
     max-width: 600px;
     margin: 0 auto;
     width: 100vw;
-    height: calc(100vh - 60px);
+    /* Учет safe area для высоты */
+    height: calc(100vh - 60px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
     background-color: rgba(241, 241, 245, 1);
 }
+
 .main-main {
     height: 100%;
     width: 100%;
@@ -20,7 +24,6 @@ img {
     flex-direction: column;
     align-items: center;
 }
-
 
 .f-plashka {
     width: calc(100% - 40px);
@@ -38,26 +41,27 @@ img {
         color: rgba(255, 255, 255, 1);
         margin-left: 4.54%;
         margin-bottom: 2.5vh;
-        z-index: 1; /* Текст поверх изображения */
+        z-index: 1;
     }
 
     img {
         position: absolute;
         bottom: 0;
         right: 0;
-        width: 57.73%;
-        /* Динамическая высота изображения */
+        width: 50%; /* Уменьшено с 57.73% */
+        max-width: 254px; /* Ограничение для iPhone 12 Mini */
         height: calc(100% * var(--height-scale, 1));
+        max-height: 100%; /* Не выходит за контейнер */
         border-bottom-right-radius: 30px;
         z-index: 0;
+        object-fit: contain; /* Изменено на contain для сохранения пропорций */
+        object-position: bottom right;
     }
 }
 
-/* Медиа-запрос для соотношения ширины к высоте меньше 0.6 */
 @media (max-aspect-ratio: 6/10) {
     .f-plashka {
-        /* Масштабирование высоты в зависимости от разницы с 0.6 */
-        --height-scale: calc(1 - (0.6 - (100vw / (27.78vh))) * 0.5);
+        --height-scale: calc(1 - (0.6 - (100vw / (27.78vh))) * 0.3);
     }
 }
 
@@ -77,26 +81,27 @@ img {
         color: rgba(255, 255, 255, 1);
         margin-left: 4.54%;
         margin-bottom: 2.5vh;
-        z-index: 1; /* Текст поверх изображения */
+        z-index: 1;
     }
 
     img {
         position: absolute;
         bottom: 0;
         right: 0;
-        width: 40.68%;
-        /* Динамическая высота изображения */
+        width: 35%; /* Уменьшено с 40.68% */
+        max-width: 179px; /* Ограничение для iPhone 12 Mini */
         height: calc(100% * var(--height-scale, 1));
+        max-height: 100%;
         border-bottom-right-radius: 30px;
         z-index: 0;
+        object-fit: contain;
+        object-position: bottom right;
     }
 }
 
-/* Медиа-запрос для соотношения ширины к высоте меньше 0.6 */
 @media (max-aspect-ratio: 6/10) {
     .s-plashka {
-        /* Масштабирование высоты в зависимости от разницы с 0.6 */
-        --height-scale: calc(1 - (0.6 - (100vw / (18.92vh))) * 0.5);
+        --height-scale: calc(1 - (0.6 - (100vw / (18.92vh))) * 0.3);
     }
 }
 
@@ -129,11 +134,14 @@ img {
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 50%;
-            /* Динамическая высота изображения */
+            width: 45%; /* Уменьшено с 50% */
+            max-width: 105px; /* Ограничение для iPhone 12 Mini */
             height: calc(100% * var(--height-scale, 1));
+            max-height: 100%;
             border-bottom-right-radius: 30px;
             z-index: 0;
+            object-fit: contain;
+            object-position: bottom right;
         }
     }
 
@@ -150,10 +158,27 @@ img {
     }
 }
 
-/* Медиа-запрос для соотношения ширины к высоте меньше 0.615 */
 @media (max-aspect-ratio: 615/1000) {
     .f-polosa {
-        /* Масштабирование высоты в зависимости от разницы с 0.615 */
-        --height-scale: calc(1 - (0.615 - (100vw / (18.92vh))) * 0.5);
+        --height-scale: calc(1 - (0.615 - (100vw / (18.92vh))) * 0.3);
+    }
+}
+
+/* Специфичный медиа-запрос для iPhone 12 Mini */
+@media only screen and (device-width: 360px) and (device-height: 780px) {
+    .main {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .f-plashka img, .s-plashka img, .f-polosa .left-plashka img, .f-polosa .right-plashka img {
+        --height-scale: 0.85; /* Чуть меньшее масштабирование для iPhone 12 Mini */
+        max-width: 90%; /* Дополнительное ограничение */
+        max-height: 90%;
+        object-position: bottom right;
+    }
+
+    .f-plashka p, .s-plashka p, .f-polosa p {
+        font-size: 2.2vh;
     }
 }
