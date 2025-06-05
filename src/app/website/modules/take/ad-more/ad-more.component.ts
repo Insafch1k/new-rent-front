@@ -35,7 +35,8 @@ export class AdMoreComponent implements AfterViewInit {
     'Метро': 'assets/data/images/metro.svg',
     'Остановки': 'assets/data/images/bus.svg',
     'Торговые центры': 'assets/data/images/ts.svg',
-    'Центр города': 'assets/data/images/center.svg'
+    'Центр города': 'assets/data/images/center.svg',
+    'default': 'assets/data/images/bus.svg', // Иконка по умолчанию
   };
 
   constructor(
@@ -128,38 +129,50 @@ export class AdMoreComponent implements AfterViewInit {
   }
 
   getPluses(recommendations: any[]): { icon: string; text: string }[] {
-    const result: { icon: string; text: string }[] = [];
-    recommendations?.[0]?.['Метро']?.['Положительные']?.forEach((rec: string) => {
-      result.push({ icon: this.iconMap['Метро'], text: rec.replace(/ \([\d.]+ км\)/, '') });
-    });
-    recommendations?.[0]?.['Остановки']?.['Положительные']?.forEach((rec: string) => {
-      result.push({ icon: this.iconMap['Остановки'], text: rec });
-    });
-    recommendations?.[0]?.['Торговые центры']?.['Положительные']?.forEach((rec: string) => {
-      result.push({ icon: this.iconMap['Торговые центры'], text: rec.replace(/ \([\d.]+ км\)/, '') });
-    });
-    recommendations?.[0]?.['Центр города']?.['Положительные']?.forEach((rec: string) => {
-      result.push({ icon: this.iconMap['Центр города'], text: rec });
-    });
-    return result.slice(0, 3);
+  const result: { icon: string; text: string }[] = [];
+  if (!recommendations || !Array.isArray(recommendations) || !recommendations[0]) {
+    return result; // Возвращаем пустой массив, если данные отсутствуют
   }
 
-  getMinuses(recommendations: any[]): { icon: string; text: string }[] {
-    const result: { icon: string; text: string }[] = [];
-    recommendations?.[0]?.['Метро']?.['Негативные']?.forEach((rec: string) => {
-      result.push({ icon: this.iconMap['Метро'], text: rec.replace(/ \([\d.]+ км\)/, '') });
+  const rec = recommendations[0];
+  const categories = ['Метро', 'Остановки', 'Торговые центры', 'Центр города'];
+
+  categories.forEach((category) => {
+    const positives = rec[category]?.['Положительные'] || [];
+    positives.forEach((text: string) => {
+      const icon = this.iconMap[category] || 'assets/data/images/default.svg'; // Иконка по умолчанию
+      result.push({
+        icon,
+        text: text.replace(/ \([\d.]+ км\)/, '') || text,
+      });
     });
-    recommendations?.[0]?.['Остановки']?.['Негативные']?.forEach((rec: string) => {
-      result.push({ icon: this.iconMap['Остановки'], text: rec });
-    });
-    recommendations?.[0]?.['Торговые центры']?.['Негативные']?.forEach((rec: string) => {
-      result.push({ icon: this.iconMap['Торговые центры'], text: rec.replace(/ \([\d.]+ км\)/, '') });
-    });
-    recommendations?.[0]?.['Центр города']?.['Негативные']?.forEach((rec: string) => {
-      result.push({ icon: this.iconMap['Центр города'], text: rec.replace(/ \([\d.]+ км\)/, '') });
-    });
-    return result.slice(0, 3);
+  });
+
+  return result.slice(0, 3);
+}
+
+getMinuses(recommendations: any[]): { icon: string; text: string }[] {
+  const result: { icon: string; text: string }[] = [];
+  if (!recommendations || !Array.isArray(recommendations) || !recommendations[0]) {
+    return result;
   }
+
+  const rec = recommendations[0];
+  const categories = ['Метро', 'Остановки', 'Торговые центры', 'Центр города'];
+
+  categories.forEach((category) => {
+    const negatives = rec[category]?.['Негативные'] || [];
+    negatives.forEach((text: string) => {
+      const icon = this.iconMap[category] || 'assets/data/images/default.svg';
+      result.push({
+        icon,
+        text: text.replace(/ \([\d.]+ км\)/, '') || text,
+      });
+    });
+  });
+
+  return result.slice(0, 3);
+}
 
   calculateDate(createdAt: string): string {
     const created = new Date(createdAt);

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef, OnInit } from '@angular/core';
 import { FavoritesService } from '../../favourites/services/favorites.service';
 import { FavoriteActionResponse } from '../../favourites/models/favorites.model';
 
@@ -7,7 +7,7 @@ import { FavoriteActionResponse } from '../../favourites/models/favorites.model'
   templateUrl: './ad-more-bottom.component.html',
   styleUrls: ['./ad-more-bottom.component.scss']
 })
-export class AdMoreBottomComponent {
+export class AdMoreBottomComponent implements OnInit {
   @Input() listingId!: number;
   @Input() isFavorite!: boolean;
   @Output() favoriteToggled = new EventEmitter<boolean>();
@@ -17,6 +17,13 @@ export class AdMoreBottomComponent {
     private favoritesService: FavoritesService,
     private cdr: ChangeDetectorRef
   ) {}
+
+  ngOnInit(): void {
+    this.favoritesService.getFavoriteIds().subscribe(favoriteIds => {
+      this.isFavorite = favoriteIds.has(this.listingId);
+      this.cdr.detectChanges();
+    });
+  }
 
   toggleFavorite(): void {
     console.log('Начало toggleFavorite, listingId:', this.listingId, 'isFavorite:', this.isFavorite, 'tgId:', this.tgId);

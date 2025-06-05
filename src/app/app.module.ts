@@ -20,8 +20,7 @@ import { LoadingSpinnerComponent } from './website/shared/loading-spinner/loadin
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingSpinnerComponent
-
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,

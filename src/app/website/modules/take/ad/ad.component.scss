@@ -72,24 +72,25 @@
   align-items: center;
   gap: 2.75%;
   margin: 0 auto;
+
   @media (max-height: 625px) and (max-width: 405px) {
     width: 95%;
     text-align: center;
+    gap: 2.5%; // Уменьшаем gap для меньших экранов, если нужно
   }
 
   img {
-    max-height: 17.5vh;
-    width: 31.5%;
+    width: 31.5%; // Ширина для трех изображений с учетом gap
+    height: 17.5vh; // Фиксированная высота вместо max-height
     border-radius: 20px;
-    object-fit: cover;
+    object-fit: cover; // Сохраняем object-fit для заполнения
+    box-sizing: border-box; // Учитываем padding и border в размере
+
+    @media (max-height: 625px) and (max-width: 405px) {
+      width: 31.5%; // Убедитесь, что ширина остается пропорциональной
+      height: 15vh; // Можно уменьшить высоту для маленьких экранов
+    }
   }
-    
-  // @media(max-height:620px) and (min-width:375px) {
-  //   gap: 5.5%;
-  //   img {
-  //     width: 28%;
-  //   }
-  // }
 }
 
 .adress {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectorRef, OnInit } from '@angular/core';
 import { FavoritesService } from '../../favourites/services/favorites.service';
 import { FavoriteActionResponse } from '../../favourites/models/favorites.model';
 
@@ -7,7 +7,7 @@ import { FavoriteActionResponse } from '../../favourites/models/favorites.model'
   templateUrl: './ad-bottom.component.html',
   styleUrls: ['./ad-bottom.component.scss']
 })
-export class AdBottomComponent {
+export class AdBottomComponent implements OnInit {
   @Input() ad!: { id: number; isFavorite: boolean; [key: string]: any };
   @Output() prev = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
@@ -18,6 +18,13 @@ export class AdBottomComponent {
     private favoritesService: FavoritesService,
     private cdr: ChangeDetectorRef
   ) {}
+
+  ngOnInit(): void {
+    this.favoritesService.getFavoriteIds().subscribe(favoriteIds => {
+      this.ad.isFavorite = favoriteIds.has(this.ad.id);
+      this.cdr.detectChanges();
+    });
+  }
 
   toggleFavorite(): void {
     console.log('Текущее состояние isFavorite:', this.ad.isFavorite);

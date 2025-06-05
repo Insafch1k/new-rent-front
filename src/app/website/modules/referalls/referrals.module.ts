@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReferallsComponent } from './referalls.component';
 import { ReferallsRoutingModule } from './referrals-routing.module';
+import { ObnovaModule } from "../obnova/obnova.module";
 
 
 
@@ -12,7 +13,8 @@ import { ReferallsRoutingModule } from './referrals-routing.module';
     ReferallsComponent
   ],
   imports: [
-    CommonModule, ReferallsRoutingModule, FormsModule, ReactiveFormsModule
-  ]
+    CommonModule, ReferallsRoutingModule, FormsModule, ReactiveFormsModule,
+    ObnovaModule
+]
 })
 export class ReferallsModule{ }
