@@ -1,1 +1,1 @@
-export const API_URL = 'https://major-keys-bet.loca.lt/';
+export const API_URL = 'http://85.143.174.81/api';
