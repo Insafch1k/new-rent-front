@@ -1,1 +1,1 @@
-export const API_URL = 'http://192.168.1.238:5000';
+export const API_URL = 'https://arendie.ru/api';
