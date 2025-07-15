@@ -12,7 +12,7 @@ export class AdBottomComponent implements OnInit {
   @Output() prev = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
   @Output() navigateToAdMore = new EventEmitter<any>();
-  private tgId = 6049846765;
+  private tgId = 825963774;
 
   constructor(
     private favoritesService: FavoritesService,

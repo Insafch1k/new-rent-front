@@ -9,7 +9,7 @@ import { PreferenceService } from '../../modules/take/services/preference.servic
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
-  private tgId = 6049846765; // Фиксированный tg_id
+  private tgId = 825963774; // Фиксированный tg_id
 
   constructor(
     private arrowVisibilityService: ArrowVisibilityService,

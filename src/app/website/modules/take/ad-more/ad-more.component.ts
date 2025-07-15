@@ -25,6 +25,7 @@ export class AdMoreComponent implements AfterViewInit {
   metroName: string = '';
   selectedImageSrc: string | null = null;
   isOverlayVisible: boolean = false;
+  isFavorite: boolean = false;
 
   priceInfo = [
     { condition: 'ниже рынка', backgroundColor: 'rgba(138, 196, 75, 1)' },
@@ -77,6 +78,13 @@ export class AdMoreComponent implements AfterViewInit {
       imgElement.style.height = `${height}px`;
     }
   }
+
+  toggleFavorite(): void {
+    this.isFavorite = !this.isFavorite;
+    // Можно добавить логику сохранения в избранное
+  }
+
+  
 
   adjustImagesHeight(): void {
     this.images.forEach(image => {
@@ -194,25 +202,30 @@ getMinuses(recommendations: any[]): { icon: string; text: string }[] {
   }
 
   initMap(): void {
+    if (!this.listing || !this.listing.latitude || !this.listing.longitude) {
+      console.error('Координаты не найдены');
+      return;
+    }
+  
+    const latitude = this.listing.latitude;
+    const longitude = this.listing.longitude;
+  
     (window as any).ymaps.ready(() => {
       const map = new (window as any).ymaps.Map('map', {
-        center: [55.75, 49.13],
-        zoom: 12
+        center: [latitude, longitude],
+        zoom: 14
       });
-      (window as any).ymaps.geocode(this.address, { results: 1 }).then((res: any) => {
-        const firstGeoObject = res.geoObjects.get(0);
-        const coords = firstGeoObject.geometry.getCoordinates();
-        const placemark = new (window as any).ymaps.Placemark(coords, {
-          balloonContent: this.address
-        }, {
-          preset: 'islands#homeIcon',
-          iconColor: '#FF0000'
-        });
-        map.geoObjects.add(placemark);
-        map.setCenter(coords, 14);
-      }).catch((err: any) => {
-        console.error('Geocoding error:', err);
+  
+      const placemark = new (window as any).ymaps.Placemark([latitude, longitude], {
+        balloonContent: this.address
+      }, {
+        preset: 'islands#homeIcon',
+        iconColor: '#FF0000'
       });
+  
+      map.geoObjects.add(placemark);
+      map.setCenter([latitude, longitude], 14);
     });
   }
+  
 }

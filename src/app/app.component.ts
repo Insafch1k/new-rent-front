@@ -44,6 +44,13 @@ export class AppComponent implements OnInit {
       tg.setHeaderColor('#4285F4');
       tg.disableVerticalSwipes();
 
+      const telegramId = tg.initDataUnsafeuser?.id;
+      if (telegramId) {
+        localStorage.setItem('telegramId', telegramId.toString());
+        console.log("✅ Telegram ID:", telegramId);
+      }
+
+
       // Получаем номер телефона из URL (если передан ботом)
       const urlParams = new URLSearchParams(window.location.search);
       const phoneFromUrl = urlParams.get('phone');

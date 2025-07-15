@@ -9,7 +9,7 @@ import { API_URL } from 'src/app/website/core/constants';
 export class HistoryService {
   constructor(private http: HttpClient) {}
 
-  getHistory(telegramId: string = '6049846765'): Observable<any> {
+  getHistory(telegramId: string = '825963774'): Observable<any> {
     return this.http.get(`${API_URL}/profile/history?telegram_id=${telegramId}`);
   }
 }

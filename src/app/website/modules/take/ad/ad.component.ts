@@ -4,6 +4,7 @@ import Swiper, { Navigation, Pagination } from 'swiper';
 import { PreferenceService, ListingsResponse, Listing } from '../services/preference.service';
 import { FavoritesService  } from '../../favourites/services/favorites.service';
 import { FavoritesResponse } from '../../favourites/models/favorites.model';
+import { ViewHistoryService } from '../services/view-history.service';
 
 interface Ad {
   id: number;
@@ -31,7 +32,7 @@ export class AdComponent implements AfterViewInit {
   selectedImageSrc: string | null = null;
   selectedAd: Ad | null = null;
   isOverlayVisible: boolean = false;
-  private tgId = 6049846765;
+  private tgId = 825963774;
   private favoriteIds: Set<number> = new Set();
 
   priceInfo = [
@@ -40,6 +41,7 @@ export class AdComponent implements AfterViewInit {
   ];
 
   constructor(
+    private viewHistoryService: ViewHistoryService,
     private preferenceService: PreferenceService,
     private favoritesService: FavoritesService,
     private router: Router,
@@ -165,13 +167,24 @@ export class AdComponent implements AfterViewInit {
   }
 
   navigateToAdMore(ad: Ad): void {
+    // Отправка события в историю
+    this.viewHistoryService.addToViewHistory(this.tgId, ad.id).subscribe({
+      next: () => {
+        console.log('Добавлено в историю просмотров');
+      },
+      error: (err) => {
+        console.error('Ошибка добавления в историю:', err);
+      }
+    });
+  
+    // Навигация на детальную страницу
     this.ngZone.run(() => {
-      console.log('Navigating to /take/ad-more with ad:', ad);
       this.router.navigate(['/take/ad-more'], { state: { listing: ad.listing } })
-        .then(() => console.log('Navigation to /take/ad-more successful'))
-        .catch(err => console.error('Navigation error:', err));
+        .then(() => console.log('Навигация прошла успешно'))
+        .catch(err => console.error('Ошибка навигации:', err));
     });
   }
+  
 
   getPriceRecommendation(recommendations: any[]): string {
     const priceRec = recommendations?.[0]?.['Цена']?.['Положительные']?.[0] ||

@@ -15,7 +15,7 @@ export class VerificationComponent implements OnInit {
   passportImage: string | null = null;
   egrnImage: string | null = null;
   verificationStatus: 'not_submitted' | 'consideration' | 'approved' | 'rejected' = 'not_submitted';
-  private readonly telegramId = '6049846765';
+  private readonly telegramId = '825963774';
   private itFirst: boolean = true;
 
   constructor(

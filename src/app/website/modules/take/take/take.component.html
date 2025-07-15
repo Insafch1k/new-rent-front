@@ -3,22 +3,31 @@
     <div class="module">
       <p class="module-name">Город</p>
       <div class="dropdown">
-        <p class="dropdown-toggle">Казань</p>
+        <p class="dropdown-toggle" (click)="toggleCityDropdown()">
+          {{ selectedCity?.name || 'Выберите город' }}
+          <img [ngClass]="{'arrow-up': isCityOpen}" src="assets/data/icons/Forward.svg" alt="Arrow" class="dropdown-arrow">
+        </p>
+        <ul class="dropdown-menu" *ngIf="isCityOpen">
+          <li *ngFor="let city of cities" (click)="selectCity(city)" class="dropdown-item">
+            {{ city.name }}
+            <img *ngIf="selectedCity?.id === city.id" src="assets/data/icons/select.svg" alt="Checkmark" class="dropdown-checkmark">
+          </li>
+        </ul>        
       </div>
-    </div>
-    <div class="module">
+    </div>    
+    <div class="module" *ngIf="selectedCity?.id === 1">
       <p class="module-name">Район</p>
       <div class="dropdown">
         <button class="dropdown-toggle" (click)="toggleDistrictDropdown()">
-          {{ selectedDistrict ? selectedDistrict : 'Выберите район' }}
+          {{ selectedDistrict?.name || 'Выберите район' }}
           <img [ngClass]="{'arrow-up': isDistrictOpen}" src="assets/data/icons/Forward.svg" alt="Arrow" class="dropdown-arrow">
         </button>
         <ul class="dropdown-menu" *ngIf="isDistrictOpen">
           <li *ngFor="let district of districts" (click)="selectDistrict(district)" class="dropdown-item">
-            {{ district }}
-            <img *ngIf="selectedDistrict === district" src="assets/data/icons/select.svg" alt="Checkmark" class="dropdown-checkmark">
+            {{ district.name }}
+            <img *ngIf="selectedDistrict?.id === district.id" src="assets/data/icons/select.svg" alt="Checkmark" class="dropdown-checkmark">
           </li>
-        </ul>
+        </ul>        
       </div>
     </div>
     <div class="module">

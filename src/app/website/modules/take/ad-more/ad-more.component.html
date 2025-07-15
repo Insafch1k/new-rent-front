@@ -72,7 +72,14 @@
     <div class="module" style="margin-top: 30px;">
       <div id="map" class="map"></div>
     </div>
-    <app-ad-more-bottom></app-ad-more-bottom>
+    <app-ad-more-bottom
+  [listing]="listing"
+  [isFavorite]="isFavorite"
+  (favoriteToggled)="isFavorite = $event"
+>
+</app-ad-more-bottom>
+
+
   </div>
 </div>
 <div class="overlay" *ngIf="isOverlayVisible" (click)="onBackgroundClick()">

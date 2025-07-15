@@ -66,7 +66,7 @@ export class FavoritesService {
   }
 
   private loadFavorites(): void {
-    this.getFavorites(6049846765).subscribe({
+    this.getFavorites(825963774).subscribe({
       next: (response) => {
         console.log('Загруженные избранные ID:', response.listings.map(listing => listing.id));
         const favoriteIds = new Set(response.listings.map(listing => listing.id));

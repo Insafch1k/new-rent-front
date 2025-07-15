@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectorRef, OnInit } from '@angular/core';
 import { FavoritesService } from '../../favourites/services/favorites.service';
 import { FavoriteActionResponse } from '../../favourites/models/favorites.model';
+import { Listing } from '../services/preference.service'; // путь такой же, как в ad-more.component.ts
 
 @Component({
   selector: 'app-ad-more-bottom',
@@ -8,53 +9,44 @@ import { FavoriteActionResponse } from '../../favourites/models/favorites.model'
   styleUrls: ['./ad-more-bottom.component.scss']
 })
 export class AdMoreBottomComponent implements OnInit {
-  @Input() listingId!: number;
-  @Input() isFavorite!: boolean;
+  @Input() listing!: Listing | null;
+  @Input() isFavorite: boolean = false;
   @Output() favoriteToggled = new EventEmitter<boolean>();
-  private tgId = 6049846765;
+  @Output() toggleFavoriteClicked = new EventEmitter<void>();
+  private tgId = 825963774;
 
   constructor(
     private favoritesService: FavoritesService,
     private cdr: ChangeDetectorRef
   ) {}
 
+  
   ngOnInit(): void {
     this.favoritesService.getFavoriteIds().subscribe(favoriteIds => {
-      this.isFavorite = favoriteIds.has(this.listingId);
+      this.isFavorite = this.listing ? favoriteIds.has(this.listing.id) : false;
       this.cdr.detectChanges();
     });
   }
 
   toggleFavorite(): void {
-    console.log('Начало toggleFavorite, listingId:', this.listingId, 'isFavorite:', this.isFavorite, 'tgId:', this.tgId);
+    if (!this.listing) return;
+  
+    const listingId = this.listing.id;
+  
     if (this.isFavorite) {
-      this.favoritesService.removeFavorite(this.tgId, this.listingId).subscribe({
-        next: (response: FavoriteActionResponse) => {
-          console.log('Успешно удалено:', response);
-          this.isFavorite = false;
-          this.favoriteToggled.emit(false);
-          this.cdr.detectChanges();
-          console.log('После удаления isFavorite:', this.isFavorite);
-        },
-        error: (error) => {
-          console.error('Ошибка удаления:', error);
-        },
-        complete: () => console.log('Запрос удаления завершён')
+      this.favoritesService.removeFavorite(this.tgId, listingId).subscribe(() => {
+        this.isFavorite = false;
+        this.favoriteToggled.emit(this.isFavorite);
+        this.cdr.detectChanges();
       });
     } else {
-      this.favoritesService.addFavorite(this.tgId, this.listingId).subscribe({
-        next: (response: FavoriteActionResponse) => {
-          console.log('Успешно добавлено:', response);
-          this.isFavorite = true;
-          this.favoriteToggled.emit(true);
-          this.cdr.detectChanges();
-          console.log('После добавления isFavorite:', this.isFavorite);
-        },
-        error: (error) => {
-          console.error('Ошибка добавления:', error);
-        },
-        complete: () => console.log('Запрос добавления завершён')
+      this.favoritesService.addFavorite(this.tgId, listingId).subscribe(() => {
+        this.isFavorite = true;
+        this.favoriteToggled.emit(this.isFavorite);
+        this.cdr.detectChanges();
       });
     }
   }
+  
+  
 }

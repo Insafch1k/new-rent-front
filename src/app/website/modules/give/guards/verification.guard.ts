@@ -9,7 +9,7 @@ import { VerificationStatusResponse } from '../verification/verification.model';
   providedIn: 'root'
 })
 export class VerificationGuard implements CanActivate {
-  private readonly telegramId = '6049846765';
+  private readonly telegramId = '825963774';
 
   constructor(
     private verificationService: VerificationService,

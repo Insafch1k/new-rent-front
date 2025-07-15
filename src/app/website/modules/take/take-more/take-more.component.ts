@@ -27,7 +27,7 @@ export class TakeMoreComponent implements AfterViewInit {
   isDurationOpen: boolean = false;
   selectedRoomCounts: number[] = [];
   isRoomCountOpen: boolean = false;
-  private tgId: number = 6049846765;
+  private tgId: number = 825963774;
 
   @ViewChild('districtSelect') districtSelect!: ElementRef;
   @ViewChild('durationSelect') durationSelect!: ElementRef;

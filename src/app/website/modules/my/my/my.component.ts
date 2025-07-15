@@ -12,7 +12,7 @@ export class MyComponent implements OnInit {
   selectedIndex: number | null = null;
   isLoading = false;
   error: string | null = null;
-  private readonly telegramId = 6049846765; // Тот же ID, что в GiveComponent
+  private readonly telegramId = 825963774; // Тот же ID, что в GiveComponent
 
   constructor(private myService: MyService) {}
 

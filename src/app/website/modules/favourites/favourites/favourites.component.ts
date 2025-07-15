@@ -23,7 +23,7 @@ interface Plashka {
 })
 export class FavouritesComponent implements OnInit {
   plashkaData: Plashka[] = [];
-  private telegramId = 6049846765;
+  private telegramId = 825963774;
 
   constructor(
     private favoritesService: FavoritesService,

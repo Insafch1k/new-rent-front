@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, HostListener, OnInit, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreferenceService } from '../services/preference.service';
+import { Preference } from '../models/preference.model';
 
 @Component({
   selector: 'app-take',
@@ -9,17 +10,7 @@ import { PreferenceService } from '../services/preference.service';
 })
 export class TakeComponent implements AfterViewInit, OnInit {
   category: 'monthly' | 'daily' = 'monthly';
-  districts: string[] = [
-    'Авиастроительный',
-    'Советский',
-    'Приволжский',
-    'Ново-Савиновский',
-    'Московский',
-    'Кировский',
-    'Вахитовский'
-  ];
   roomCounts: number[] = [1, 2, 3, 4, 5];
-  selectedDistrict: string | null = null;
   isDistrictOpen: boolean = false;
   selectedRoomCount: number | null = null;
   isRoomCountOpen: boolean = false;
@@ -31,6 +22,12 @@ export class TakeComponent implements AfterViewInit, OnInit {
   maxPrice: number | null = null;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  cities: { id: number; name: string }[] = [];
+  districts: { id: number; name: string }[] = [];
+  selectedCity: { id: number, name: string } | null = null;
+  selectedDistrict: { id: number, name: string } | null = null;
+  isCityOpen: boolean = false;
+
 
   @ViewChild('districtSelect') districtSelect!: ElementRef;
   @ViewChild('roomCountSelect') roomCountSelect!: ElementRef;
@@ -51,6 +48,7 @@ export class TakeComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     console.log('TakeComponent ngOnInit called');
+    this.loadCities();
   }
 
   ngAfterViewInit() {
@@ -77,6 +75,12 @@ export class TakeComponent implements AfterViewInit, OnInit {
     }
   }
 
+  toggleCityDropdown() {
+    this.isCityOpen = !this.isCityOpen;
+    this.isDistrictOpen = false;
+    this.isRoomCountOpen = false;
+  }
+
   toggleDistrictDropdown() {
     this.isDistrictOpen = !this.isDistrictOpen;
     if (this.isDistrictOpen) {
@@ -84,7 +88,14 @@ export class TakeComponent implements AfterViewInit, OnInit {
     }
   }
 
-  selectDistrict(district: string) {
+  selectCity(city: { id: number, name: string }) {
+    this.selectedCity = city;
+    this.loadDistricts(city.id);  // если Казань — грузим районы
+    this.selectedDistrict = null; // сбрасываем район при смене города
+    this.isCityOpen = false;
+  }
+  
+  selectDistrict(district: { id: number, name: string }) {
     this.selectedDistrict = district;
     this.isDistrictOpen = false;
   }
@@ -108,20 +119,21 @@ export class TakeComponent implements AfterViewInit, OnInit {
   submitPreference() {
     this.errorMessage = null;
     this.successMessage = null;
-
-    if (!this.selectedDistrict) {
-      this.errorMessage = 'Выберите район';
+  
+    if (!this.selectedCity) {
+      this.errorMessage = 'Выберите город';
       return;
     }
-    if (!this.selectedRoomCount) {
-      this.errorMessage = 'Выберите количество комнат';
+  
+    if (this.selectedCity.id === 1 && !this.selectedDistrict) {
+      this.errorMessage = 'Выберите район для Казани';
       return;
     }
-
-    const preference = {
+  
+    const preference: Preference = {
       category: this.category,
-      user_city: 'Казань',
-      user_district: this.selectedDistrict,
+      user_city: this.selectedCity.id,
+      user_district: this.selectedCity.id === 1 && this.selectedDistrict ? this.selectedDistrict.id : null,
       user_min_floor: this.minFloor || 2,
       user_max_floor: this.maxFloor || 10,
       user_min_square: this.minSquare || 30.0,
@@ -130,26 +142,51 @@ export class TakeComponent implements AfterViewInit, OnInit {
       user_price: this.maxPrice || 60000,
       user_room_count: this.selectedRoomCount
     };
-
-    const tgId = 6049846765;
-
+    
+  
+    const tgId = 825963774;
+  
     this.preferenceService.createPreference(tgId, preference).subscribe({
       next: (response) => {
-        console.log('Preference created successfully:', response);
         this.successMessage = response.message;
         setTimeout(() => {
-          this.ngZone.run(() => {
-            console.log('Navigating to /take/ad');
-            this.router.navigate(['/take/ad'])
-              .then(() => console.log('Navigation to /take/ad successful'))
-              .catch(err => console.error('Navigation error:', err));
-          });
+          this.router.navigateByUrl('/take/ad');
         }, 1000);
       },
-      error: (error) => {
-        console.error('Error creating preference:', error);
+      error: () => {
         this.errorMessage = 'Ошибка при сохранении предпочтений';
       }
     });
+  }
+  
+  
+  
+  
+
+
+
+  loadCities() {
+    this.preferenceService.getCities().subscribe({
+      next: (response) => {
+        this.cities = response.cities;
+        this.selectedCity = this.cities.find(c => c.name === 'Казань') || null;
+        if (this.selectedCity) this.loadDistricts(this.selectedCity.id);
+      },
+      error: () => this.errorMessage = 'Ошибка загрузки городов'
+    });
+  }
+  
+  loadDistricts(cityId: number) {
+    if (cityId === 1) {
+      this.preferenceService.getDistricts(cityId).subscribe({
+        next: (response) => {
+          this.districts = response.districts;
+        },
+        error: () => this.errorMessage = 'Ошибка загрузки районов'
+      });
+    } else {
+      this.districts = [];
+      this.selectedDistrict = null;
+    }
   }
 }

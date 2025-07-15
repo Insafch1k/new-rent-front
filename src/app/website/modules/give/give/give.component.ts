@@ -37,7 +37,7 @@ export class GiveComponent {
   isOverlayVisible: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
-  private readonly telegramId = 6049846765; // Константа для telegram_id
+  private readonly telegramId = 825963774; // Константа для telegram_id
 
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('singleFileInput', { static: false }) singleFileInput!: ElementRef<HTMLInputElement>;
