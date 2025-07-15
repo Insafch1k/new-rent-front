@@ -2,9 +2,10 @@ import { Component, AfterViewInit, ElementRef, ViewChild, ViewChildren, QueryLis
 import { Router } from '@angular/router';
 import Swiper, { Navigation, Pagination } from 'swiper';
 import { PreferenceService, ListingsResponse, Listing } from '../services/preference.service';
-import { FavoritesService  } from '../../favourites/services/favorites.service';
+import { FavoritesService } from '../../favourites/services/favorites.service';
 import { FavoritesResponse } from '../../favourites/models/favorites.model';
 import { ViewHistoryService } from '../services/view-history.service';
+import { TelegramService } from 'src/app/website/services/telegram.service';
 
 interface Ad {
   id: number;
@@ -32,7 +33,6 @@ export class AdComponent implements AfterViewInit {
   selectedImageSrc: string | null = null;
   selectedAd: Ad | null = null;
   isOverlayVisible: boolean = false;
-  private tgId = 825963774;
   private favoriteIds: Set<number> = new Set();
 
   priceInfo = [
@@ -45,7 +45,8 @@ export class AdComponent implements AfterViewInit {
     private preferenceService: PreferenceService,
     private favoritesService: FavoritesService,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private telegramService: TelegramService
   ) {
     this.loadFavorites();
     this.loadListings();
@@ -58,50 +59,56 @@ export class AdComponent implements AfterViewInit {
   }
 
   loadFavorites(): void {
-    this.favoritesService.getFavorites(this.tgId).subscribe({
-      next: (response: FavoritesResponse) => {
-        this.favoriteIds = new Set(response.listings.map(listing => listing.id));
-        this.updateFavoriteStatus();
-      },
-      error: (error) => {
-        console.error('Ошибка загрузки избранного:', error);
-      }
-    });
+    const tgId = this.telegramService.getTelegramId();
+    if (tgId) {
+      this.favoritesService.getFavorites(tgId).subscribe({
+        next: (response: FavoritesResponse) => {
+          this.favoriteIds = new Set(response.listings.map(listing => listing.id));
+          this.updateFavoriteStatus();
+        },
+        error: (error) => {
+          console.error('Ошибка загрузки избранного:', error);
+        }
+      });
+    }
   }
 
   loadListings(): void {
-    this.preferenceService.checkPreferences(this.tgId).subscribe({
-      next: (response: ListingsResponse) => {
-        console.log('Listings response:', response);
-        if (!response.has_preferences) {
-          console.log('No preferences, navigating to /take/take');
+    const tgId = this.telegramService.getTelegramId();
+    if (tgId) {
+      this.preferenceService.checkPreferences(tgId).subscribe({
+        next: (response: ListingsResponse) => {
+          console.log('Listings response:', response);
+          if (!response.has_preferences) {
+            console.log('No preferences, navigating to /take/take');
+            this.ngZone.run(() => {
+              this.router.navigate(['/take/take']);
+            });
+            return;
+          }
+          this.ads = response.listings?.map(listing => ({
+            id: listing.id,
+            address: listing.address,
+            imageUrls: listing.photos || [],
+            price: `${listing.price} р. в месяц`,
+            metroName: this.getMetroName(listing.recommendations) || 'Не указано',
+            metroInfo: '', // Оставляем пустым, так как информация теперь в metroName
+            date: this.calculateDate(listing.created_at),
+            recommendations: this.getPriceRecommendation(listing.recommendations),
+            listing,
+            isFavorite: this.favoriteIds.has(listing.id)
+          })) || [];
+          console.log('Transformed ads:', this.ads);
+          setTimeout(() => this.swiper?.update(), 0);
+        },
+        error: (error) => {
+          console.error('Error fetching listings:', error);
           this.ngZone.run(() => {
             this.router.navigate(['/take/take']);
           });
-          return;
         }
-        this.ads = response.listings?.map(listing => ({
-          id: listing.id,
-          address: listing.address,
-          imageUrls: listing.photos || [],
-          price: `${listing.price} р. в месяц`,
-          metroName: this.getMetroName(listing.recommendations) || 'Не указано',
-          metroInfo: '', // Оставляем пустым, так как информация теперь в metroName
-          date: this.calculateDate(listing.created_at),
-          recommendations: this.getPriceRecommendation(listing.recommendations),
-          listing,
-          isFavorite: this.favoriteIds.has(listing.id)
-        })) || [];
-        console.log('Transformed ads:', this.ads);
-        setTimeout(() => this.swiper?.update(), 0);
-      },
-      error: (error) => {
-        console.error('Error fetching listings:', error);
-        this.ngZone.run(() => {
-          this.router.navigate(['/take/take']);
-        });
-      }
-    });
+      });
+    }
   }
 
   initializeSwiper(): void {
@@ -167,24 +174,26 @@ export class AdComponent implements AfterViewInit {
   }
 
   navigateToAdMore(ad: Ad): void {
-    // Отправка события в историю
-    this.viewHistoryService.addToViewHistory(this.tgId, ad.id).subscribe({
-      next: () => {
-        console.log('Добавлено в историю просмотров');
-      },
-      error: (err) => {
-        console.error('Ошибка добавления в историю:', err);
-      }
-    });
-  
-    // Навигация на детальную страницу
-    this.ngZone.run(() => {
-      this.router.navigate(['/take/ad-more'], { state: { listing: ad.listing } })
-        .then(() => console.log('Навигация прошла успешно'))
-        .catch(err => console.error('Ошибка навигации:', err));
-    });
+    const tgId = this.telegramService.getTelegramId();
+    if (tgId) {
+      // Отправка события в историю
+      this.viewHistoryService.addToViewHistory(tgId, ad.id).subscribe({
+        next: () => {
+          console.log('Добавлено в историю просмотров');
+        },
+        error: (err) => {
+          console.error('Ошибка добавления в историю:', err);
+        }
+      });
+
+      // Навигация на детальную страницу
+      this.ngZone.run(() => {
+        this.router.navigate(['/take/ad-more'], { state: { listing: ad.listing } })
+          .then(() => console.log('Навигация прошла успешно'))
+          .catch(err => console.error('Ошибка навигации:', err));
+      });
+    }
   }
-  
 
   getPriceRecommendation(recommendations: any[]): string {
     const priceRec = recommendations?.[0]?.['Цена']?.['Положительные']?.[0] ||

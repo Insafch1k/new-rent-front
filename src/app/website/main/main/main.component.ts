@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArrowVisibilityService } from '../../shared/arrow-visibility.service';
 import { PreferenceService } from '../../modules/take/services/preference.service';
+import { TelegramService } from '../../services/telegram.service'; // путь может отличаться у тебя
 
 @Component({
   selector: 'app-main',
@@ -9,13 +10,16 @@ import { PreferenceService } from '../../modules/take/services/preference.servic
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
-  private tgId = 825963774; // Фиксированный tg_id
+  private tgId: number;
 
   constructor(
     private arrowVisibilityService: ArrowVisibilityService,
     private preferenceService: PreferenceService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private telegramService: TelegramService
+  ) {
+    this.tgId = this.telegramService.getTelegramId()!;
+  }
 
   ngOnInit() {
     this.arrowVisibilityService.setShowArrow(false);
@@ -39,7 +43,6 @@ export class MainComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error checking preferences:', error);
-        // В случае ошибки перенаправляем на /take/take для безопасности
         this.router.navigate(['/take']);
       }
     });

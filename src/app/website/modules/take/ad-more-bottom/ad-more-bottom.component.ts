@@ -13,7 +13,6 @@ export class AdMoreBottomComponent implements OnInit {
   @Input() isFavorite: boolean = false;
   @Output() favoriteToggled = new EventEmitter<boolean>();
   @Output() toggleFavoriteClicked = new EventEmitter<void>();
-  private tgId = 825963774;
 
   constructor(
     private favoritesService: FavoritesService,
@@ -34,19 +33,19 @@ export class AdMoreBottomComponent implements OnInit {
     const listingId = this.listing.id;
   
     if (this.isFavorite) {
-      this.favoritesService.removeFavorite(this.tgId, listingId).subscribe(() => {
+      this.favoritesService.removeFavorite(listingId).subscribe(() => {
         this.isFavorite = false;
         this.favoriteToggled.emit(this.isFavorite);
         this.cdr.detectChanges();
       });
     } else {
-      this.favoritesService.addFavorite(this.tgId, listingId).subscribe(() => {
+      this.favoritesService.addFavorite(listingId).subscribe(() => {
         this.isFavorite = true;
         this.favoriteToggled.emit(this.isFavorite);
         this.cdr.detectChanges();
       });
     }
-  }
+  }  
   
   
 }

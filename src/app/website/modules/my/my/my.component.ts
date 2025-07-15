@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MyService } from '../services/my.service';
 import { PlashkaData } from '../models/my.model';
+import { TelegramService } from 'src/app/website/services/telegram.service'; // Импортируем сервис, если его ещё нет
 
 @Component({
   selector: 'app-my',
@@ -12,11 +13,17 @@ export class MyComponent implements OnInit {
   selectedIndex: number | null = null;
   isLoading = false;
   error: string | null = null;
-  private readonly telegramId = 825963774; // Тот же ID, что в GiveComponent
+  private telegramId: number = 0; 
 
-  constructor(private myService: MyService) {}
+  constructor(
+    private myService: MyService,
+    private telegramService: TelegramService // добавляем сервис
+  ) {}
 
+  
   ngOnInit(): void {
+    const id = this.telegramService.getTelegramId();
+    this.telegramId = id !== null ? id : 0;  // если null, поставить 0
     this.loadUserListings();
   }
 

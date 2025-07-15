@@ -12,7 +12,6 @@ export class AdBottomComponent implements OnInit {
   @Output() prev = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
   @Output() navigateToAdMore = new EventEmitter<any>();
-  private tgId = 825963774;
 
   constructor(
     private favoritesService: FavoritesService,
@@ -28,8 +27,9 @@ export class AdBottomComponent implements OnInit {
 
   toggleFavorite(): void {
     console.log('Текущее состояние isFavorite:', this.ad.isFavorite);
+  
     if (this.ad.isFavorite) {
-      this.favoritesService.removeFavorite(this.tgId, this.ad.id).subscribe({
+      this.favoritesService.removeFavorite(this.ad.id).subscribe({
         next: (response: FavoriteActionResponse) => {
           this.ad.isFavorite = false;
           this.cdr.detectChanges();
@@ -39,7 +39,7 @@ export class AdBottomComponent implements OnInit {
         error: (error) => console.error('Ошибка удаления из избранного:', error)
       });
     } else {
-      this.favoritesService.addFavorite(this.tgId, this.ad.id).subscribe({
+      this.favoritesService.addFavorite(this.ad.id).subscribe({
         next: (response: FavoriteActionResponse) => {
           this.ad.isFavorite = true;
           this.cdr.detectChanges();
@@ -50,4 +50,5 @@ export class AdBottomComponent implements OnInit {
       });
     }
   }
+  
 }

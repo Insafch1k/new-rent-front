@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { VerificationService } from '../services/verification.service';
 import { VerificationRequest, VerificationResponse, VerificationStatusResponse } from '../verification.model';
 import { LoadingService } from 'src/app/website/shared/loading-spinner/loading.service';
+import { TelegramService } from 'src/app/website/services/telegram.service';
 
 @Component({
   selector: 'app-verification',
@@ -15,15 +16,18 @@ export class VerificationComponent implements OnInit {
   passportImage: string | null = null;
   egrnImage: string | null = null;
   verificationStatus: 'not_submitted' | 'consideration' | 'approved' | 'rejected' = 'not_submitted';
-  private readonly telegramId = '825963774';
   private itFirst: boolean = true;
+  private telegramId: string | null = null;
 
   constructor(
     private verificationService: VerificationService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private telegramService: TelegramService
   ) {}
 
   ngOnInit() {
+    this.telegramId = String(this.telegramService.getTelegramId());
+  
     this.loadingService.show();
     this.verificationService.getVerificationStatus(this.telegramId).subscribe({
       next: (response: VerificationStatusResponse) => {
@@ -89,10 +93,15 @@ export class VerificationComponent implements OnInit {
       return;
     }
 
+    if (!this.telegramId) {
+      alert('Telegram ID не определён, попробуйте перезагрузить страницу');
+      return;
+    }
+
     const request: VerificationRequest = {
       passport_photo: this.passportImage,
       egrn_photo: this.egrnImage,
-      telegram_id: this.telegramId,
+      telegram_id: this.telegramId!,
       it_first: this.itFirst
     };
 

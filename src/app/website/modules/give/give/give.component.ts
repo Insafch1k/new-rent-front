@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/co
 import { ListingService, ListingRequest, ListingResponse } from '../services/listing.service';
 import { LoadingService } from 'src/app/website/shared/loading-spinner/loading.service';
 import { Router } from '@angular/router';
+import { TelegramService } from 'src/app/website/services/telegram.service';
 
 @Component({
   selector: 'app-give',
@@ -28,7 +29,7 @@ export class GiveComponent {
   area: number | null = null;
   rentalCost: number | null = null;
   deposit: number | null = null;
-  contact: string = '+7'; // Инициализация с +7
+  contact: string = '+7';
   description: string = '';
   imageUrls: string[] = [];
   isCityOpen = false;
@@ -37,7 +38,8 @@ export class GiveComponent {
   isOverlayVisible: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
-  private readonly telegramId = 825963774; // Константа для telegram_id
+
+  telegramId: number | null = null; // добавляем сюда
 
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('singleFileInput', { static: false }) singleFileInput!: ElementRef<HTMLInputElement>;
@@ -46,8 +48,12 @@ export class GiveComponent {
     private listingService: ListingService,
     private loadingService: LoadingService,
     private router: Router,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private telegramService: TelegramService // добавляем сервис
+  ) {
+    this.telegramId = this.telegramService.getTelegramId(); // получаем ID при создании
+    console.log('✅ Telegram ID из TelegramService:', this.telegramId);
+  }
 
   toggleCityDropdown() {
     this.isCityOpen = !this.isCityOpen;
@@ -268,7 +274,7 @@ export class GiveComponent {
       address: this.address.trim(),
       category: 'monthly',
       city_id: 1, // Казань
-      contact: this.contact.trim(), // Отправляем в формате +7 (912) 456-78-90
+      contact: this.contact.trim(),
       deposit: this.deposit!.toString(),
       description: this.description.trim(),
       district_id: this.districtIds[this.selectedDistrict],
@@ -277,7 +283,7 @@ export class GiveComponent {
       price: this.rentalCost!,
       rooms: this.selectedRooms,
       square: this.area!,
-      user_id: this.telegramId // Используем константный telegram_id
+      user_id: this.telegramId ?? 0 // используем telegramId через сервис
     };
 
     this.loadingService.show();

@@ -1,9 +1,10 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { TakeService} from '../services/take.service';
+import { TakeService } from '../services/take.service';
 import { PreferenceService } from '../services/preference.service';
 import { GetPreferenceResponse } from '../take.model';
 import { Preference } from '../take.model';
+import { TelegramService } from 'src/app/website/services/telegram.service';
 
 @Component({
   selector: 'app-take-more',
@@ -27,7 +28,6 @@ export class TakeMoreComponent implements AfterViewInit {
   isDurationOpen: boolean = false;
   selectedRoomCounts: number[] = [];
   isRoomCountOpen: boolean = false;
-  private tgId: number = 825963774;
 
   @ViewChild('districtSelect') districtSelect!: ElementRef;
   @ViewChild('durationSelect') durationSelect!: ElementRef;
@@ -35,7 +35,8 @@ export class TakeMoreComponent implements AfterViewInit {
 
   constructor(
     private takeService: TakeService,
-    private router: Router
+    private router: Router,
+    private telegramService: TelegramService
   ) {
     this.loadPreferences();
   }
@@ -72,49 +73,55 @@ export class TakeMoreComponent implements AfterViewInit {
   }
 
   loadPreferences() {
-    this.takeService.getPreference(this.tgId).subscribe({
-      next: (response: GetPreferenceResponse) => {
-        const pref = response.preference;
-        this.city = pref.user_city;
-        this.selectedDistricts = pref.user_district ? [pref.user_district] : [];
-        this.selectedDurations = [pref.category === 'monthly' ? 'длительное проживание' : 'посуточное проживание'];
-        this.selectedRoomCounts = pref.user_room_count ? [pref.user_room_count] : [];
-        this.floorFrom = pref.user_min_floor;
-        this.floorTo = pref.user_max_floor;
-        this.areaFrom = pref.user_min_square;
-        this.areaTo = pref.user_max_square;
-        this.rentFrom = pref.user_min_price;
-        this.rentTo = pref.user_price;
-      },
-      error: (error) => {
-        console.error('Ошибка загрузки предпочтений:', error);
-      }
-    });
+    const tgId = this.telegramService.getTelegramId();
+    if (tgId) {
+      this.takeService.getPreference(tgId).subscribe({
+        next: (response: GetPreferenceResponse) => {
+          const pref = response.preference;
+          this.city = pref.user_city;
+          this.selectedDistricts = pref.user_district ? [pref.user_district] : [];
+          this.selectedDurations = [pref.category === 'monthly' ? 'длительное проживание' : 'посуточное проживание'];
+          this.selectedRoomCounts = pref.user_room_count ? [pref.user_room_count] : [];
+          this.floorFrom = pref.user_min_floor;
+          this.floorTo = pref.user_max_floor;
+          this.areaFrom = pref.user_min_square;
+          this.areaTo = pref.user_max_square;
+          this.rentFrom = pref.user_min_price;
+          this.rentTo = pref.user_price;
+        },
+        error: (error) => {
+          console.error('Ошибка загрузки предпочтений:', error);
+        }
+      });
+    }
   }
 
   savePreferences() {
-    const preference: Preference = {
-      category: this.selectedDurations.includes('длительное проживание') ? 'monthly' : 'daily',
-      user_city: this.city,
-      user_district: this.selectedDistricts[0] || '',
-      user_max_floor: this.floorTo || 1000,
-      user_max_square: this.areaTo || 10000,
-      user_min_floor: this.floorFrom || 0,
-      user_min_price: this.rentFrom || 0,
-      user_min_square: this.areaFrom || 0,
-      user_price: this.rentTo || 100000,
-      user_room_count: this.selectedRoomCounts[0] || null
-    };
+    const tgId = this.telegramService.getTelegramId();
+    if (tgId) {
+      const preference: Preference = {
+        category: this.selectedDurations.includes('длительное проживание') ? 'monthly' : 'daily',
+        user_city: this.city,
+        user_district: this.selectedDistricts[0] || '',
+        user_max_floor: this.floorTo || 1000,
+        user_max_square: this.areaTo || 10000,
+        user_min_floor: this.floorFrom || 0,
+        user_min_price: this.rentFrom || 0,
+        user_min_square: this.areaFrom || 0,
+        user_price: this.rentTo || 100000,
+        user_room_count: this.selectedRoomCounts[0] || null
+      };
 
-    this.takeService.updatePreference(this.tgId, preference).subscribe({
-      next: (response) => {
-        console.log('Предпочтения обновлены:', response);
-        this.router.navigate(['/take/ad']);
-      },
-      error: (error) => {
-        console.error('Ошибка обновления предпочтений:', error);
-      }
-    });
+      this.takeService.updatePreference(tgId, preference).subscribe({
+        next: (response) => {
+          console.log('Предпочтения обновлены:', response);
+          this.router.navigate(['/take/ad']);
+        },
+        error: (error) => {
+          console.error('Ошибка обновления предпочтений:', error);
+        }
+      });
+    }
   }
 
   toggleDistrictDropdown() {

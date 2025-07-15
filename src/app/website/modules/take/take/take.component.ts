@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, AfterViewInit, HostListener, OnInit, 
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreferenceService } from '../services/preference.service';
 import { Preference } from '../models/preference.model';
+import { TelegramService } from 'src/app/website/services/telegram.service';
 
 @Component({
   selector: 'app-take',
@@ -28,7 +29,6 @@ export class TakeComponent implements AfterViewInit, OnInit {
   selectedDistrict: { id: number, name: string } | null = null;
   isCityOpen: boolean = false;
 
-
   @ViewChild('districtSelect') districtSelect!: ElementRef;
   @ViewChild('roomCountSelect') roomCountSelect!: ElementRef;
 
@@ -36,7 +36,8 @@ export class TakeComponent implements AfterViewInit, OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private preferenceService: PreferenceService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private telegramService: TelegramService
   ) {
     console.log('TakeComponent constructor called');
     this.route.queryParams.subscribe(params => {
@@ -94,7 +95,7 @@ export class TakeComponent implements AfterViewInit, OnInit {
     this.selectedDistrict = null; // сбрасываем район при смене города
     this.isCityOpen = false;
   }
-  
+
   selectDistrict(district: { id: number, name: string }) {
     this.selectedDistrict = district;
     this.isDistrictOpen = false;
@@ -119,17 +120,17 @@ export class TakeComponent implements AfterViewInit, OnInit {
   submitPreference() {
     this.errorMessage = null;
     this.successMessage = null;
-  
+
     if (!this.selectedCity) {
       this.errorMessage = 'Выберите город';
       return;
     }
-  
+
     if (this.selectedCity.id === 1 && !this.selectedDistrict) {
       this.errorMessage = 'Выберите район для Казани';
       return;
     }
-  
+
     const preference: Preference = {
       category: this.category,
       user_city: this.selectedCity.id,
@@ -142,28 +143,23 @@ export class TakeComponent implements AfterViewInit, OnInit {
       user_price: this.maxPrice || 60000,
       user_room_count: this.selectedRoomCount
     };
-    
-  
-    const tgId = 825963774;
-  
-    this.preferenceService.createPreference(tgId, preference).subscribe({
-      next: (response) => {
-        this.successMessage = response.message;
-        setTimeout(() => {
-          this.router.navigateByUrl('/take/ad');
-        }, 1000);
-      },
-      error: () => {
-        this.errorMessage = 'Ошибка при сохранении предпочтений';
-      }
-    });
+
+    const tgId = this.telegramService.getTelegramId();
+
+    if (tgId) {
+      this.preferenceService.createPreference(tgId, preference).subscribe({
+        next: (response) => {
+          this.successMessage = response.message;
+          setTimeout(() => {
+            this.router.navigateByUrl('/take/ad');
+          }, 1000);
+        },
+        error: () => {
+          this.errorMessage = 'Ошибка при сохранении предпочтений';
+        }
+      });
+    }
   }
-  
-  
-  
-  
-
-
 
   loadCities() {
     this.preferenceService.getCities().subscribe({
@@ -175,7 +171,7 @@ export class TakeComponent implements AfterViewInit, OnInit {
       error: () => this.errorMessage = 'Ошибка загрузки городов'
     });
   }
-  
+
   loadDistricts(cityId: number) {
     if (cityId === 1) {
       this.preferenceService.getDistricts(cityId).subscribe({

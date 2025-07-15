@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FavoritesService } from '../services/favorites.service';
 import { FavoritesResponse, Listing } from '../models/favorites.model';
+import { TelegramService } from 'src/app/website/services/telegram.service';
 
 interface Plashka {
   listing: Listing;
@@ -23,19 +24,24 @@ interface Plashka {
 })
 export class FavouritesComponent implements OnInit {
   plashkaData: Plashka[] = [];
-  private telegramId = 825963774;
 
   constructor(
     private favoritesService: FavoritesService,
-    private router: Router
+    private router: Router,
+    private telegramService: TelegramService
   ) {}
 
   ngOnInit(): void {
-    this.loadFavorites();
-  }
+    const telegramId = this.telegramService.getTelegramId();
+    if (telegramId) {
+      this.loadFavorites(telegramId);
+    } else {
+      console.error('❌ Telegram ID не найден в localStorage');
+    }
+}
 
-  loadFavorites(): void {
-    this.favoritesService.getFavorites(this.telegramId).subscribe({
+loadFavorites(telegramId: number): void {
+  this.favoritesService.getFavorites(telegramId).subscribe({
       next: (response: FavoritesResponse) => {
         console.log('Избранное загружено:', response);
         this.plashkaData = response.listings.map(listing => ({
@@ -66,7 +72,7 @@ export class FavouritesComponent implements OnInit {
 
   removePlashka(index: number): void {
     const listingId = this.plashkaData[index].listing.id;
-    this.favoritesService.removeFavorite(this.telegramId, listingId).subscribe({
+    this.favoritesService.removeFavorite(listingId).subscribe({
       next: (response) => {
         console.log('Удаление из избранного:', response);
         this.plashkaData.splice(index, 1);
