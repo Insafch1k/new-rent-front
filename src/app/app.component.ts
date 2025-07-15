@@ -38,13 +38,14 @@ export class AppComponent implements OnInit {
 
     // Логика Telegram Web App
     if (window.Telegram?.WebApp) {
+      window.Telegram.WebApp.ready();
       const tg = window.Telegram.WebApp;
       tg.expand();
       tg.enableClosingConfirmation(false);
       tg.setHeaderColor('#4285F4');
       tg.disableVerticalSwipes();
 
-      const telegramId = tg.initDataUnsafeuser?.id;
+      const telegramId = tg.initDataUnsafe?.user?.id;
       if (telegramId) {
         localStorage.setItem('telegramId', telegramId.toString());
         console.log("✅ Telegram ID:", telegramId);
