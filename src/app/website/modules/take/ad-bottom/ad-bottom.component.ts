@@ -8,7 +8,7 @@ import { FavoriteActionResponse } from '../../favourites/models/favorites.model'
   styleUrls: ['./ad-bottom.component.scss']
 })
 export class AdBottomComponent implements OnInit {
-  @Input() ad!: { id: number; isFavorite: boolean; [key: string]: any };
+  @Input() ad!: { id: number; isFavorite: boolean; listing: any; [key: string]: any };
   @Output() prev = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
   @Output() navigateToAdMore = new EventEmitter<any>();
@@ -50,5 +50,12 @@ export class AdBottomComponent implements OnInit {
       });
     }
   }
-  
+
+  goToLink(): void {
+    if (this.ad?.listing?.link_url) {
+      window.location.href = this.ad.listing.link_url;
+    } else {
+      console.error('link_url не найден в объекте ad.listing');
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectorRef, OnInit } from '@angular/core';
 import { FavoritesService } from '../../favourites/services/favorites.service';
 import { FavoriteActionResponse } from '../../favourites/models/favorites.model';
-import { Listing } from '../services/preference.service'; // путь такой же, как в ad-more.component.ts
+import { Listing } from '../services/preference.service';
 
 @Component({
   selector: 'app-ad-more-bottom',
@@ -19,7 +19,6 @@ export class AdMoreBottomComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-  
   ngOnInit(): void {
     this.favoritesService.getFavoriteIds().subscribe(favoriteIds => {
       this.isFavorite = this.listing ? favoriteIds.has(this.listing.id) : false;
@@ -45,7 +44,13 @@ export class AdMoreBottomComponent implements OnInit {
         this.cdr.detectChanges();
       });
     }
-  }  
-  
-  
+  }
+
+  goToLink(): void {
+    if (this.listing?.link_url) {
+      window.location.href = this.listing.link_url;
+    } else {
+      console.error('link_url не найден в объекте listing');
+    }
+  }
 }

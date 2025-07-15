@@ -22,7 +22,7 @@
           </g>
         </svg>
       </div>
-      <button>Откликнуться</button>
+      <button (click)="goToLink()">Перейти</button>
       <div class="circle-icon" (click)="toggleFavorite()">
         <img *ngIf="!ad.isFavorite" src="assets/data/icons/heart-pol.webp" alt="">
 

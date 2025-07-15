@@ -1,6 +1,6 @@
 <div class="bottom-module">
   <div class="actions">
-    <button>Откликнуться</button>
+    <button (click)="goToLink()">Перейти</button>
     <div class="circle-icon" (click)="toggleFavorite()">
       <img *ngIf="!isFavorite" src="assets/data/icons/heart-pol.webp" alt="">
       <img *ngIf="isFavorite" src="assets/data/icons/heart-full.webp" alt="">
