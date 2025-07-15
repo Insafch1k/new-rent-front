@@ -91,7 +91,7 @@ export class TakeComponent implements AfterViewInit, OnInit {
 
   selectCity(city: { id: number, name: string }) {
     this.selectedCity = city;
-    this.loadDistricts(city.id);  // если Казань — грузим районы
+    this.loadDistricts(city.id); // если Казань — грузим районы
     this.selectedDistrict = null; // сбрасываем район при смене города
     this.isCityOpen = false;
   }
@@ -144,21 +144,20 @@ export class TakeComponent implements AfterViewInit, OnInit {
       user_room_count: this.selectedRoomCount
     };
 
-    const tgId = this.telegramService.getTelegramId();
-
-    if (tgId) {
-      this.preferenceService.createPreference(tgId, preference).subscribe({
-        next: (response) => {
-          this.successMessage = response.message;
-          setTimeout(() => {
-            this.router.navigateByUrl('/take/ad');
-          }, 1000);
-        },
-        error: () => {
-          this.errorMessage = 'Ошибка при сохранении предпочтений';
+    this.preferenceService.createPreference(preference).subscribe({
+      next: (response) => {
+        this.successMessage = response.message;
+        setTimeout(() => {
+          this.router.navigateByUrl('/take/ad');
+        }, 1000);
+      },
+      error: (error) => {
+        this.errorMessage = error.message || 'Ошибка при сохранении предпочтений';
+        if (error.message === 'Telegram ID не найден') {
+          this.router.navigateByUrl('/welcome');
         }
-      });
-    }
+      }
+    });
   }
 
   loadCities() {

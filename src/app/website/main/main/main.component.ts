@@ -30,7 +30,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   checkAndNavigate() {
-    this.preferenceService.checkPreferences(this.tgId).subscribe({
+    this.preferenceService.checkPreferences().subscribe({
       next: (response) => {
         console.log('Preferences check response:', response);
         if (response.has_preferences) {
@@ -43,7 +43,7 @@ export class MainComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error checking preferences:', error);
-        this.router.navigate(['/take']);
+        this.router.navigate(['/welcome']); // Перенаправление на страницу авторизации при ошибке
       }
     });
   }

@@ -74,41 +74,42 @@ export class AdComponent implements AfterViewInit {
   }
 
   loadListings(): void {
-    const tgId = this.telegramService.getTelegramId();
-    if (tgId) {
-      this.preferenceService.checkPreferences(tgId).subscribe({
-        next: (response: ListingsResponse) => {
-          console.log('Listings response:', response);
-          if (!response.has_preferences) {
-            console.log('No preferences, navigating to /take/take');
-            this.ngZone.run(() => {
-              this.router.navigate(['/take/take']);
-            });
-            return;
-          }
-          this.ads = response.listings?.map(listing => ({
-            id: listing.id,
-            address: listing.address,
-            imageUrls: listing.photos || [],
-            price: `${listing.price} р. в месяц`,
-            metroName: this.getMetroName(listing.recommendations) || 'Не указано',
-            metroInfo: '', // Оставляем пустым, так как информация теперь в metroName
-            date: this.calculateDate(listing.created_at),
-            recommendations: this.getPriceRecommendation(listing.recommendations),
-            listing,
-            isFavorite: this.favoriteIds.has(listing.id)
-          })) || [];
-          console.log('Transformed ads:', this.ads);
-          setTimeout(() => this.swiper?.update(), 0);
-        },
-        error: (error) => {
-          console.error('Error fetching listings:', error);
+    this.preferenceService.checkPreferences().subscribe({
+      next: (response: ListingsResponse) => {
+        console.log('Listings response:', response);
+        if (!response.has_preferences) {
+          console.log('No preferences, navigating to /take/take');
           this.ngZone.run(() => {
             this.router.navigate(['/take/take']);
           });
+          return;
         }
-      });
-    }
+        this.ads = response.listings?.map(listing => ({
+          id: listing.id,
+          address: listing.address,
+          imageUrls: listing.photos || [],
+          price: `${listing.price} р. в месяц`,
+          metroName: this.getMetroName(listing.recommendations) || 'Не указано',
+          metroInfo: '',
+          date: this.calculateDate(listing.created_at),
+          recommendations: this.getPriceRecommendation(listing.recommendations),
+          listing,
+          isFavorite: this.favoriteIds.has(listing.id)
+        })) || [];
+        console.log('Transformed ads:', this.ads);
+        setTimeout(() => this.swiper?.update(), 0);
+      },
+      error: (error) => {
+        console.error('Error fetching listings:', error);
+        this.ngZone.run(() => {
+          if (error.message === 'Telegram ID не найден') {
+            this.router.navigate(['/welcome']);
+          } else {
+            this.router.navigate(['/take/take']);
+          }
+        });
+      }
+    });
   }
 
   initializeSwiper(): void {
