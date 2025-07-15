@@ -54,7 +54,12 @@
           img {
             width: 20px;
             height: 20px;
-            object-fit: contain; /* Ensure the image fits within the container without losing quality */
+            object-fit: contain;
+            @media (max-height: 585px) {
+              width: 18px;
+              height: 18px;
+              object-fit: contain;
+            }
           }
         }
       

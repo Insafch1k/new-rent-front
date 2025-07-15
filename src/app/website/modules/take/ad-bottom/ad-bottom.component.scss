@@ -86,10 +86,11 @@
       img {
         width: 20px;
         height: 20px;
-        object-fit: cover;
+        object-fit: contain;
         @media (max-height: 585px) {
           width: 18px;
           height: 18px;
+          object-fit: contain;
         }
       }
     }

@@ -2,8 +2,7 @@ import { Component, ViewChild, ElementRef, AfterViewInit, HostListener } from '@
 import { Router } from '@angular/router';
 import { TakeService } from '../services/take.service';
 import { PreferenceService } from '../services/preference.service';
-import { GetPreferenceResponse } from '../take.model';
-import { Preference } from '../take.model';
+import { GetPreferenceResponse, Preference } from '../take.model';
 import { TelegramService } from 'src/app/website/services/telegram.service';
 
 @Component({
@@ -12,32 +11,37 @@ import { TelegramService } from 'src/app/website/services/telegram.service';
   styleUrls: ['./take-more.component.scss']
 })
 export class TakeMoreComponent implements AfterViewInit {
-  districts = ['Вахитовский', 'Советский', 'Приволжский', 'Кировский', 'Московский', 'Авиастроительный', 'Ново-Савиновский'];
   durations = ['длительное проживание', 'посуточное проживание'];
   roomCounts = [1, 2, 3, 4, 5];
-  city: string = 'Казань';
+  cities: { id: number, name: string }[] = [];
+  districts: { id: number, name: string }[] = [];
+  selectedCity: { id: number, name: string } | null = null;
+  selectedDistrict: { id: number, name: string } | null = null;
   floorFrom: number | null = null;
   floorTo: number | null = null;
   areaFrom: number | null = null;
   areaTo: number | null = null;
   rentFrom: number | null = null;
   rentTo: number | null = null;
-  selectedDistricts: string[] = [];
-  isDistrictOpen: boolean = false;
   selectedDurations: string[] = [];
   isDurationOpen: boolean = false;
   selectedRoomCounts: number[] = [];
   isRoomCountOpen: boolean = false;
+  isCityOpen: boolean = false;
+  isDistrictOpen: boolean = false;
 
   @ViewChild('districtSelect') districtSelect!: ElementRef;
   @ViewChild('durationSelect') durationSelect!: ElementRef;
   @ViewChild('roomCountSelect') roomCountSelect!: ElementRef;
+  @ViewChild('citySelect') citySelect!: ElementRef;
 
   constructor(
     private takeService: TakeService,
+    private preferenceService: PreferenceService,
     private router: Router,
     private telegramService: TelegramService
   ) {
+    this.loadCities();
     this.loadPreferences();
   }
 
@@ -57,6 +61,11 @@ export class TakeMoreComponent implements AfterViewInit {
         event.stopPropagation();
       });
     }
+    if (this.citySelect) {
+      this.citySelect.nativeElement.addEventListener('click', (event: MouseEvent) => {
+        event.stopPropagation();
+      });
+    }
   }
 
   @HostListener('document:click', ['$event'])
@@ -70,14 +79,51 @@ export class TakeMoreComponent implements AfterViewInit {
     if (!this.roomCountSelect?.nativeElement.contains(event.target as Node)) {
       this.isRoomCountOpen = false;
     }
+    if (!this.citySelect?.nativeElement.contains(event.target as Node)) {
+      this.isCityOpen = false;
+    }
+  }
+
+  loadCities() {
+    this.preferenceService.getCities().subscribe({
+      next: (response) => {
+        this.cities = response.cities;
+        this.selectedCity = this.cities.find(c => c.name === 'Казань') || null;
+        if (this.selectedCity) {
+          this.loadDistricts(this.selectedCity.id);
+        }
+      },
+      error: () => {
+        console.error('Ошибка загрузки городов');
+      }
+    });
+  }
+
+  loadDistricts(cityId: number) {
+    if (cityId === 1) {
+      this.preferenceService.getDistricts(cityId).subscribe({
+        next: (response) => {
+          this.districts = response.districts;
+        },
+        error: () => {
+          console.error('Ошибка загрузки районов');
+        }
+      });
+    } else {
+      this.districts = [];
+      this.selectedDistrict = null;
+    }
   }
 
   loadPreferences() {
     this.takeService.getPreference().subscribe({
       next: (response: GetPreferenceResponse) => {
         const pref = response.preference;
-        this.city = pref.user_city;
-        this.selectedDistricts = pref.user_district ? [pref.user_district] : [];
+        this.selectedCity = this.cities.find(c => c.id === pref.user_city) || null;
+        if (this.selectedCity && pref.user_district) {
+          this.loadDistricts(this.selectedCity.id); // Загружаем районы, если город выбран
+          this.selectedDistrict = this.districts.find(d => d.id === pref.user_district) || null;
+        }
         this.selectedDurations = [pref.category === 'monthly' ? 'длительное проживание' : 'посуточное проживание'];
         this.selectedRoomCounts = pref.user_room_count ? [pref.user_room_count] : [];
         this.floorFrom = pref.user_min_floor;
@@ -95,12 +141,17 @@ export class TakeMoreComponent implements AfterViewInit {
       }
     });
   }
-  
+
   savePreferences() {
+    if (!this.selectedCity) {
+      console.error('Город не выбран');
+      return;
+    }
+
     const preference: Preference = {
       category: this.selectedDurations.includes('длительное проживание') ? 'monthly' : 'daily',
-      user_city: this.city,
-      user_district: this.selectedDistricts[0] || '',
+      user_city: this.selectedCity.id,
+      user_district: this.selectedCity.id === 1 && this.selectedDistrict ? this.selectedDistrict.id : null,
       user_max_floor: this.floorTo || 1000,
       user_max_square: this.areaTo || 10000,
       user_min_floor: this.floorFrom || 0,
@@ -109,7 +160,7 @@ export class TakeMoreComponent implements AfterViewInit {
       user_price: this.rentTo || 100000,
       user_room_count: this.selectedRoomCounts[0] || null
     };
-  
+
     this.takeService.updatePreference(preference).subscribe({
       next: (response) => {
         console.log('Предпочтения обновлены:', response);
@@ -124,21 +175,36 @@ export class TakeMoreComponent implements AfterViewInit {
     });
   }
 
+  toggleCityDropdown() {
+    this.isCityOpen = !this.isCityOpen;
+    this.isDistrictOpen = false;
+    this.isDurationOpen = false;
+    this.isRoomCountOpen = false;
+  }
+
+  selectCity(city: { id: number, name: string }) {
+    this.selectedCity = city;
+    this.loadDistricts(city.id);
+    this.selectedDistrict = null;
+    this.isCityOpen = false;
+  }
+
   toggleDistrictDropdown() {
     this.isDistrictOpen = !this.isDistrictOpen;
     if (this.isDistrictOpen) {
       this.isDurationOpen = false;
       this.isRoomCountOpen = false;
+      this.isCityOpen = false;
     }
   }
 
-  toggleDistrictSelection(district: string) {
-    this.selectedDistricts = [district]; // Выбираем только один район
+  toggleDistrictSelection(district: { id: number, name: string }) {
+    this.selectedDistrict = district;
     this.isDistrictOpen = false;
   }
 
-  isDistrictSelected(district: string): boolean {
-    return this.selectedDistricts.includes(district);
+  isDistrictSelected(district: { id: number, name: string }): boolean {
+    return this.selectedDistrict?.id === district.id;
   }
 
   toggleDurationDropdown() {
@@ -146,11 +212,12 @@ export class TakeMoreComponent implements AfterViewInit {
     if (this.isDurationOpen) {
       this.isDistrictOpen = false;
       this.isRoomCountOpen = false;
+      this.isCityOpen = false;
     }
   }
 
   toggleDurationSelection(duration: string) {
-    this.selectedDurations = [duration]; // Выбираем только одну длительность
+    this.selectedDurations = [duration];
     this.isDurationOpen = false;
   }
 
@@ -163,11 +230,12 @@ export class TakeMoreComponent implements AfterViewInit {
     if (this.isRoomCountOpen) {
       this.isDistrictOpen = false;
       this.isDurationOpen = false;
+      this.isCityOpen = false;
     }
   }
 
   toggleRoomCountSelection(count: number) {
-    this.selectedRoomCounts = [count]; // Выбираем только одно количество комнат
+    this.selectedRoomCounts = [count];
     this.isRoomCountOpen = false;
   }
 

@@ -2,7 +2,7 @@
   <div class="mmm">
     <div class="module">
       <p class="module-name">Длительность проживания</p>
-      <div class="dropdown">
+      <div class="dropdown" #durationSelect>
         <button class="dropdown-toggle" (click)="toggleDurationDropdown()">
           {{ selectedDurations.length > 0 ? selectedDurations[0] : 'Выберите длительность' }}
           <img [ngClass]="{'arrow-up': isDurationOpen}" src="assets/data/icons/Forward.svg" alt="Стрелка" class="dropdown-arrow">
@@ -17,20 +17,29 @@
     </div>
     <div class="module">
       <p class="module-name">Город</p>
-      <div class="module-block">
-        <input type="text" [(ngModel)]="city" class="city-input" placeholder="Введите название города" readonly>
+      <div class="dropdown" #citySelect>
+        <button class="dropdown-toggle" (click)="toggleCityDropdown()">
+          {{ selectedCity?.name || 'Выберите город' }}
+          <img [ngClass]="{'arrow-up': isCityOpen}" src="assets/data/icons/Forward.svg" alt="Стрелка" class="dropdown-arrow">
+        </button>
+        <ul class="dropdown-menu" *ngIf="isCityOpen">
+          <li *ngFor="let city of cities" (click)="selectCity(city)" class="dropdown-item">
+            {{ city.name }}
+            <img *ngIf="selectedCity?.id === city.id" src="assets/data/icons/select.svg" alt="Галочка" class="dropdown-checkmark">
+          </li>
+        </ul>
       </div>
     </div>
-    <div class="module">
+    <div class="module" *ngIf="selectedCity?.id === 1">
       <p class="module-name">Район</p>
       <div class="dropdown" #districtSelect>
         <button class="dropdown-toggle" (click)="toggleDistrictDropdown()">
-          {{ selectedDistricts.length > 0 ? selectedDistricts[0] : 'Выберите район' }}
+          {{ selectedDistrict?.name || 'Выберите район' }}
           <img [ngClass]="{'arrow-up': isDistrictOpen}" src="assets/data/icons/Forward.svg" alt="Стрелка" class="dropdown-arrow">
         </button>
         <ul class="dropdown-menu" *ngIf="isDistrictOpen">
           <li *ngFor="let district of districts" (click)="toggleDistrictSelection(district)" class="dropdown-item">
-            {{ district }}
+            {{ district.name }}
             <img *ngIf="isDistrictSelected(district)" src="assets/data/icons/select.svg" alt="Галочка" class="dropdown-checkmark">
           </li>
         </ul>

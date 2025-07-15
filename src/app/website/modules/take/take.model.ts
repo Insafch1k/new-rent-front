@@ -28,8 +28,8 @@ export interface Preference {
   category: 'monthly' | 'daily';
   id?: number;
   mailing?: boolean;
-  user_city: string;
-  user_district: string;
+  user_city: number;
+  user_district: number | null;
   user_id?: number;
   user_max_floor: number;
   user_max_square: number;

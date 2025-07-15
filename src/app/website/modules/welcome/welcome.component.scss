@@ -22,6 +22,14 @@
         font-size: 1.5rem;
         font-weight: 500;
     }
+
+    .title{
+        p{
+            span{
+                color: rgba(0, 119, 255, 1);
+            }
+        }
+    }
 }
 .two{
     display: flex;
