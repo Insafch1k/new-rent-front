@@ -13,8 +13,9 @@ export class MyHistoryComponent implements OnInit {
   constructor(private historyService: HistoryService) {}
 
   ngOnInit(): void {
-    this.historyService.getHistory().subscribe((response: HistoryResponse) => {
-      this.listings = response.listings;
+    this.historyService.getHistory().subscribe((response: any) => {
+      // Извлекаем объекты listing из response.listings
+      this.listings = response.listings.map((item: any) => item.listing);
     });
   }
 }
