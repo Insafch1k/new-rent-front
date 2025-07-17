@@ -14,8 +14,8 @@ export class MyHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.historyService.getHistory().subscribe({
-      next: (response: HistoryResponse) => {
-        this.listings = response.listings;
+      next: (response: any) => {
+        this.listings = response.listings.map((item: any) => item.listing);
       },
       error: (error) => {
         console.error('Ошибка при загрузке истории:', error);

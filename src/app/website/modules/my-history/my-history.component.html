@@ -3,7 +3,8 @@
         <div class="mmm">
             <div class="module-plashka" *ngFor="let listing of listings">
                 <div class="image-container">
-                    <img [src]="listing.photos[0]" alt="Listing image">
+                    <img *ngIf="listing.photos?.length" [src]="listing.photos[0]" alt="Listing image">
+                    <img *ngIf="!listing.photos?.length" src="assets/data/icons/placeholder-image.svg" alt="Placeholder image">
                 </div>
                 <div class="module-plashka-info">
                     <p class="adress">{{ listing.address }}</p>
