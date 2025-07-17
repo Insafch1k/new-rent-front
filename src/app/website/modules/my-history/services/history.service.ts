@@ -13,6 +13,7 @@ export class HistoryService {
     private telegramService: TelegramService
   ) {}
 
+
   getHistory(): Observable<any> {
     const telegramId = this.telegramService.getTelegramId();
     return this.http.get(`${API_URL}/profile/history`, {
