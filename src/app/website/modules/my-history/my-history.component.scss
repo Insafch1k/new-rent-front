@@ -227,7 +227,7 @@
 .main-module-for-plashka-b{
     background-color: rgba(241, 241, 245, 1);
     width: 97.5%;
-        max-width: 600px;
+    max-width: 600px;
     margin: 0 auto;
     height: calc(100vh - 70px);
     display: flex;
@@ -240,9 +240,8 @@
         border-radius: 20px;
         display: flex;
         flex-direction: column;
-    }
-    
-    .main-block{
+
+        .main-block{
         margin-top: 22.72%;
         width: 100%;
         display: flex;
@@ -264,8 +263,6 @@
                 }
             }
         }
-        
-    
     }
     
     .bottom-module-b{
@@ -288,6 +285,7 @@
             justify-content: center;
             border-radius: 30px;
         }
+    }
     }
 }
 
