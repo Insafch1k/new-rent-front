@@ -48,7 +48,7 @@ export class AdMoreBottomComponent implements OnInit {
 
   goToLink(): void {
     if (this.listing?.link_url) {
-      window.location.href = this.listing.link_url;
+      window.open(this.listing.link_url, '_blank');
     } else {
       console.error('link_url не найден в объекте listing');
     }

@@ -53,7 +53,7 @@ export class AdBottomComponent implements OnInit {
 
   goToLink(): void {
     if (this.ad?.listing?.link_url) {
-      window.location.href = this.ad.listing.link_url;
+      window.open(this.ad.listing.link_url, '_blank');
     } else {
       console.error('link_url не найден в объекте ad.listing');
     }
